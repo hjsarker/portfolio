@@ -10,8 +10,8 @@ The site includes a custom HTML Canvas particle network that drifts and responds
 
 ## Contents
 
-- `index.html`: Self-contained HTML, CSS and JavaScript with interactive sections, live project links and SEO metadata.
-- `favicon.svg`: Website icon.
+- `index.html`: Portfolio content, interactive JavaScript, project links and SEO metadata, with base styles.
+- `design.css`: Apple-inspired black, silver and white visual design, including the responsive layout.\n- `favicon.svg`: Website icon.
 - `robots.txt` and `sitemap.xml`: Search engine discovery.
 - `.nojekyll`: Serves site content directly without Jekyll processing.
 
@@ -25,7 +25,7 @@ Your published URL should be **https://hjsarker.github.io/portfolio/**. Publishi
 
 ## Updating content
 
-All content is in `index.html`. To add another public project, add a card using the existing `.project-card` structure. Only link published live demos. The displayed project count and category filters should be kept in sync.
+Portfolio content is in `index.html`, and the visual theme is in `design.css`. To add another public project, add a card using the existing `.project-card` structure. Only link published live demos. The displayed project count and category filters should be kept in sync.
 
 Professional experience and education are based on the approved master profile. Project descriptions and URLs are based on public repository documentation. The project visuals are illustrative and are not screenshots or actual live dashboard data.
 
