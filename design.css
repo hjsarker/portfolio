@@ -325,3 +325,44 @@ h2 em {color:#717177}
   .marquee-companies {grid-template-columns:1fr 1fr}
   .project-visual.project-real {height:206px}
 }
+
+/* Official company artwork and precise navigation refresh */
+.marquee-companies{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.marquee-companies .company-wordmark{box-sizing:border-box;min-height:82px;padding:16px;border-radius:17px;background:#f8f8fa;border:1px solid rgba(255,255,255,.12);color:#27272d;opacity:1}
+.marquee-companies .company-logo img{display:block;width:100%;height:42px;max-width:155px;object-fit:contain;object-position:center}
+.marquee-companies .company-rwe img{max-width:90px}
+.marquee-companies .company-eon img{max-width:98px}
+.marquee-companies .company-vaillant img{max-width:166px}
+.marquee-companies .company-tke img{max-width:125px}
+.marquee-companies .company-wordmark:hover{background:#fff;box-shadow:0 10px 28px #00000025;transform:translateY(-2px)}
+.marquee-companies .company-text-fallback{display:flex;flex-direction:column;justify-content:center;gap:0;font-size:19px;font-weight:780;letter-spacing:-.05em;line-height:1.05;text-align:center}
+.marquee-companies .company-text-fallback span{font:650 8px/1.6 var(--sans);color:#666771;letter-spacing:.18em}
+
+.timeline-heading{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.timeline-logo{width:77px;height:52px;flex:none;display:grid;place-items:center;padding:9px;border:1px solid #e4e4ea;background:#fff;border-radius:12px}
+.timeline-logo img{display:block;width:100%;height:100%;object-fit:contain}
+.timeline-heading .timeline-company{display:flex;align-items:center;flex-wrap:wrap;gap:8px;color:#2c2c33;line-height:1.45}
+.timeline-heading .part-time{display:inline-flex;margin-left:0;white-space:nowrap}
+.timeline li{scroll-margin-top:100px}
+
+.contact-methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:28px 0 23px;max-width:675px}
+.contact-method{min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:10px;text-decoration:none;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:18px 18px 20px;transition:background .3s ease,border-color .3s ease,transform .3s ease}
+.contact-method:hover{background:rgba(255,255,255,.13);border-color:rgba(123,180,255,.55);transform:translateY(-3px)}
+.contact-method-label{font-size:10px;letter-spacing:.17em;color:#919cac;font-weight:750}
+.contact-method-value{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#f5f6fa;font-size:clamp(14px,1.1vw,17px);font-weight:610;line-height:1.4;overflow-wrap:anywhere}
+.contact-method-value span{flex:none;color:#87baff}
+.contact-links{margin-top:20px}
+#back-to-top{cursor:pointer}
+@media(max-width:1180px){.marquee-companies{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){
+ .marquee-companies{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .marquee-companies .company-wordmark{min-height:72px;padding:13px}
+ .marquee-companies .company-logo img{height:35px}
+ .timeline-logo{width:65px;height:46px;padding:8px}
+ .contact-methods{grid-template-columns:1fr}
+ .contact-method{padding:16px 18px}
+ .contact-method-value{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){
+ .marquee-companies .company-wordmark:hover,.contact-method:hover{transform:none}
+}
