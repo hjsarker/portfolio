@@ -366,3 +366,11 @@ h2 em {color:#717177}
 @media(prefers-reduced-motion:reduce){
  .marquee-companies .company-wordmark:hover,.contact-method:hover{transform:none}
 }
+
+/* Transparent PNG company logos; uniform surfaces across the portfolio. */
+.marquee-companies .company-logo img { mix-blend-mode: normal; }
+.marquee-companies .company-hrc img { max-width: 118px; height: 44px; object-fit: contain; }
+.timeline-logo img { mix-blend-mode: normal; }
+@media (max-width: 720px) {
+  .marquee-companies .company-hrc img { max-width: 105px; height: 38px; }
+}
