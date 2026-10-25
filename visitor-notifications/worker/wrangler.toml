@@ -1,0 +1,9 @@
+name = "hjsarker-portfolio-alerts"
+main = "src/index.mjs"
+compatibility_date = "2026-10-25"
+workers_dev = true
+
+[vars]
+TRACKING_ENABLED = "true"
+# Set secrets with `wrangler secret put`, NEVER in this file:
+# GAS_WEBAPP_URL, DELIVERY_TOKEN, HASH_SALT

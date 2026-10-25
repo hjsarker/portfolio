@@ -37,3 +37,4 @@ Collective AI Tools is labeled as an open-source collaboration, not an individua
 - This page does not include private HireDraftAI source code. Its repository link points to a public case study.
 - Particle motion responds to reduced-motion settings.
 - Contact is handled with ordinary email and LinkedIn links, without collecting visitor data.
+\n## Optional visitor email notifications\n\nSource and setup instructions: [`visitor-notifications/README.md`](visitor-notifications/README.md). The visitor notifications are **OFF by default** and require personal setup in Google Apps Script and Cloudflare before activation. Consent is required before a personal-data notification request.\n
