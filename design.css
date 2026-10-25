@@ -565,3 +565,62 @@ h1,h2,h3 { font-feature-settings: "kern"; }
 .credential-logo--penn{padding:10px 5px}
 @media(max-width:1180px){.marquee-companies{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){.marquee-companies{grid-template-columns:repeat(2,minmax(0,1fr))}.marquee-companies .company-ypl img{height:35px}}
+
+
+/* Experience Across: six balanced logos in a single continuous row. */
+.hero-marquee .marquee-companies {
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  grid-auto-flow:row;
+  gap:clamp(8px,1vw,14px);
+  align-items:stretch;
+  width:100%;
+  min-width:0;
+}
+.hero-marquee .marquee-companies .company-wordmark {
+  min-width:0;
+  width:100%;
+  box-sizing:border-box;
+  min-height:78px;
+  padding:12px clamp(6px,.85vw,14px);
+  border-radius:15px;
+}
+.hero-marquee .marquee-companies .company-logo img {
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:40px;
+  object-fit:contain;
+  object-position:center;
+}
+.hero-marquee .marquee-companies .company-rwe img {max-width:92px}
+.hero-marquee .marquee-companies .company-eon img {max-width:100px}
+.hero-marquee .marquee-companies .company-vaillant img {max-width:150px}
+.hero-marquee .marquee-companies .company-tke img {max-width:125px}
+.hero-marquee .marquee-companies .company-hrc img {max-width:145px;height:48px}
+.hero-marquee .marquee-companies .company-ypl img {max-width:145px;height:43px}
+@media (max-width: 720px) {
+  /* Keep one row on touch screens; allow swiping rather than unreadably tiny logos. */
+  .hero-marquee .marquee-companies {
+    display:grid;
+    grid-auto-flow:column;
+    grid-auto-columns:136px;
+    grid-template-columns:none;
+    gap:10px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x proximity;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    padding:3px 1px 10px;
+    scrollbar-width:thin;
+  }
+  .hero-marquee .marquee-companies .company-wordmark {
+    min-height:72px;
+    scroll-snap-align:start;
+    padding:10px 8px;
+  }
+  .hero-marquee .marquee-companies .company-logo img {height:37px}
+  .hero-marquee .marquee-companies .company-hrc img {height:44px}
+  .hero-marquee .marquee-companies .company-ypl img {height:39px}
+}
