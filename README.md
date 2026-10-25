@@ -11,7 +11,8 @@ The site includes a custom HTML Canvas particle network that drifts and responds
 ## Contents
 
 - `index.html`: Portfolio content, interactive JavaScript, project links and SEO metadata, with base styles.
-- `design.css`: Apple-inspired black, silver and white visual design, including the responsive layout.\n- `favicon.svg`: Website icon.
+- `design.css`: Apple-inspired black, silver and white visual design, including the responsive layout.
+- Project cards request screenshots from WordPress.com's public mShots service for the actual linked websites; a branded fallback appears if a thumbnail cannot load. Previews may be cached or temporarily unavailable.\n- `favicon.svg`: Website icon.
 - `robots.txt` and `sitemap.xml`: Search engine discovery.
 - `.nojekyll`: Serves site content directly without Jekyll processing.
 
