@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f7f8fa">
+  <meta name="description" content="Hillol Sarker Jogesh is an IT operations and BI/data professional in Dortmund, Germany. Explore enterprise experience, data analytics dashboards, and independent software projects.">
+  <meta name="author" content="Hillol Sarker Jogesh">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hillol Sarker Jogesh | IT Operations, BI & Data">
+  <meta property="og:description" content="Enterprise IT experience, data analytics, and real projects. Explore my work, technical background, and live demos.">
+  <meta property="og:url" content="https://hjsarker.github.io/portfolio/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hillol Sarker Jogesh | IT Operations, BI & Data">
+  <link rel="canonical" href="https://hjsarker.github.io/portfolio/">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+
+  <style>
+:root{--ink:#142238;--ink2:#26364c;--muted:#6d7785;--blue:#2c57cb;--lime:#c3ef84;--line:#e2e6ec;--bg:#f8f9fb;--white:#fff;--sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;--display:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body.menu-open{overflow:hidden}
+a{color:inherit;text-decoration:none}button{font:inherit}img,svg{max-width:100%}button,a{-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible{outline:3px solid #5ca8ff;outline-offset:4px}
+::selection{background:var(--lime);color:var(--ink)}
+[hidden]{display:none!important}
+.shell{width:min(1320px,calc(100% - 112px));margin:0 auto}.section-pad{padding:118px 0}
+h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055em}h2{font-size:clamp(38px,4.2vw,64px);line-height:1.12;font-weight:750}h2 em{font-style:normal;color:var(--blue)}.muted-text{color:#929ba8}.eyebrow{display:flex;align-items:center;gap:13px;font-size:11px;letter-spacing:.19em;font-weight:800;line-height:1.45;color:#486187}.tiny-square{width:8px;height:8px;display:inline-block;background:var(--blue);transform:rotate(45deg);flex:none}.skip-link{position:fixed;top:-70px;left:20px;z-index:5000;background:#fff;color:#111;padding:12px 18px;box-shadow:0 6px 18px #0002}.skip-link:focus{top:20px}.scroll-progress{position:fixed;left:0;top:0;width:100%;height:3px;transform:scaleX(0);transform-origin:left;background:#b3ea70;z-index:1001;will-change:transform}
+/* Navigation */
+.site-header{position:relative;z-index:100;background:#f8f9fb;border-bottom:1px solid #e8eaee}.nav-shell{height:90px;display:flex;align-items:center;gap:40px}.brand{display:flex;gap:14px;align-items:center;margin-right:auto}.brand-mark{width:47px;height:47px;display:grid;place-items:center;border-radius:13px;background:var(--ink);color:#fff;font:800 25px var(--display);letter-spacing:-.09em}.brand-mark span{color:var(--lime)}.brand-name{font:800 14px/1.1 var(--display);letter-spacing:-.035em;white-space:nowrap}.brand-name span{display:block;font:750 9px/1.4 var(--sans);letter-spacing:.20em;color:#7a8898;margin-top:7px}.desktop-nav{display:flex;align-items:center;gap:34px}.desktop-nav a{font-size:13px;font-weight:700;color:#657284;transition:color .2s}.desktop-nav a:hover{color:var(--blue)}.nav-cta{display:inline-flex;align-items:center;gap:27px;padding:13px 18px;border:1px solid #cfd5df;border-radius:7px;font-size:13px;font-weight:800;transition:background .2s,border .2s}.nav-cta:hover{background:#eff2f8;border-color:#aabbd4}.nav-cta span{font-size:16px}.mobile-toggle,.mobile-nav{display:none}
+/* Hero */
+.hero{background:#152238;position:relative;color:#fff;overflow:hidden}.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 6% 12%,#ffffff09 1px,transparent 1px);background-size:25px 25px;pointer-events:none}.hero-glow{pointer-events:none;position:absolute;right:-23%;top:-400px;width:1100px;height:1100px;border-radius:50%;background:radial-gradient(circle,#284c80 0,#182d4e 32%,transparent 66%);opacity:.58}.hero-layout{min-height:685px;display:grid;grid-template-columns:1.07fr .93fr;gap:40px;align-items:center;position:relative;padding-top:55px;padding-bottom:58px}.hero-copy{z-index:2}.hero-eyebrow{color:#d7e2f2;letter-spacing:.16em;font-size:11px}.eyebrow-line{width:30px;height:1px;background:var(--lime)}.eyebrow-dot{width:3px;height:3px;border-radius:50%;background:#7992b4}.hero h1{font-size:clamp(52px,5vw,76px);font-weight:750;line-height:1.13;letter-spacing:-.067em;margin:32px 0 24px;white-space:nowrap}.hero h1 em{color:var(--lime);font-style:normal}.hero-intro{max-width:525px;font-size:16px;line-height:1.9;color:#c3cfdf;margin-bottom:32px}.hero-actions{display:flex;flex-wrap:wrap;gap:14px}.btn{min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:26px;padding:13px 22px;border-radius:5px;font-size:13px;font-weight:800;transition:transform .22s,background .22s}.btn:hover{transform:translateY(-3px)}.btn-primary{background:var(--lime);color:#17243b}.btn-primary:hover{background:#d7ff9b}.btn-ghost{border:1px solid #8293ab70;color:#fff}.btn-ghost:hover{background:#ffffff12}.hero-bottom{display:flex;justify-content:space-between;align-items:center;max-width:550px;gap:12px;margin-top:60px;color:#becadb;font-size:11px}.availability{display:inline-flex;align-items:center;gap:9px}.availability-dot,.live-tag span{width:7px;height:7px;border-radius:50%;background:#baf07d;box-shadow:0 0 0 4px #baf07d16;display:inline-block;flex:none}.hero-location{color:#8799b1}.hero-location span{margin-left:4px}
+.hero-art{height:565px;position:relative;isolation:isolate}.art-grid{position:absolute;inset:26px -20px;background-image:linear-gradient(#97b0d90e 1px,transparent 1px),linear-gradient(90deg,#97b0d90e 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(ellipse at center,#000 20%,transparent 77%)}.orbit{position:absolute;border:1px solid #64799a37;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}.orbit-one{width:480px;height:480px}.orbit-two{width:355px;height:355px;border-style:dashed;border-color:#7588aa44}.art-top-label{position:absolute;top:28px;left:30px;font-size:10px;letter-spacing:.22em;font-weight:800;color:#91a6c2;display:flex;align-items:center;gap:10px}.art-spark{font-size:18px;color:var(--lime)}.art-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px}.art-hub{height:112px;width:112px;display:grid;place-items:center;background:linear-gradient(148deg,#3764ab,#1d3b6f);border:1px solid #87a6d455;border-radius:32px;box-shadow:0 0 0 15px #adc8ff09,0 20px 70px #060b2070;color:#fff;font:800 58px var(--display);letter-spacing:-.15em;padding-right:10px;transform:rotate(-7deg)}.art-hub span{color:var(--lime)}.art-hub-caption{font-size:9px;font-weight:750;letter-spacing:.20em;color:#7f9ab9}.art-card{position:absolute;border:1px solid #ffffff2f;border-radius:12px;box-shadow:0 20px 50px #0004;backdrop-filter:blur(10px);display:flex;flex-direction:column;padding:18px 21px;gap:12px}.art-number{color:#b2c9e8;font-size:9px;letter-spacing:.19em;font-weight:800}.art-card strong{font:800 18px/1.3 var(--display);letter-spacing:-.045em}.art-card-it{top:86px;right:0;width:220px;background:linear-gradient(130deg,#36587c,#263f60)}.art-footer{display:flex;align-items:center;gap:8px;font-size:10px;color:#d7e6f6}.art-mini-dot{width:6px;height:6px;border-radius:50%}.dot-lime{background:var(--lime)}.art-card-data{top:230px;left:-10px;width:194px;background:linear-gradient(130deg,#304878,#223356)}.art-card-data svg{height:26px;align-self:stretch}.art-card-process{bottom:59px;right:28px;width:216px;background:linear-gradient(120deg,#29445e,#20344d)}.art-process-symbols{display:flex;gap:12px;align-items:center}.art-process-symbols i{display:block;height:9px;width:9px;border:2px solid var(--lime);border-radius:2px}.art-process-symbols i+ i::before{content:'→';position:relative;left:-16px;top:-9px;color:#bce78d;font-style:normal}.art-index{position:absolute;bottom:17px;left:0;color:#6984a7;font-size:11px;font-weight:800;letter-spacing:.1em}.art-index span{display:block;font-size:9px;font-weight:650;letter-spacing:.15em;margin-top:2px}
+.hero-marquee{position:relative;display:flex;align-items:center;min-height:97px;border-top:1px solid #a4b5cf29;gap:48px}.marquee-label{white-space:nowrap;letter-spacing:.18em;font-size:9px;font-weight:800;color:#8fa3bf}.marquee-companies{width:100%;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap}.marquee-companies span{font:800 clamp(13px,1.4vw,20px) var(--display);letter-spacing:-.04em;color:#9eafc7;opacity:.85}
+/* About */
+.about{background:#fff}.about-grid{display:grid;grid-template-columns:.98fr 1.02fr;gap:100px}.about h2{margin:27px 0 0}.about-copy{padding-top:35px}.about-copy p{font-size:15px;line-height:1.95;color:#667387;margin-bottom:20px}.about-copy p.lead{font:700 23px/1.6 var(--display);letter-spacing:-.04em;color:#24334b;margin-bottom:22px}.about-facts{display:flex;border-top:1px solid var(--line);margin-top:40px;padding-top:31px;gap:27px}.about-facts>div{display:flex;align-items:center;gap:12px;flex:1}.fact-number{font:800 35px/.95 var(--display);letter-spacing:-.07em;color:var(--ink)}.fact-number span{color:#7aa64b}.fact-label{font:700 11px/1.5 var(--sans);color:#657384}
+/* Projects */
+.projects{background:#f5f7fa}.section-head{display:flex;align-items:end;justify-content:space-between;gap:80px;margin-bottom:42px}.section-head h2{margin:23px 0 0}.section-head>p{max-width:360px;font-size:14px;line-height:1.9;color:#708093;margin:0 0 5px}.filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:27px}.filter{cursor:pointer;background:#fff;border:1px solid #e1e6ed;color:#657389;padding:11px 17px;border-radius:5px;font-size:12px;font-weight:800;transition:background .2s,color .2s,border-color .2s}.filter:hover{border-color:#93a5c2}.filter.active{background:#17253d;border-color:#17253d;color:#fff}.filter span{margin-left:7px;color:#a3d77a}
+.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.project-card{min-width:0;background:#fff;border:1px solid #e2e7ed;box-shadow:0 6px 32px #182c4510;overflow:hidden;border-radius:9px;transition:transform .25s,box-shadow .25s}.project-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px #17263e1d}.project-visual{height:284px;position:relative;overflow:hidden;padding:24px 26px;isolation:isolate}.visual-topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;position:relative;z-index:3}.visual-mini-title,.visual-top-right{font-size:10px;font-weight:800;letter-spacing:.14em}.visual-mini-title span{opacity:.4;margin:0 5px}.visual-watermark{position:absolute;right:16px;bottom:-43px;font:800 160px var(--display);letter-spacing:-.13em;opacity:.045;pointer-events:none}.visual-ai{background:linear-gradient(135deg,#211f43,#323672 67%,#544a87);color:#fff}.visual-brand-icon{font:800 17px var(--display);letter-spacing:-.08em}.visual-brand-icon span{color:#c5abff;margin-left:2px}.visual-url{font-size:10px;letter-spacing:.05em;font-weight:700;color:#d8d6f3;opacity:.75}.visual-circles{display:flex;gap:6px}.visual-circles i{height:7px;width:7px;background:#ffffff6e;border-radius:50%}.ai-preview{position:absolute;top:67px;left:60px;right:60px;bottom:-30px;display:grid;grid-template-columns:60px 1fr;background:#fff;color:#20223e;border:1px solid #ffffffaa;border-radius:12px 12px 0 0;box-shadow:0 13px 38px #05051955;overflow:hidden;transform:perspective(700px) rotateX(2deg)}.ai-preview-side{background:#eeeef7;padding:18px 14px;display:flex;flex-direction:column;gap:13px}.ai-preview-side span{font-size:6px;color:#878aa6;font-weight:900;letter-spacing:.12em}.ai-preview-side i{width:22px;height:5px;background:#bbbdd8;border-radius:4px}.ai-preview-side i:nth-child(3){width:29px;background:#8a80da}.ai-preview-main{padding:19px 24px}.ai-preview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font:800 12px var(--display);letter-spacing:-.03em}.preview-dot{color:#8c83d9;font-size:8px}.ai-input{border:1px solid #e4e3f0;border-radius:7px;margin-top:15px;padding:11px 12px;display:flex;align-items:center;gap:10px}.ai-input>span{color:#8b8aaa;font-size:9px;font-weight:800}.ai-input strong{font:800 10px var(--sans);white-space:nowrap}.fake-lines{flex:1;display:flex;flex-direction:column;gap:5px;margin-left:10px}.fake-lines i{height:3px;border-radius:5px;background:#dedfed}.fake-lines i:nth-child(2){width:85%}.fake-lines i:nth-child(3){width:60%}.ai-arrow{font-size:15px;text-align:center;height:23px;color:#958edc}.ai-results{display:flex;gap:12px}.ai-results>div{flex:1;background:#f2f1fc;padding:10px 12px;border-radius:5px;display:flex;flex-direction:column;gap:3px}.ai-results span{color:#aaa4d1;font-size:6px;font-weight:800;letter-spacing:.15em}.ai-results strong{font:800 10px var(--sans)}.ai-results i{width:70%;height:3px;background:#ccc8ef;margin-top:6px}.visual-auto{background:linear-gradient(130deg,#d8e8ff,#a9caff 68%,#8daeea);color:#1d3971}.auto-panel{position:absolute;top:70px;left:32px;right:32px;bottom:0;overflow:hidden;border-radius:12px 12px 0 0;border:1px solid #ffffff9a;background:#f9fcffb8;box-shadow:0 20px 35px #4975ac33}.auto-label{font-size:9px;letter-spacing:.14em;font-weight:800;color:#59709d;padding:22px 26px}.auto-corner{float:right;font-size:17px;line-height:1}.auto-main-stat{position:absolute;top:60px;left:26px;font:800 61px var(--display);letter-spacing:-.09em;line-height:1;color:#174a9b}.auto-main-stat span{color:#86a9e4}.auto-chart{position:absolute;bottom:31px;left:0;width:100%;height:165px}.auto-caption{position:absolute;display:flex;gap:18px;left:25px;bottom:13px;color:#56749e;font-size:8px;font-weight:850;letter-spacing:.06em}.visual-power{background:linear-gradient(130deg,#d8e9e0,#bed5c6 66%,#a1c3b5);color:#194a3b}.power-panel{position:absolute;top:69px;left:32px;right:32px;bottom:-8px;background:#f4f8f4df;border:1px solid #ffffff9f;border-radius:11px 11px 0 0;box-shadow:0 15px 25px #3e74652e;overflow:hidden}.power-badge{font-size:9px;letter-spacing:.12em;font-weight:800;padding:17px 22px;color:#416e61;display:flex;justify-content:space-between}.power-signal{font-size:18px;color:#2a8065}.power-chart{width:100%;height:175px;display:block;margin-top:4px}.power-footer{position:absolute;bottom:10px;left:23px;display:flex;gap:22px;font-size:8px;font-weight:850;letter-spacing:.07em;color:#50786a}.power-footer span{display:flex;gap:5px;align-items:center}.power-footer i{display:inline-block;width:8px;height:3px}.leg-green{background:#0c7262}.leg-gold{background:#b5a65b}.visual-collective{background:linear-gradient(135deg,#e9e4fe,#bcb7e7,#a9bbeb);color:#332d6a}.collective-surface{position:absolute;left:45px;right:45px;bottom:0;top:55px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px}.collective-orb{height:77px;width:77px;border-radius:26px;background:linear-gradient(145deg,#7065ca,#352d83);display:grid;place-items:center;transform:rotate(-12deg);box-shadow:0 12px 30px #3027634a}.collective-orb span{color:#eee9ff;font-size:44px;transform:rotate(12deg)}.collective-search{border:1px solid #ffffffbd;border-radius:9px;display:flex;align-items:center;gap:11px;background:#ffffffec;box-shadow:0 13px 28px #554a8a35;padding:9px 14px;width:min(340px,100%);font-size:10px;color:#6b648b}.search-icon{font-size:19px;color:#7b73ac}.search-key{margin-left:auto;font-size:14px;color:#8279b8}.collective-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}.collective-pills span{background:#ffffff88;border:1px solid #ffffffb8;color:#4b418a;border-radius:30px;font-size:9px;font-weight:800;padding:5px 11px}
+.project-body{padding:28px 29px 26px}.project-kicker{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:10px;color:#a0acbd;font-weight:800;letter-spacing:.11em}.project-category{color:#3659a0}.project-body h3{font:800 clamp(22px,2vw,27px)/1.2 var(--display);margin:13px 0 12px;letter-spacing:-.05em;display:flex;align-items:center;flex-wrap:wrap;gap:12px}.live-tag{font:800 9px var(--sans);letter-spacing:0;color:#62823f;background:#eff9e8;border-radius:30px;padding:5px 8px;display:inline-flex;align-items:center;gap:6px}.live-tag span{background:#7cb65b;width:5px;height:5px;box-shadow:none}.project-body p{color:#6c7889;font-size:13px;line-height:1.85;min-height:72px;margin-bottom:17px}.tech-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:25px}.tech-tags span{background:#f1f4f8;border:1px solid #eef1f6;border-radius:3px;padding:5px 9px;color:#5a6a80;font-size:10px;font-weight:750}.project-links{border-top:1px solid #e9edf1;padding-top:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.project-links a{font-size:12px;font-weight:850;color:var(--blue);transition:color .2s}.project-links a:hover{color:#101f43}.project-links a span{margin-left:3px}.project-links a.project-link-secondary{color:#78869a}.project-links a.project-link-secondary:hover{color:var(--blue)}.projects-foot{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:35px;font-size:13px;color:#66778e;flex-wrap:wrap}.projects-foot a{font-weight:800;color:var(--blue)}.project-disclaimer{margin:21px auto 0;max-width:830px;text-align:center;color:#97a3b2;font-size:11px;line-height:1.6}
+/* Expertise */
+.expertise{background:#fff}.expertise-head{margin-bottom:55px}.expertise-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.expertise-card{background:#f8fafc;border:1px solid #e7eaf0;padding:34px 30px 32px;min-width:0;border-radius:8px}.expertise-icon{height:54px;width:54px;border-radius:15px;display:grid;place-items:center;margin-bottom:34px}.expertise-icon svg{width:32px;height:32px}.icon-service{background:#e4eafd;color:#4862b2}.icon-data{background:#e0f0e3;color:#398a61}.icon-process{background:#f1e8df;color:#a27042}.card-index{color:#8294ab;font-weight:850;font-size:10px;letter-spacing:.18em}.expertise-card h3{font-size:24px;line-height:1.3;margin:15px 0 13px;font-weight:800}.expertise-card p{font-size:13px;line-height:1.85;color:#6c7787;min-height:100px}.skill-cloud{display:flex;flex-wrap:wrap;gap:7px;border-top:1px solid #e1e6ec;padding-top:22px}.skill-cloud span{font-size:10px;color:#576b83;font-weight:700;background:#fff;border:1px solid #e8edf2;padding:6px 9px;border-radius:4px}
+/* Experience */
+.experience{background:#eef2f7}.experience-layout{display:grid;grid-template-columns:.78fr 1.22fr;gap:110px;align-items:start}.experience-title{position:sticky;top:135px}.experience-title h2{margin:24px 0}.experience-title p{max-width:315px;font-size:14px;line-height:1.95;color:#6a798c}.inline-link{display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:800;color:var(--blue);padding-top:12px}.timeline{list-style:none;margin:0;padding:0 0 0 26px;border-left:1px solid #cad5e3}.timeline li{position:relative;padding:0 0 36px 29px}.timeline li:last-child{padding-bottom:0}.timeline li::before{content:'';position:absolute;left:-31px;top:5px;height:9px;width:9px;border:2px solid var(--blue);border-radius:50%;background:#eff3f8;box-shadow:0 0 0 6px #eef2f7}.timeline-date{color:#315da8;font-size:10px;letter-spacing:.08em;font-weight:850;margin-bottom:9px}.timeline-company{font-size:12px;letter-spacing:.005em;font-weight:800;color:#536680}.part-time{font-size:9px;background:#dce6f4;border-radius:20px;color:#56749b;padding:4px 7px;margin-left:7px;white-space:nowrap}.timeline h3{font-size:19px;letter-spacing:-.04em;line-height:1.4;margin:4px 0 8px}.timeline p{margin:0;font-size:13px;color:#65778b;line-height:1.8}
+/* Credentials */
+.credentials{background:#fff}.credential-layout{display:grid;grid-template-columns:.87fr 1.13fr;gap:110px}.credentials h2{margin:23px 0}.credential-copy{color:#718093;font-size:14px;line-height:1.9;max-width:360px}.credential-list{border-top:1px solid var(--line)}.credential-row{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:24px 0;border-bottom:1px solid var(--line)}.credential-index{font-size:10px;font-weight:850;letter-spacing:.1em;color:#6982a4;padding-top:3px}.credential-row h3{font:800 16px/1.5 var(--display);letter-spacing:-.04em;margin:0 0 5px}.credential-row p{color:#8190a2;font-size:12px;margin:0;line-height:1.7}
+/* Contact */
+.contact{background:#18263c;color:#fff;overflow:hidden;position:relative}.contact-inner{min-height:565px;position:relative;display:grid;grid-template-columns:1fr .8fr;align-items:center;gap:30px;padding-top:80px;padding-bottom:80px}.contact-eyebrow{color:#b5c4d7}.contact-eyebrow .tiny-square{background:var(--lime)}.contact h2{margin:22px 0;font-size:clamp(45px,4.8vw,75px)}.contact h2 em{color:var(--lime)}.contact p{max-width:500px;color:#b3c3d6;line-height:1.9;font-size:14px;margin-bottom:22px}.contact-email{font:800 clamp(21px,2.4vw,32px) var(--display);letter-spacing:-.055em;border-bottom:1px solid #d2e5ff7a;padding-bottom:9px;display:inline-flex;align-items:center;gap:17px}.contact-email span{font-size:20px;color:var(--lime)}.contact-links{display:flex;gap:28px;margin-top:32px}.contact-links a{font-size:12px;font-weight:800;color:#d3dfed}.contact-links a span{margin-left:5px}.contact-shape{height:460px;position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate}.shape-ring{position:absolute;border:1px solid #ffffff2c;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}.shape-ring-1{height:360px;width:360px}.shape-ring-2{height:475px;width:475px;border-style:dashed;animation:slowspin 65s linear infinite}.contact-shape>span{position:relative;z-index:2;font:800 27px/1.3 var(--display);letter-spacing:-.06em;text-align:center;transform:rotate(-7deg)}.shape-star{position:absolute;right:18%;top:17%;font-size:170px;line-height:1;color:#a4cf69;opacity:.85;transform:rotate(-12deg);z-index:0}@keyframes slowspin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.footer{background:#101a2b;color:#8ba0ba}.footer-inner{min-height:75px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;font-size:11px}.footer a{color:#d4e4f4;font-weight:750}
+/* Responsiveness */
+@media(max-width:1180px){.shell{width:min(1100px,calc(100% - 70px))}.desktop-nav{gap:20px}.hero h1{font-size:clamp(47px,5.2vw,66px)}.hero-layout{grid-template-columns:1fr .9fr}.hero-art{transform:scale(.89);transform-origin:center}.about-grid,.experience-layout,.credential-layout{gap:55px}.project-body p{min-height:95px}}
+@media(max-width:960px){.nav-shell{gap:20px}.desktop-nav{display:none}.nav-cta{margin-left:auto}.mobile-toggle{display:flex;margin-left:4px;width:44px;height:44px;border:1px solid #d8dfe7;border-radius:6px;background:#fff;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer}.mobile-toggle span{width:18px;height:2px;background:#1f2f45;display:block}.mobile-nav{display:flex;position:absolute;left:0;right:0;top:89px;background:#fff;flex-direction:column;gap:0;padding:14px 35px 20px;box-shadow:0 20px 40px #182c4538}.mobile-nav a{display:block;padding:12px 0;border-bottom:1px solid #edf1f5;color:#2b405f;font-weight:750;font-size:14px}.hero-layout{min-height:auto;grid-template-columns:1fr;padding-top:80px;padding-bottom:30px}.hero-copy{max-width:680px}.hero h1{font-size:clamp(49px,7.2vw,76px)}.hero-intro{max-width:600px}.hero-bottom{max-width:670px;margin-top:45px}.hero-art{height:460px;max-width:600px;width:100%;margin:auto;transform:none}.art-card-it{right:22px}.art-card-data{left:15px}.art-card-process{bottom:10px;right:65px}.hero-marquee{gap:30px}.marquee-companies{justify-content:flex-start;gap:20px 35px}.about-grid,.experience-layout,.credential-layout{grid-template-columns:1fr;gap:30px}.about-copy{padding-top:10px}.experience-title{position:static}.experience-title p{max-width:600px}.experience-layout{gap:50px}.expertise-grid{grid-template-columns:1fr 1fr}.expertise-card:last-child{grid-column:1/-1}.expertise-card p{min-height:75px}.credential-layout{gap:30px}.project-body p{min-height:130px}.section-head{gap:30px}}
+@media(max-width:720px){.shell{width:calc(100% - 36px)}.section-pad{padding:74px 0}.nav-shell{height:75px}.site-header .brand-name{font-size:12px}.brand-mark{width:40px;height:40px;border-radius:10px;font-size:22px}.brand{gap:10px}.nav-cta{display:none}.mobile-nav{top:74px;padding:10px 18px 15px}.hero-layout{padding-top:70px;padding-bottom:20px;gap:20px}.hero h1{font-size:clamp(42px,9vw,62px);white-space:normal;margin:26px 0 22px}.hero-intro{font-size:14px;line-height:1.9}.hero-bottom{gap:14px;flex-wrap:wrap;margin-top:34px}.hero-art{height:420px;transform:scale(.85);transform-origin:center;margin:-35px auto -25px}.art-top-label{top:10px}.art-card-it{top:40px;right:-15px}.art-card-data{top:190px;left:-20px}.art-card-process{bottom:10px;right:15px}.orbit-one{width:400px;height:400px}.orbit-two{width:300px;height:300px}.hero-marquee{display:block;padding:21px 0 27px;min-height:auto}.marquee-label{display:block;margin-bottom:18px}.marquee-companies{gap:16px 27px}.marquee-companies span{font-size:14px}.about h2,.section-head h2,.experience h2,.credentials h2{font-size:clamp(35px,8vw,51px)}.about-grid{gap:10px}.about-copy p.lead{font-size:19px}.about-facts{gap:18px;flex-wrap:wrap}.about-facts>div{flex:0 0 calc(50% - 9px)}.section-head{display:block;margin-bottom:28px}.section-head>p{margin-top:20px;max-width:650px}.filters{flex-wrap:nowrap;overflow-x:auto;max-width:calc(100vw - 20px);padding-bottom:8px}.filter{white-space:nowrap}.project-grid,.expertise-grid{grid-template-columns:1fr}.expertise-card:last-child{grid-column:auto}.project-body p{min-height:0}.project-visual{height:265px;padding:20px}.project-body{padding:23px 22px 22px}.project-body h3{font-size:23px}.ai-preview{left:32px;right:32px}.auto-panel,.power-panel{left:18px;right:18px}.expertise-card{padding:29px 25px}.expertise-card p{min-height:0}.expertise-head{margin-bottom:30px}.timeline{margin-left:7px}.experience-layout{gap:42px}.credential-row{grid-template-columns:45px 1fr;gap:12px}.contact-inner{grid-template-columns:1fr;padding-top:77px;padding-bottom:80px;min-height:0}.contact h2{font-size:clamp(45px,11vw,68px)}.contact-shape{display:none}.footer-inner{padding:20px 0;justify-content:flex-start;gap:8px 24px}.footer-inner span:nth-child(2){display:none}}
+@media(max-width:430px){.hero h1{font-size:clamp(38px,10vw,47px)}.hero-eyebrow{font-size:9px;gap:7px;letter-spacing:.13em}.btn{width:100%;justify-content:space-between}.hero-art{transform:scale(.71);margin:-65px auto -70px;width:540px;max-width:none;left:50%;position:relative;translate:-50% 0}.about-facts{gap:20px}.fact-number{font-size:29px}.fact-label{font-size:10px}.project-links{gap:15px}.project-body h3{gap:8px}.project-visual{height:236px}.ai-preview{left:20px;right:20px;top:54px}.ai-preview-main{padding:14px}.ai-input{padding:8px}.ai-preview-side{padding:15px 9px}.auto-panel,.power-panel{top:58px}.collective-surface{left:22px;right:22px;top:43px}.contact-email{font-size:clamp(18px,5.7vw,25px)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Browser-rendered particle networks: a subtle interactive layer behind content. */
+.hero,.contact{isolation:isolate}
+.particle-field{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1;pointer-events:none;opacity:.95}
+.hero-layout,.hero-marquee,.contact-inner{position:relative;z-index:2}
+.hero-glow{z-index:0}
+@media(max-width:720px){.particle-field{opacity:.60}}
+@media(prefers-reduced-motion:reduce){.particle-field{opacity:.52}}
+
+  </style>
+  <title>Hillol Sarker Jogesh | IT Operations, BI & Data</title>
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Person","name":"Hillol Sarker Jogesh","url":"https://hjsarker.github.io/portfolio/","homeLocation":{"@type":"Place","name":"Dortmund, Germany"},"email":"mailto:hjsarker@gmail.com","sameAs":["https://github.com/hjsarker","https://www.linkedin.com/in/hjsarker"],"knowsAbout":["IT service management","Application support","Business intelligence","Power BI","SQL","Data quality","IT process governance"]}
+  </script>
+
+
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <div class="shell nav-shell">
+      <a class="brand" href="#top" aria-label="Hillol Sarker Jogesh, back to top">
+        <span class="brand-mark" aria-hidden="true">H<span>.</span></span>
+        <span class="brand-name">Hillol Sarker Jogesh<span>IT · BI · DATA</span></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#work">Projects</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#experience">Experience</a>
+      </nav>
+      <a class="nav-cta" href="mailto:hjsarker@gmail.com?subject=Let's%20connect%20about%20an%20opportunity">Let's talk <span aria-hidden="true">↗</span></a>
+      <button class="mobile-toggle" type="button" id="mobile-toggle" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>
+      <a href="#about">About</a><a href="#work">Projects</a><a href="#expertise">Expertise</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas class="particle-field" data-particle-density="hero" aria-hidden="true"></canvas>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="shell hero-layout">
+        <div class="hero-copy">
+          <div class="eyebrow hero-eyebrow"><span class="eyebrow-line"></span> IT OPERATIONS <span class="eyebrow-dot"></span> BI & DATA ANALYTICS</div>
+          <h1 id="hero-title">Making complex<br><em>systems</em> clearer.<br>And data <em>useful.</em></h1>
+          <p class="hero-intro">I’m Hillol, an IT and data professional based in Dortmund, Germany. I work across technical support, business intelligence, and the processes that keep enterprise technology running.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#work">Explore my work <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="#about">More about me <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-bottom">
+            <span class="availability"><span class="availability-dot"></span> Open to full-time opportunities in Germany</span>
+            <span class="hero-location">Dortmund, Germany <span aria-hidden="true">↗</span></span>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Illustration connecting IT support, analytics and processes">
+          <div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="art-grid" aria-hidden="true"></div>
+          <div class="art-top-label">THINKING IN SYSTEMS <span class="art-spark">✳</span></div>
+          <div class="art-center">
+            <div class="art-hub">H<span>.</span></div>
+            <span class="art-hub-caption">CONNECTING THE DOTS</span>
+          </div>
+          <div class="art-card art-card-it">
+            <span class="art-number">01 / SERVICE</span>
+            <strong>IT & application<br>support</strong>
+            <span class="art-footer"><span class="art-mini-dot dot-lime"></span> Reliable operations</span>
+          </div>
+          <div class="art-card art-card-data">
+            <span class="art-number">02 / INTELLIGENCE</span>
+            <strong>Data &<br>reporting</strong>
+            <svg viewBox="0 0 120 32" aria-hidden="true"><path d="M0 26 L20 22 L36 25 L51 13 L69 19 L83 8 L101 12 L120 2" fill="none" stroke="#acbcff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="art-card art-card-process">
+            <span class="art-number">03 / IMPROVEMENT</span>
+            <strong>Processes &<br>quality</strong>
+            <span class="art-process-symbols" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="art-index" aria-hidden="true">01 — 03 <span>AN INTEGRATED VIEW</span></div>
+        </div>
+      </div>
+      <div class="shell hero-marquee" aria-label="Experience across international companies">
+        <span class="marquee-label">EXPERIENCE ACROSS</span>
+        <div class="marquee-companies"><span>RWE</span><span>Vaillant Group</span><span>E.ON</span><span>TK Elevator</span><span>HRC Technologies</span></div>
+      </div>
+    </section>
+
+    <section class="about section-pad" id="about" aria-labelledby="about-heading">
+      <div class="shell about-grid">
+        <div class="section-intro">
+          <div class="eyebrow"><span class="tiny-square"></span> THE PERSON BEHIND THE WORK</div>
+          <h2 id="about-heading">Practical by nature.<br><span class="muted-text">Curious by default.</span></h2>
+        </div>
+        <div class="about-copy">
+          <p class="lead">My career has moved between keeping systems working and understanding the information those systems produce.</p>
+          <p>I started in hands-on IT infrastructure and telecom billing operations, then worked with analytics platforms, enterprise migrations, process governance, and IT/OT operations in Germany. That mix helps me look at a problem from both the technical and business sides.</p>
+          <p>Outside my day-to-day work, I build and operate independent projects, from public-data dashboards to a live AI-assisted job application product. I enjoy turning an idea into something people can actually use.</p>
+          <div class="about-facts">
+            <div><span class="fact-number">9<span>+</span></span><span class="fact-label">Years across<br>IT & data</span></div>
+            <div><span class="fact-number">04</span><span class="fact-label">Featured live<br>projects & collaboration</span></div>
+            <div><span class="fact-number">DE</span><span class="fact-label">Based in<br>Dortmund</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects section-pad" id="work" aria-labelledby="work-heading">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="eyebrow"><span class="tiny-square"></span> SELECTED LIVE WORK</div><h2 id="work-heading">Projects you can <em>open.</em><br>Not just read about.</h2></div>
+          <p>Working products, open-data explorations, and public collaboration. Each project leads to a live experience, with supporting code or a case study where available.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter projects">
+          <button class="filter active" data-filter="all" type="button" aria-pressed="true">All projects <span>04</span></button>
+          <button class="filter" data-filter="data" type="button" aria-pressed="false">Data & BI</button>
+          <button class="filter" data-filter="product" type="button" aria-pressed="false">AI & product</button>
+          <button class="filter" data-filter="collab" type="button" aria-pressed="false">Collaboration</button>
+        </div>
+        <div class="project-grid" id="project-grid">
+          <article class="project-card featured" data-category="product" aria-labelledby="p-hiredraft">
+            <div class="project-visual visual-ai" aria-hidden="true">
+              <div class="visual-topbar"><span class="visual-brand-icon">H<span>✳</span></span><span class="visual-url">hiredraftai.com</span><span class="visual-circles"><i></i><i></i><i></i></span></div>
+              <div class="ai-preview"><div class="ai-preview-side"><span>WORKFLOW</span><i></i><i></i><i></i><i></i></div><div class="ai-preview-main"><div class="ai-preview-head"><span>From job post to application</span><span class="preview-dot">●</span></div><div class="ai-input"><span>01</span><strong>Job description</strong><div class="fake-lines"><i></i><i></i><i></i></div></div><div class="ai-arrow">↓</div><div class="ai-results"><div><span>02 / OUTPUT</span><strong>Tailored CV</strong><i></i></div><div><span>03 / OUTPUT</span><strong>Cover letter</strong><i></i></div></div></div></div>
+              <span class="visual-watermark">01</span>
+            </div>
+            <div class="project-body"><div class="project-kicker"><span class="project-category">INDEPENDENT PRODUCT</span><span>01 / 04</span></div><h3 id="p-hiredraft">HireDraftAI <span class="live-tag"><span></span> Live</span></h3><p>An AI-assisted job application platform combining tailored CVs, cover letters, ATS guidance, document exports, and application tracking in one workflow.</p><div class="tech-tags"><span>React</span><span>Python / FastAPI</span><span>Supabase</span><span>AI integrations</span></div><div class="project-links"><a href="https://hiredraftai.com/" target="_blank" rel="noopener noreferrer" aria-label="Open HireDraftAI live website">Visit live product <span aria-hidden="true">↗</span></a><a class="project-link-secondary" href="https://github.com/hjsarker/hiredraftai-showcase" target="_blank" rel="noopener noreferrer">Public case study <span aria-hidden="true">↗</span></a></div></div>
+          </article>
+
+          <article class="project-card" data-category="data" aria-labelledby="p-auto">
+            <div class="project-visual visual-auto" aria-hidden="true">
+              <div class="visual-topbar"><span class="visual-mini-title">AUTO PULSE <span>／</span> DATA STUDIO</span><span class="visual-top-right">GLOBAL / EV</span></div>
+              <div class="auto-panel"><div class="auto-label">GLOBAL AUTOMOTIVE INTELLIGENCE <span class="auto-corner">↗</span></div><div class="auto-main-stat">EV<span>+</span></div><svg class="auto-chart" viewBox="0 0 560 175" preserveAspectRatio="none"><defs><linearGradient id="autoFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8bb2ff" stop-opacity=".40"/><stop offset="1" stop-color="#8bb2ff" stop-opacity="0"/></linearGradient></defs><path d="M0 165 L60 156 L110 140 L150 144 L210 109 L259 115 L318 80 L360 88 L428 42 L474 53 L560 9 L560 175 L0 175Z" fill="url(#autoFill)"/><path d="M0 165 L60 156 L110 140 L150 144 L210 109 L259 115 L318 80 L360 88 L428 42 L474 53 L560 9" fill="none" stroke="#234caa" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="auto-caption"><span>MARKETS</span><span>SALES</span><span>ADOPTION</span><span>MANUFACTURING</span></div></div>
+              <span class="visual-watermark">02</span>
+            </div>
+            <div class="project-body"><div class="project-kicker"><span class="project-category">AUTOMOTIVE DATA / ANALYTICS</span><span>02 / 04</span></div><h3 id="p-auto">Auto Pulse <span class="live-tag"><span></span> Live</span></h3><p>An interactive automotive intelligence dashboard comparing EV adoption, registrations, markets, and German manufacturing using published industry data.</p><div class="tech-tags"><span>Python</span><span>SQL</span><span>Data pipelines</span><span>JavaScript</span></div><div class="project-links"><a href="https://german-auto-pulse.vercel.app/" target="_blank" rel="noopener noreferrer">Explore dashboard <span aria-hidden="true">↗</span></a><a class="project-link-secondary" href="https://github.com/hjsarker/auto-pulse" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a></div></div>
+          </article>
+
+          <article class="project-card" data-category="data" aria-labelledby="p-power">
+            <div class="project-visual visual-power" aria-hidden="true">
+              <div class="visual-topbar"><span class="visual-mini-title">GERMANY <span>／</span> POWER PULSE</span><span class="visual-top-right">ENERGY / DATA</span></div>
+              <div class="power-panel"><div class="power-badge">GRID & MARKET INTELLIGENCE <span class="power-signal">✳</span></div><svg class="power-chart" viewBox="0 0 600 210" preserveAspectRatio="none"><g stroke="#577468" stroke-opacity=".18" stroke-width="1"><path d="M0 40H600M0 80H600M0 120H600M0 160H600M0 200H600"/></g><path d="M0 143 C27 150 40 100 68 120 S108 198 146 157 S193 48 232 99 S270 155 300 116 S348 57 385 111 S430 183 460 128 S511 52 545 86 S570 114 600 71" fill="none" stroke="#0c7262" stroke-width="4" stroke-linecap="round"/><path d="M0 167 C28 150 42 180 73 157 S122 120 152 135 S199 179 236 139 S291 101 320 124 S363 163 402 122 S439 97 481 131 S540 164 600 92" fill="none" stroke="#b5a65b" stroke-width="3" stroke-linecap="round"/></svg><div class="power-footer"><span><i class="leg-green"></i> GENERATION</span><span><i class="leg-gold"></i> MARKET SIGNALS</span></div></div>
+              <span class="visual-watermark">03</span>
+            </div>
+            <div class="project-body"><div class="project-kicker"><span class="project-category">ENERGY DATA / BI</span><span>03 / 04</span></div><h3 id="p-power">Germany Power Pulse <span class="live-tag"><span></span> Live</span></h3><p>An interactive look at German electricity generation, demand, wholesale prices, and renewables using official SMARD market data.</p><div class="tech-tags"><span>Python</span><span>SQL / SQLite</span><span>Streamlit</span><span>Plotly</span></div><div class="project-links"><a href="https://hjsarker.github.io/portfolio/germany-power-pulse/" target="_blank" rel="noopener noreferrer">Explore dashboard <span aria-hidden="true">↗</span></a><a class="project-link-secondary" href="https://github.com/hjsarker/germany-power-pulse" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a></div></div>
+          </article>
+
+          <article class="project-card" data-category="collab" aria-labelledby="p-collective">
+            <div class="project-visual visual-collective" aria-hidden="true"><div class="visual-topbar"><span class="visual-mini-title">COLLECTIVE AI TOOLS</span><span class="visual-top-right">COMMUNITY / OPEN SOURCE</span></div><div class="collective-surface"><div class="collective-orb"><span>✳</span></div><div class="collective-search"><span class="search-icon">⌕</span><span>Explore tools, prompts & resources</span><span class="search-key">↗</span></div><div class="collective-pills"><span>AI tools</span><span>MCP servers</span><span>Prompts</span><span>Skills</span></div></div><span class="visual-watermark">04</span></div>
+            <div class="project-body"><div class="project-kicker"><span class="project-category">PUBLIC COLLABORATION</span><span>04 / 04</span></div><h3 id="p-collective">Collective AI Tools <span class="live-tag"><span></span> Live</span></h3><p>An open-source community directory for discovering AI tools and developer resources. Listed here as a collaborative project, not an independently owned product.</p><div class="tech-tags"><span>Open source</span><span>Community</span><span>AI resources</span></div><div class="project-links"><a href="https://collectiveai.tools/" target="_blank" rel="noopener noreferrer">Visit directory <span aria-hidden="true">↗</span></a><a class="project-link-secondary" href="https://github.com/hjsarker/collective-ai-tools" target="_blank" rel="noopener noreferrer">Repository <span aria-hidden="true">↗</span></a></div></div>
+          </article>
+        </div>
+        <div class="projects-foot"><span>Looking for source code or implementation details?</span> <a href="https://github.com/hjsarker" target="_blank" rel="noopener noreferrer">Explore my GitHub <span aria-hidden="true">↗</span></a></div>
+        <p class="project-disclaimer">Project visuals are original illustrations, not screenshots or live data. Some project data sources refresh on their own schedules; each linked project explains its data periods and limitations.</p>
+      </div>
+    </section>
+
+    <section class="expertise section-pad" id="expertise" aria-labelledby="expertise-heading">
+      <div class="shell"><div class="section-head expertise-head"><div><div class="eyebrow"><span class="tiny-square"></span> WHERE I CAN CONTRIBUTE</div><h2 id="expertise-heading">Three areas.<br><em>One practical mindset.</em></h2></div><p>My experience sits at the intersection of support, data, and business systems. I’m comfortable working with technical details and the people depending on them.</p></div>
+        <div class="expertise-grid">
+          <article class="expertise-card"><div class="expertise-icon icon-service" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="8" y="9" width="32" height="30" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 18h18M15 25h12M15 32h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="35" cy="32" r="3" fill="currentColor"/></svg></div><span class="card-index">01 / SERVICE</span><h3>IT operations<br>& application support</h3><p>Investigating issues, supporting users, owning tickets, and keeping day-to-day technology dependable.</p><div class="skill-cloud"><span>ITSM / Incident & Problem</span><span>Jira / Confluence</span><span>Windows & Microsoft 365</span><span>Networking / VPN / DNS</span><span>Red Hat Linux</span><span>Technical documentation</span></div></article>
+          <article class="expertise-card"><div class="expertise-icon icon-data" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M9 38V11M9 38h30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="15" y="26" width="5" height="12" rx="1" fill="currentColor"/><rect x="24" y="18" width="5" height="20" rx="1" fill="currentColor"/><rect x="33" y="12" width="5" height="26" rx="1" fill="currentColor"/></svg></div><span class="card-index">02 / INSIGHT</span><h3>Business intelligence<br>& data quality</h3><p>Building reporting, checking data, investigating pipeline issues, and making operational information easier to use.</p><div class="skill-cloud"><span>Power BI / DAX</span><span>SQL / Oracle</span><span>Databricks / Spark SQL</span><span>Dashboard design</span><span>Validation & reconciliation</span><span>KPI reporting</span></div></article>
+          <article class="expertise-card"><div class="expertise-icon icon-process" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="5" y="17" width="13" height="13" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="31" y="5" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="31" y="31" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M18 23h8v-12h5M26 23v14h5" fill="none" stroke="currentColor" stroke-width="2"/></svg></div><span class="card-index">03 / DELIVERY</span><h3>Business systems<br>& process improvement</h3><p>Supporting migrations, documenting dependencies, clarifying ownership, and improving handovers between teams.</p><div class="skill-cloud"><span>ARIS / BPMN</span><span>IT4IT framework</span><span>Migration support / UAT</span><span>Knowledge management</span><span>Stakeholder coordination</span><span>Process governance</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience section-pad" id="experience" aria-labelledby="experience-heading"><div class="shell experience-layout"><div class="experience-title"><div class="eyebrow"><span class="tiny-square"></span> PROFESSIONAL JOURNEY</div><h2 id="experience-heading">Built through<br><em>real-world work.</em></h2><p>From IT infrastructure in telecom to analytics, migration and IT/OT operations in German enterprises.</p><a href="https://www.linkedin.com/in/hjsarker" target="_blank" rel="noopener noreferrer" class="inline-link">Full professional profile <span aria-hidden="true">↗</span></a></div><ol class="timeline"><li><div class="timeline-date">Jun 2026 – Present</div><div class="timeline-content"><span class="timeline-company">RWE Renewables Europe & Australia GmbH <span class="part-time">Part-time</span></span><h3>IT/OT Operations & Project Support</h3><p>IT/OT domain architecture documentation, system ownership, interfaces, governance, Jira follow-ups and Confluence knowledge management.</p></div></li><li><div class="timeline-date">Oct 2025 – Mar 2026</div><div class="timeline-content"><span class="timeline-company">Vaillant Group <span class="part-time">Part-time</span></span><h3>IT Process Analyst, ARIS / IT4IT</h3><p>Process modelling, repository quality, IT4IT alignment and coordination with process owners and enterprise architects.</p></div></li><li><div class="timeline-date">Apr 2025 – Sep 2025</div><div class="timeline-content"><span class="timeline-company">E.ON Digital Technology <span class="part-time">Part-time</span></span><h3>Digital Workplace Support Analyst</h3><p>COMPASS/Unily intranet migration, Jira issue tracking, data validation, UAT and migration documentation.</p></div></li><li><div class="timeline-date">Feb 2023 – Jan 2025</div><div class="timeline-content"><span class="timeline-company">TK Elevator <span class="part-time">Part-time</span></span><h3>Data Analyst, BI Platform Support</h3><p>Power BI reporting, Databricks Spark/SQL, IoT data investigations, data quality and production BI support.</p></div></li><li><div class="timeline-date">Sep 2015 – May 2021</div><div class="timeline-content"><span class="timeline-company">HRC Technologies Limited</span><h3>IT & Billing Administrator → Senior IT & Billing Administrator</h3><p>Enterprise desktop and infrastructure support, ITSM, Red Hat server operations, Oracle SQL reporting, and telecom billing system delivery.</p></div></li><li><div class="timeline-date">Jan 2015 – Aug 2015</div><div class="timeline-content"><span class="timeline-company">YES Private Ltd.</span><h3>IT Officer</h3><p>Hands-on infrastructure and user support across a small office, endpoint lifecycle, networking and vendor coordination.</p></div></li></ol></div></section>
+
+    <section class="credentials section-pad" aria-labelledby="credentials-heading"><div class="shell credential-layout"><div><div class="eyebrow"><span class="tiny-square"></span> FOUNDATION & LEARNING</div><h2 id="credentials-heading">Grounded in<br><em>the fundamentals.</em></h2><p class="credential-copy">A computer science foundation, complemented by training in IT systems, data analytics, and business decision-making.</p></div><div class="credential-list"><div class="credential-row"><span class="credential-index">EDU</span><div><h3>B.Sc. Computer Science & Engineering</h3><p>American International University-Bangladesh · German ZAB recognition</p></div></div><div class="credential-row"><span class="credential-index">CERT</span><div><h3>Red Hat Certified System Administrator</h3><p>Red Hat Enterprise Linux 7</p></div></div><div class="credential-row"><span class="credential-index">CERT</span><div><h3>Google Data Analytics Professional Certificate</h3><p>Google · Coursera</p></div></div><div class="credential-row"><span class="credential-index">CERT</span><div><h3>Business Analytics Specialization</h3><p>University of Pennsylvania (Wharton) · Coursera</p></div></div><div class="credential-row"><span class="credential-index">LANG</span><div><h3>Languages</h3><p>English (professional working) · Bangla (native) · Hindi (fluent) · German (elementary)</p></div></div></div></div></section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-heading"><canvas class="particle-field" data-particle-density="contact" aria-hidden="true"></canvas><div class="shell contact-inner"><div><div class="eyebrow contact-eyebrow"><span class="tiny-square"></span> GET IN TOUCH</div><h2 id="contact-heading">Have a problem<br>worth <em>solving?</em></h2><p>I’m interested in full-time opportunities in IT operations, technical or application support, BI and data analytics, and related business systems roles across Germany.</p><a class="contact-email" href="mailto:hjsarker@gmail.com?subject=Opportunity%20to%20connect">hjsarker@gmail.com <span aria-hidden="true">↗</span></a><div class="contact-links"><a href="https://www.linkedin.com/in/hjsarker" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/hjsarker" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></div><div class="contact-shape" aria-hidden="true"><span>LET'S MAKE IT<br>WORK BETTER.</span><div class="shape-ring shape-ring-1"></div><div class="shape-ring shape-ring-2"></div><div class="shape-star">✳</div></div></div></section>
+  </main>
+  <footer class="footer"><div class="shell footer-inner"><span>© <span id="year">2026</span> Hillol Sarker Jogesh</span><span>Built for clarity. Hosted on GitHub Pages.</span><a href="#top">Back to top ↑</a></div></footer>
+  <script>
+(() => {
+  'use strict';
+  const toggle = document.getElementById('mobile-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  const closeMenu = () => {
+    mobileNav.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+    document.body.classList.remove('menu-open');
+  };
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    mobileNav.hidden = isOpen;
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+    document.body.classList.toggle('menu-open', !isOpen);
+  });
+  mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  window.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 780) closeMenu(); });
+
+  const cards = Array.from(document.querySelectorAll('.project-card'));
+  document.querySelectorAll('.filter').forEach(button => {
+    button.addEventListener('click', () => {
+      const selected = button.dataset.filter;
+      document.querySelectorAll('.filter').forEach(btn => {
+        const active = btn === button;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', String(active));
+      });
+      cards.forEach(card => { card.hidden = selected !== 'all' && card.dataset.category !== selected; });
+    });
+  });
+
+  document.getElementById('year').textContent = String(new Date().getFullYear());
+  const progress = document.getElementById('scroll-progress');
+  let busy = false;
+  function updateProgress() {
+    const available = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = `scaleX(${available > 0 ? Math.min(1, window.scrollY / available) : 0})`;
+    busy = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!busy) {
+      busy = true;
+      requestAnimationFrame(updateProgress);
+    }
+  }, { passive: true });
+  window.addEventListener('resize', updateProgress, { passive: true });
+  updateProgress();
+})();
+
+  </script>
+  <script>
+/* Original particle-field implementation. No external libraries, trackers, or backend. */
+(() => {
+  'use strict';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const coarsePointer = window.matchMedia('(pointer: coarse)');
+  const fields = document.querySelectorAll('canvas.particle-field');
+  if (!fields.length) return;
+
+  class ParticleField {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.host = canvas.parentElement;
+      this.ctx = canvas.getContext('2d', { alpha: true });
+      if (!this.ctx) return;
+      this.mode = canvas.dataset.particleDensity || 'hero';
+      this.width = 0;
+      this.height = 0;
+      this.dpr = 1;
+      this.particles = [];
+      this.pointer = { x: -1000, y: -1000, active: false };
+      this.visible = false;
+      this.running = false;
+      this.lastFrame = 0;
+      this.frameId = null;
+      this.frame = this.frame.bind(this);
+      this.resize = this.resize.bind(this);
+      this.onPointerMove = this.onPointerMove.bind(this);
+      this.onPointerLeave = this.onPointerLeave.bind(this);
+      this.onVisibilityChange = this.onVisibilityChange.bind(this);
+      this.host.addEventListener('pointermove', this.onPointerMove, { passive: true });
+      this.host.addEventListener('pointerleave', this.onPointerLeave, { passive: true });
+      this.resizeObserver = new ResizeObserver(this.resize);
+      this.resizeObserver.observe(this.host);
+      this.intersection = new IntersectionObserver(entries => {
+        this.visible = entries[0]?.isIntersecting || false;
+        this.refresh();
+      }, { threshold: 0.01 });
+      this.intersection.observe(this.host);
+      document.addEventListener('visibilitychange', this.onVisibilityChange);
+      reducedMotion.addEventListener('change', () => this.refresh());
+      this.resize();
+    }
+
+    resize() {
+      const rect = this.host.getBoundingClientRect();
+      const width = Math.max(1, Math.round(rect.width));
+      const height = Math.max(1, Math.round(rect.height));
+      if (width === this.width && height === this.height && this.particles.length) return;
+      this.width = width;
+      this.height = height;
+      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+      this.canvas.width = Math.round(width * this.dpr);
+      this.canvas.height = Math.round(height * this.dpr);
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+      // Smaller network on low-width devices, and fewer particles in the footer.
+      const area = width * height;
+      const density = coarsePointer.matches ? 14500 : 11100;
+      const target = Math.max(19, Math.min(this.mode === 'contact' ? 65 : 112,
+        Math.round(area / density * (this.mode === 'contact' ? 0.72 : 1))));
+      this.particles = Array.from({length: target}, (_, i) => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - .5) * .22,
+        vy: (Math.random() - .5) * .22,
+        r: Math.random() * 1.2 + .85,
+        accent: i % 12 === 0
+      }));
+      this.draw();
+      this.refresh();
+    }
+
+    onPointerMove(event) {
+      if (coarsePointer.matches || reducedMotion.matches) return;
+      const rect = this.host.getBoundingClientRect();
+      this.pointer.x = event.clientX - rect.left;
+      this.pointer.y = event.clientY - rect.top;
+      this.pointer.active = true;
+    }
+
+    onPointerLeave() { this.pointer.active = false; }
+    onVisibilityChange() { this.refresh(); }
+    refresh() {
+      const shouldRun = this.visible && !document.hidden && !reducedMotion.matches;
+      if (shouldRun && !this.running) {
+        this.running = true;
+        this.lastFrame = 0;
+        this.frameId = requestAnimationFrame(this.frame);
+      } else if (!shouldRun && this.running) {
+        this.running = false;
+        cancelAnimationFrame(this.frameId);
+        this.frameId = null;
+        this.draw();
+      }
+    }
+
+    frame(now) {
+      if (!this.running) return;
+      // Limit CPU work and keep velocity independent of refresh rate.
+      if (now - this.lastFrame < 24) {
+        this.frameId = requestAnimationFrame(this.frame);
+        return;
+      }
+      const dt = this.lastFrame ? Math.min(2, (now - this.lastFrame) / 25) : 1;
+      this.lastFrame = now;
+      const w = this.width, h = this.height;
+      const radius = 156, radiusSq = radius * radius;
+      for (const p of this.particles) {
+        if (this.pointer.active) {
+          const dx = p.x - this.pointer.x, dy = p.y - this.pointer.y;
+          const dsq = dx*dx + dy*dy;
+          if (dsq < radiusSq && dsq > 1) {
+            const distance = Math.sqrt(dsq);
+            const push = Math.pow(1 - distance/radius, 1.8) * .55 * dt;
+            p.vx += dx / distance * push;
+            p.vy += dy / distance * push;
+          }
+        }
+        const maxSpeed = 1.8;
+        p.vx = Math.max(-maxSpeed, Math.min(maxSpeed, p.vx * .982));
+        p.vy = Math.max(-maxSpeed, Math.min(maxSpeed, p.vy * .982));
+        // Brownian movement prevents particles becoming completely still.
+        p.vx += (Math.random() - .5) * .028;
+        p.vy += (Math.random() - .5) * .028;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        if (p.x < 0) { p.x = 0; p.vx = Math.abs(p.vx); }
+        if (p.x > w) { p.x = w; p.vx = -Math.abs(p.vx); }
+        if (p.y < 0) { p.y = 0; p.vy = Math.abs(p.vy); }
+        if (p.y > h) { p.y = h; p.vy = -Math.abs(p.vy); }
+      }
+      this.draw();
+      this.frameId = requestAnimationFrame(this.frame);
+    }
+
+    draw() {
+      const ctx = this.ctx, pts = this.particles;
+      ctx.clearRect(0, 0, this.width, this.height);
+      const linkDist = this.width < 650 ? 106 : 136;
+      const linkDistSq = linkDist * linkDist;
+      // Light, responsive connections that never compete with headings.
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i];
+        for (let j = i + 1; j < pts.length; j++) {
+          const b = pts[j], dx = a.x-b.x, dy = a.y-b.y;
+          const dsq = dx*dx + dy*dy;
+          if (dsq > linkDistSq) continue;
+          const alpha = .25 * (1 - dsq/linkDistSq);
+          ctx.strokeStyle = `rgba(145,190,245,${alpha.toFixed(3)})`;
+          ctx.lineWidth = .75;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.stroke();
+        }
+      }
+      for (const p of pts) {
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = p.accent ? 'rgba(192,235,137,.85)' : 'rgba(190,220,255,.66)';
+        ctx.fill();
+      }
+    }
+  }
+
+  fields.forEach(canvas => new ParticleField(canvas));
+})();
+
+  </script>
+</body>
+</html>
