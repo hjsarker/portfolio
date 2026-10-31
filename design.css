@@ -624,3 +624,35 @@ h1,h2,h3 { font-feature-settings: "kern"; }
   .hero-marquee .marquee-companies .company-hrc img {height:44px}
   .hero-marquee .marquee-companies .company-ypl img {height:39px}
 }
+
+
+/* Cosmic Atlas portfolio card: self-contained stellar fallback when live screenshot is unavailable. */
+.project-real-space{
+  background:
+    radial-gradient(ellipse at 72% 42%,rgba(70,117,172,.48),transparent 46%),
+    radial-gradient(ellipse at 46% 86%,rgba(137,89,160,.28),transparent 54%),
+    linear-gradient(136deg,#070c1e 0%,#101b38 61%,#0a1026 100%);
+  color:#f5f8ff;
+}
+.project-real-space:not(.shot-loaded)::before{
+  content:"";pointer-events:none;position:absolute;inset:0;opacity:.8;
+  background-image:
+    radial-gradient(1px 1px at 12% 25%,#fff 98%,transparent),
+    radial-gradient(1px 1px at 25% 70%,#d6e8ff 98%,transparent),
+    radial-gradient(2px 2px at 78% 18%,#c8dfff 98%,transparent),
+    radial-gradient(1px 1px at 92% 64%,#fff 98%,transparent),
+    radial-gradient(1px 1px at 65% 76%,#d6ceff 98%,transparent),
+    radial-gradient(1px 1px at 40% 15%,#fff 98%,transparent);
+  background-size:190px 160px,230px 170px,280px 190px,170px 200px,250px 180px,200px 180px;
+}
+.project-real-space:not(.shot-loaded)::after{
+  content:"";pointer-events:none;position:absolute;width:160px;height:160px;right:10%;top:9%;
+  border-radius:50%;transform:rotate(-24deg);
+  background:radial-gradient(circle at 33% 26%,#e6d6c0 0%,#b3927e 25%,#75667d 47%,#332c47 67%,#17172a 100%);
+  box-shadow:0 0 55px #a08dba2b,inset -26px -13px 34px #0a0b21b8;
+}
+.project-real-space .real-placeholder{position:relative;z-index:1;text-shadow:0 2px 24px #030717a6}
+.project-real-space .real-placeholder-label{color:#c9ddff}
+.project-real-space .real-placeholder-subtitle{color:#dce7f5;max-width:260px}
+.project-real-space .real-project-image{z-index:2}
+.project-real-space .real-preview-chip{z-index:3}
