@@ -14,6 +14,22 @@ The site includes a custom HTML Canvas particle network that drifts and responds
 
 The project is the second featured card in the portfolio's Work section and is included in the new **3D & interactive** filter. The section now includes six live projects.
 
+## Interactive work experience
+
+The **Experience** timeline has six **Explore my work** entry points. HRC Technologies Limited includes a working interactive case study:
+
+- A simplified, selectable conceptual environment for telecom billing, Red Hat application services, Sun/Solaris context, Oracle/Microsoft SQL investigation, and CDR checks.
+- A clear division between the author's actual application/billing support and specialist-owned Solaris, database, and network administration.
+- A reconstructed troubleshooting walkthrough with selectable diagnosis and verification stages.
+
+The other five employers intentionally show **PREVIEW** placeholders, with known role-related topics rather than invented network architectures or case studies.
+
+The interactive data and page behavior are in `experience-explorer.js`. Styles are in `design.css`, and the corresponding trigger buttons and dialog markup are in `index.html`. To develop a new employer walkthrough, replace its preview with a verified, sanitized explanation of the user's work rather than adding speculative system diagrams.
+
+The HRC diagram is a conceptual educational reconstruction, **not** a verified internal production topology or a company-authorized publication. Do not add real hostnames, IP addresses, passwords, client billing data, privileged configurations, or unapproved internal architecture details.
+
+Interactive UI checks are in `tests/experience-smoke.cjs` and run through `.github/workflows/experience-qa.yml`.
+
 ## Contents
 
 - `index.html`: Portfolio content, interactive JavaScript, project links and SEO metadata, with base styles.
