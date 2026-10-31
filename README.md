@@ -1,12 +1,18 @@
 # Hillol Sarker Jogesh | Professional portfolio
 
-A responsive, static portfolio showcasing experience in IT operations, application support, business intelligence, data quality, process governance, and selected live projects.
+A responsive, static portfolio showcasing experience in IT operations, application support, business intelligence, data quality, process governance, and six selected live projects, including the interactive 3D Solar System explorer **Cosmic Atlas**.
 
 ## Live website
 
 **https://hjsarker.github.io/portfolio/**
 
 The site includes a custom HTML Canvas particle network that drifts and responds to mouse movement, with mobile and reduced-motion accommodations.
+
+## Featured interactive 3D project
+
+**[Cosmic Atlas](https://hjsarker.github.io/cosmic-atlas/)** is an independent Three.js/WebGL Solar System explorer with cinematic planet navigation, attributed planetary textures, NASA/JPL orbital data, an ESA Gaia sky background, and HYG catalog stars. The [public GitHub source](https://github.com/hjsarker/cosmic-atlas) includes scientific-data attribution and automated browser tests.
+
+The project is the second featured card in the portfolio's Work section and is included in the new **3D & interactive** filter. The section now includes six live projects.
 
 ## Contents
 
@@ -26,7 +32,7 @@ Your published URL should be **https://hjsarker.github.io/portfolio/**. Publishi
 
 ## Updating content
 
-Portfolio content is in `index.html`, and the visual theme is in `design.css`. To add another public project, add a card using the existing `.project-card` structure. Only link published live demos. The displayed project count and category filters should be kept in sync.
+Portfolio content is in `index.html`, and the visual theme is in `design.css`. To add another public project, add a card using the existing `.project-card` structure. Only link published live demos. The displayed project count, numbering, category filters, and stylesheet cache key should be kept in sync.
 
 Professional experience and education are based on the approved master profile. Project descriptions and URLs are based on public repository documentation. The project visuals are illustrative and are not screenshots or actual live dashboard data.
 
