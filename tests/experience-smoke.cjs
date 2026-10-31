@@ -1,0 +1,53 @@
+/* Browser smoke tests for the interactive professional experience explorer. */
+const {chromium}=require('playwright');
+const assert=require('node:assert/strict');
+const problems=[];
+(async()=>{
+  const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
+  try{
+    for(const size of [{name:'desktop',width:1440,height:900},{name:'mobile',width:390,height:844}]){
+      const context=await browser.newContext({viewport:{width:size.width,height:size.height},reducedMotion:'reduce'});
+      const page=await context.newPage();
+      page.on('pageerror',error=>problems.push(size.name+': '+error.message));
+      await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded',timeout:30000});
+      await page.locator('[data-exp-company="hrc"]').first().waitFor();
+      assert.equal(await page.locator('.exp-timeline-open').count(),6);
+      assert.equal(await page.locator('#experience-explorer').isVisible(),false);
+      await page.locator('.exp-feature-cta').click();
+      const modal=page.locator('#experience-explorer');
+      await modal.waitFor({state:'visible'});
+      assert.match(await page.locator('#exp-modal-title').innerText(),/HRC Technologies/);
+      assert.equal(await page.locator('.exp-arch-node').count(),6);
+      assert.match(await page.locator('#exp-node-details').innerText(),/Application support/);
+      assert.match(await page.locator('.exp-disclosure').innerText(),/sanitized/);
+      await page.locator('[data-exp-node="solaris"]').click();
+      assert.match(await page.locator('#exp-node-details').innerText(),/not Solaris administration/);
+      await page.screenshot({path:'qa-'+size.name+'-architecture.png'});
+      await page.locator('[data-exp-tab="role"]').click();
+      assert.match(await page.locator('.exp-role-grid').innerText(),/DBA/);
+      assert.match(await page.locator('.exp-role-grid').innerText(),/Tomcat/);
+      await page.locator('[data-exp-tab="case"]').click();
+      assert.equal(await page.locator('.exp-incident-step').count(),4);
+      await page.locator('[data-exp-step="2"]').click();
+      assert.match(await page.locator('#exp-incident-panel').innerText(),/DBA/);
+      await page.keyboard.press('Escape');
+      assert.equal(await modal.isVisible(),false);
+      assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('experience-modal-open')),false);
+      await page.locator('[data-exp-company="rwe"]').last().click();
+      await modal.waitFor({state:'visible'});
+      assert.match(await page.locator('#exp-modal-title').innerText(),/RWE Renewables/);
+      assert.match(await page.locator('.exp-preview').innerText(),/placeholder/i);
+      assert.equal(await page.locator('#exp-tabs').isVisible(),false);
+      await page.screenshot({path:'qa-'+size.name+'-preview.png'});
+      await page.locator('.exp-modal-close').click();
+      assert.equal(await modal.isVisible(),false);
+      await page.locator('[data-exp-company="yes"]').last().click();
+      assert.match(await page.locator('#exp-modal-title').innerText(),/YES Private/);
+      await page.keyboard.press('Escape');
+      assert.equal(await modal.isVisible(),false);
+      console.log('PASSED '+size.name+': six role buttons, HRC tabs, component boundaries, incident workflow, previews, Escape');
+      await context.close();
+    }
+    assert.deepEqual(problems,[]);
+  }finally{await browser.close();}
+})().catch(error=>{console.error('Browser QA failed',problems,error);process.exitCode=1;});
