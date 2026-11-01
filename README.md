@@ -16,14 +16,14 @@ The project is the second featured card in the portfolio's Work section and is i
 
 ## Interactive work experience
 
-The **Experience** timeline has six **Explore my work** entry points. HRC Technologies Limited includes a working interactive case study:
+The **Experience** timeline retains all six employment entries, but shows **Explore my work** links only for the current RWE role, TK Elevator and HRC Technologies Limited. HRC includes a working interactive case study:
 
 - A simplified, selectable conceptual environment for telecom billing, Red Hat application services, Sun/Solaris context, Oracle/Microsoft SQL investigation, and CDR checks.
 - A dedicated interactive **Workplace IT** view featuring employee onboarding and offboarding, desktop/laptop support, LAN and Wi-Fi, IT equipment inventory, printers, meeting rooms and user support.
 - A clear division between the author's local network/endpoint administration and billing application support, versus specialist-owned Solaris hosting, database platform administration and core network infrastructure.
 - Two reconstructed troubleshooting walkthroughs with selectable diagnosis and verification stages: a telecom billing discrepancy and an office wired/Wi-Fi connectivity problem.
 
-The other five employers intentionally show **PREVIEW** placeholders, with known role-related topics rather than invented network architectures or case studies.
+RWE and TK Elevator have clearly labeled **PREVIEW** placeholders. Vaillant Group, E.ON Digital Technology and YES Private Ltd. retain their ordinary timeline descriptions without interactive buttons. No unverified architecture or case studies are presented.
 
 The interactive data and page behavior are in `experience-explorer.js`. Styles are in `design.css`, and the corresponding trigger buttons and dialog markup are in `index.html`. To develop a new employer walkthrough, replace its preview with a verified, sanitized explanation of the user's work rather than adding speculative system diagrams.
 
