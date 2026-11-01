@@ -1,7 +1,7 @@
 /* Interactive, sanitized experience walkthroughs.
  * HRC is an illustrative reconstruction of the user's described work, not
  * an employer-authorized network diagram or evidence from a live system.
- * All other employer views are explicitly marked as previews.
+ * RWE and TK Elevator have clearly marked previews; other jobs stay in the timeline.
  */
 (() => {
   'use strict';
@@ -21,20 +21,6 @@
       topics: ['System ownership and interfaces', 'Architecture documentation', 'Jira follow-ups and knowledge management'],
       note: 'An appropriately generalized workflow view can explain responsibilities without showing sensitive operational technology infrastructure.'
     },
-    vaillant: {
-      name: 'Vaillant Group',
-      role: 'IT Process Analyst',
-      focus: 'Process architecture and governance',
-      topics: ['ARIS / BPMN process models', 'IT4IT process alignment', 'Repository quality and process ownership'],
-      note: 'A future example could show a fictionalized process model, rather than any internal repository or confidential documentation.'
-    },
-    eon: {
-      name: 'E.ON Digital Technology',
-      role: 'Digital Workplace Support Analyst',
-      focus: 'Digital workplace migration',
-      topics: ['COMPASS / Unily migration flow', 'Jira issues and UAT coordination', 'Data validation and documentation'],
-      note: 'A future illustration can follow a sample migration ticket from preparation to validation, without exposing internal intranet content.'
-    },
     tke: {
       name: 'TK Elevator',
       role: 'Data Analyst / BI Platform Support',
@@ -47,13 +33,7 @@
       role: 'IT & Billing Administrator → Senior IT & Billing Administrator',
       focus: 'Telecom billing systems and infrastructure support'
     },
-    yes: {
-      name: 'YES Private Ltd.',
-      role: 'IT Officer',
-      focus: 'Office IT infrastructure and user support',
-      topics: ['Desktop and endpoint support', 'Local network troubleshooting', 'Device lifecycle and vendor coordination'],
-      note: 'A future walkthrough can demonstrate a small office support workflow using entirely fictional equipment and user accounts.'
-    }
+
   };
   const components = [
     {id:'cdr',group:0,title:'Call detail records',detail:'CDR input and validation',subtitle:'Telecom usage data',mine:true,
