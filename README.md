@@ -19,8 +19,9 @@ The project is the second featured card in the portfolio's Work section and is i
 The **Experience** timeline has six **Explore my work** entry points. HRC Technologies Limited includes a working interactive case study:
 
 - A simplified, selectable conceptual environment for telecom billing, Red Hat application services, Sun/Solaris context, Oracle/Microsoft SQL investigation, and CDR checks.
-- A clear division between the author's actual application/billing support and specialist-owned Solaris, database, and network administration.
-- A reconstructed troubleshooting walkthrough with selectable diagnosis and verification stages.
+- A dedicated interactive **Workplace IT** view featuring employee onboarding and offboarding, desktop/laptop support, LAN and Wi-Fi, IT equipment inventory, printers, meeting rooms and user support.
+- A clear division between the author's local network/endpoint administration and billing application support, versus specialist-owned Solaris hosting, database platform administration and core network infrastructure.
+- Two reconstructed troubleshooting walkthroughs with selectable diagnosis and verification stages: a telecom billing discrepancy and an office wired/Wi-Fi connectivity problem.
 
 The other five employers intentionally show **PREVIEW** placeholders, with known role-related topics rather than invented network architectures or case studies.
 
