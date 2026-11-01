@@ -891,3 +891,65 @@ body.experience-modal-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){
  .exp-arch-node,.exp-timeline-open,.exp-feature-cta{transition:none}
 }
+
+
+/* HRC's workplace IT scope alongside the telecom billing system view */
+.exp-workplace-banner{
+  background:linear-gradient(118deg,#edf5ff,#f8fbff);
+  border:1px solid #dceaf8;border-radius:12px;padding:15px 19px;
+  display:flex;flex-direction:column;gap:6px;margin-bottom:15px;
+}
+.exp-workplace-banner span{font-size:9px;font-weight:790;color:#3d76a9;letter-spacing:.12em}
+.exp-workplace-banner strong{color:#244b74;font-size:13px;line-height:1.5;font-weight:710}
+.exp-workplace-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.exp-workplace-tile{
+  min-width:0;min-height:115px;text-align:left;padding:14px 13px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:6px;
+  border:1px solid #dce6f2;border-radius:12px;background:#f7f9fd;
+  cursor:pointer;transition:background .2s,transform .2s,border-color .2s;
+}
+.exp-workplace-tile:hover{background:#edf6ff;border-color:#9cc3eb;transform:translateY(-2px)}
+.exp-workplace-tile.is-selected{background:#e9f4ff;border-color:#2177c9;box-shadow:inset 0 0 0 1px #2177c9}
+.exp-workplace-count{font-size:9px;letter-spacing:.1em;font-weight:780;color:#3977ae}
+.exp-workplace-tile strong{color:#1b3d64;font:725 15px/1.3 var(--display);letter-spacing:-.015em}
+.exp-workplace-tile>span:last-child{color:#8997a8;font-size:9px;font-weight:680;letter-spacing:.06em;margin-top:auto}
+.exp-workplace-detail{margin-top:15px}
+.exp-role-grid--expanded{grid-template-columns:repeat(2,minmax(0,1fr))}
+.exp-role-panel--boundary{grid-column:1/-1}
+.exp-role-panel--boundary ul{columns:2;column-gap:35px}
+.exp-role-panel--boundary li{break-inside:avoid}
+.exp-role-boundary-intro{font-size:13px;line-height:1.7;color:#6b7280;margin:0 0 12px}
+.exp-scenario-picker{
+  display:flex;gap:9px;flex-wrap:wrap;align-items:center;
+  margin:0 0 17px;
+}
+.exp-scenario-picker button{
+  border:1px solid #d7e1ed;border-radius:9px;background:#fff;
+  color:#52667e;padding:11px 15px;font:710 12px/1.4 var(--sans);
+  cursor:pointer;transition:background .2s,border-color .2s;
+}
+.exp-scenario-picker button:hover{border-color:#8eb6df;background:#f3f8ff}
+.exp-scenario-picker button.is-active{background:#133a63;color:#fff;border-color:#133a63}
+.exp-workplace-tile:focus-visible,.exp-scenario-picker button:focus-visible{
+  outline:3px solid #53a3ff;outline-offset:3px
+}
+@media(max-width:900px){
+  .exp-workplace-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .exp-workplace-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .exp-workplace-tile{min-height:112px;padding:12px}
+  .exp-workplace-tile strong{font-size:14px}
+  .exp-workplace-banner{padding:12px 14px}
+  .exp-workplace-banner strong{font-size:12px}
+  .exp-role-panel--boundary ul{columns:1}
+  .exp-scenario-picker{gap:7px}
+  .exp-scenario-picker button{font-size:11px;padding:9px 10px}
+}
+@media(max-width:360px){
+  .exp-workplace-grid{grid-template-columns:1fr 1fr}
+  .exp-workplace-tile strong{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  .exp-workplace-tile,.exp-scenario-picker button{transition:none}
+}
