@@ -696,24 +696,15 @@ h1,h2,h3 { font-feature-settings: "kern"; }
    Interactive work experience: employer overviews and HRC case study
    ================================================================ */
 body.experience-modal-open{overflow:hidden}
-.exp-feature-invite{
-  margin-top:30px;padding:22px 21px;border-radius:18px;
-  background:linear-gradient(145deg,#122747,#1b3c68);
-  color:#fff;border:1px solid #31577d;box-shadow:0 16px 35px #0b1c3919;
-  display:flex;flex-direction:column;align-items:flex-start;gap:12px;
+.experience-title .exp-explore-note{
+  color:#566a81;
+  font-size:13px;
+  line-height:1.7;
+  margin:18px 0 0;
+  padding-left:13px;
+  border-left:2px solid #438bc6;
+  max-width:365px;
 }
-.exp-feature-eyebrow{display:inline-flex;align-items:center;gap:8px;
-  color:#b9d7ff;font-size:9px;letter-spacing:.15em;font-weight:760}
-.exp-feature-dot{height:7px;width:7px;display:inline-block;flex:none;border-radius:50%;background:#9dccff;box-shadow:0 0 0 4px #8bbdff21}
-.exp-feature-invite strong{font:720 22px/1.25 var(--display);letter-spacing:-.045em;color:#fff}
-.experience-title .exp-feature-invite p{font-size:12px;line-height:1.65;color:#cfdbed;margin:0}
-.exp-feature-cta{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;
-  background:#eaf4ff;color:#0d335f;font-size:12px;font-weight:730;
-  border:1px solid transparent;border-radius:9px;padding:11px 12px;cursor:pointer;
-  width:100%;text-align:left;transition:background .2s,transform .2s}
-.exp-feature-cta:hover{background:white;transform:translateY(-2px)}
-.exp-feature-cta span{font-size:17px}
-.exp-feature-invite small{color:#9fb9da;font-size:10px;line-height:1.5}
 .exp-timeline-action{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:13px}
 .exp-timeline-open{display:inline-flex;align-items:center;gap:12px;
   border:1px solid #cbd7e7;background:#fff;color:#1460a7;
@@ -785,7 +776,7 @@ body.experience-modal-open{overflow:hidden}
 .exp-specialist .exp-arch-node-type{color:#7b8494}
 .exp-arch-node:hover,.exp-arch-node.is-selected{border-color:#1379d8;border-left-color:#1379d8;background:#e8f3ff;transform:translateY(-1px)}
 .exp-arch-node:focus-visible,.exp-tabbar button:focus-visible,.exp-modal-close:focus-visible,
-.exp-feature-cta:focus-visible,.exp-incident-step:focus-visible,.exp-timeline-open:focus-visible{
+.exp-incident-step:focus-visible,.exp-timeline-open:focus-visible{
   outline:3px solid #53a3ff;outline-offset:3px}
 .exp-node-detail{display:grid;grid-template-columns:1.2fr 1fr;gap:10px 27px;
   background:#102a49;border-radius:14px;color:white;padding:20px 23px;margin-top:16px}
@@ -886,10 +877,10 @@ body.experience-modal-open{overflow:hidden}
  .exp-incident-panel{padding:20px}
  .exp-preview{padding:20px;margin-top:21px}
  .exp-modal-foot{padding:10px 18px;flex-wrap:wrap;font-size:9px}
- .exp-feature-invite{margin:23px 0}
+ 
 }
 @media(prefers-reduced-motion:reduce){
- .exp-arch-node,.exp-timeline-open,.exp-feature-cta{transition:none}
+ .exp-arch-node,.exp-timeline-open{transition:none}
 }
 
 
