@@ -11,7 +11,14 @@ const problems=[];
       page.on('pageerror',error=>problems.push(size.name+': '+error.message));
       await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded',timeout:30000});
       await page.locator('[data-exp-company="hrc"]').first().waitFor();
-      assert.equal(await page.locator('.exp-timeline-open').count(),6);
+      assert.equal(await page.locator('.exp-timeline-open').count(),3);
+      assert.equal(await page.locator('.timeline > li').count(),6,'Keep all six employment entries');
+      for(const id of ['rwe','tke','hrc']){
+        assert.equal(await page.locator('.exp-timeline-open[data-exp-company="'+id+'"]').count(),1);
+      }
+      for(const id of ['vaillant','eon','yes']){
+        assert.equal(await page.locator('.exp-timeline-open[data-exp-company="'+id+'"]').count(),0);
+      }
       assert.equal(await page.locator('#experience-explorer').isVisible(),false);
       await page.locator('.exp-feature-cta').click();
       const modal=page.locator('#experience-explorer');
@@ -61,11 +68,12 @@ const problems=[];
       await page.screenshot({path:'qa-'+size.name+'-preview.png'});
       await page.locator('.exp-modal-close').click();
       assert.equal(await modal.isVisible(),false);
-      await page.locator('[data-exp-company="yes"]').last().click();
-      assert.match(await page.locator('#exp-modal-title').innerText(),/YES Private/);
+      await page.locator('[data-exp-company="tke"]').last().click();
+      assert.match(await page.locator('#exp-modal-title').innerText(),/TK Elevator/);
+      assert.match(await page.locator('.exp-preview').innerText(),/placeholder/i);
       await page.keyboard.press('Escape');
       assert.equal(await modal.isVisible(),false);
-      console.log('PASSED '+size.name+': six role buttons, HRC tabs, component boundaries, incident workflow, previews, Escape');
+      console.log('PASSED '+size.name+': three explorer links, six timeline jobs, HRC tabs, incident workflows, RWE/TK previews, Escape');
       await context.close();
     }
     assert.deepEqual(problems,[]);
