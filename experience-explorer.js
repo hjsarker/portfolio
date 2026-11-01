@@ -75,6 +75,33 @@
       description:'Sun hardware and Solaris formed part of the wider telecom environment. My role was application and billing support, not Solaris administration or direct ownership of these hosts.',
       actions:['Understand dependencies and symptoms','Provide diagnostic evidence to specialists','Coordinate incidents with the responsible administrators']}
   ];
+
+  // HRC's general workplace IT responsibilities were distinct from billing.
+  // This is a role map, not an internal network topology.
+  const workplaceAreas = [
+    {id:'lifecycle',title:'Onboarding & offboarding',tag:'EMPLOYEE LIFECYCLE',description:'Supported employees joining, moving between responsibilities, and leaving the organization, including IT setup, access handovers and equipment return.',actions:['Prepare user IT access and workstations for new starters','Support access changes and removal during offboarding','Coordinate handovers and return of assigned equipment']},
+    {id:'endpoints',title:'Computers & devices',tag:'ENDPOINT SUPPORT',description:'Handled everyday desktop and laptop administration, peripheral setup, troubleshooting and device readiness for office employees.',actions:['Prepare and configure employee devices','Investigate operating system and peripheral issues','Repair, replace or coordinate support for faulty equipment']},
+    {id:'network',title:'LAN & Wi-Fi',tag:'NETWORK OPERATIONS',description:'Supported office network administration, wired LAN connectivity and wireless access, including troubleshooting employee connection problems and coordinating wider issues.',actions:['Investigate wired and wireless connectivity faults','Support local office network and connection changes','Escalate broader network infrastructure problems when needed']},
+    {id:'inventory',title:'IT inventory',tag:'ASSET MANAGEMENT',description:'Tracked and handled IT equipment through allocation, changes, maintenance and return, helping keep workplace hardware accounted for.',actions:['Maintain equipment records and allocations','Manage devices and accessories through their lifecycle','Coordinate equipment handovers and returns']},
+    {id:'printers',title:'Printers & peripherals',tag:'OFFICE TECHNOLOGY',description:'Supported office printers and connected peripherals, including installation, connectivity and everyday troubleshooting.',actions:['Set up and troubleshoot printers and drivers','Investigate printing, connection or queue problems','Coordinate repair or replacement when required']},
+    {id:'meetings',title:'Meeting rooms',tag:'MEETING TECHNOLOGY',description:'Supported meeting room equipment and connectivity so employees could use presentations and conference facilities reliably.',actions:['Prepare displays and presentation equipment','Troubleshoot meeting room connectivity and peripherals','Assist users during technical meeting room issues']},
+    {id:'helpdesk',title:'User support & incidents',tag:'IT SERVICE SUPPORT',description:'Provided day-to-day user assistance and technical incident support across office systems, hardware, applications and connectivity.',actions:['Triage and investigate employee-reported IT issues','Restore service or escalate to the appropriate specialist','Communicate fixes and document recurring problems']}
+  ];
+  const connectivitySteps = [
+    {title:'Identify',eyebrow:'01 / USER IMPACT',
+      body:'An employee cannot connect to the office network or Wi-Fi, affecting normal work. Confirm whether the problem is limited to one device, one area, or multiple employees.',
+      evidence:['Check whether the affected connection is wired or wireless','Identify the device, location and symptoms','Determine whether other users are affected']},
+    {title:'Investigate',eyebrow:'02 / LOCAL DIAGNOSIS',
+      body:'Inspect the device connection and local access conditions, compare with a known-working device, and isolate endpoint problems from broader network problems.',
+      evidence:['Check adapter state, cable or wireless connection','Verify the expected network is reachable','Separate device-specific issues from a shared outage']},
+    {title:'Resolve / escalate',eyebrow:'03 / RECOVERY',
+      body:'Apply an approved endpoint or local connectivity correction, or pass a wider infrastructure fault to the responsible network specialist.',
+      evidence:['Correct a safe device-side configuration issue','Restore or replace a faulty local connection if appropriate','Escalate shared network issues with clear findings']},
+    {title:'Verify',eyebrow:'04 / FOLLOW-UP',
+      body:'Recheck the affected employee’s connection, confirm access to the required service, and document the outcome for support and handover.',
+      evidence:['Verify the connection and normal user access','Confirm the user can resume work','Record the diagnosis and any further action']}
+  ];
+
   const steps = [
     {title:'Identify',eyebrow:'01 / SYMPTOM',
       body:'A billing operator reports that call records or billed totals do not match between application views and reports.',
@@ -90,7 +117,7 @@
       evidence:['Recheck application and reporting results','Record findings and support communications','Confirm recovery or next owner for outstanding work']}
   ];
   const escapeText = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  let current='hrc', currentTab='system', currentNode='app', currentStep=0, lastFocus=null;
+  let current='hrc', currentTab='system', currentNode='app', currentArea='lifecycle', currentIncident='billing', currentStep=0, lastFocus=null;
   function renderNodeDetails() {
     const node = components.find(item=>item.id===currentNode) || components[0];
     const target = document.getElementById('exp-node-details');
@@ -131,33 +158,79 @@
       '<p class="exp-disclosure">Illustrative, sanitized overview based on my professional experience. It is not a copy of HRC’s production topology, and arrows show a conceptual workflow rather than verified system connections.</p>';
     renderNodeDetails();
   }
+
+  function renderWorkplaceDetails() {
+    const area=workplaceAreas.find(item=>item.id===currentArea)||workplaceAreas[0];
+    const target=document.getElementById('exp-workplace-detail');
+    if(!target)return;
+    target.innerHTML=
+      '<span class="exp-node-detail-kicker">'+escapeText(area.tag)+'</span>'+
+      '<h4>'+escapeText(area.title)+'</h4><p>'+escapeText(area.description)+'</p>'+
+      '<div class="exp-node-detail-label">Responsibilities</div>'+
+      '<ul>'+area.actions.map(item=>'<li>'+escapeText(item)+'</li>').join('')+'</ul>';
+    content.querySelectorAll('[data-exp-area]').forEach(button=>{
+      const active=button.dataset.expArea===currentArea;
+      button.classList.toggle('is-selected',active);
+      button.setAttribute('aria-pressed',String(active));
+    });
+  }
+  function renderWorkplace() {
+    content.innerHTML=
+      '<div class="exp-intro-row"><div><span class="exp-kicker">WORKPLACE IT / INFRASTRUCTURE SUPPORT</span>'+
+      '<h3>Keeping people, devices and office systems working.</h3>'+
+      '<p>Alongside telecom billing, I handled everyday IT administration: employee onboarding and offboarding, endpoints, local networks, equipment, printers and meeting room technology.</p></div></div>'+
+      '<div class="exp-workplace-banner"><span>WORKPLACE SUPPORT SCOPE</span>'+
+      '<strong>User lifecycle · Devices · LAN / Wi-Fi · Equipment inventory · Office technology</strong></div>'+
+      '<div class="exp-workplace-grid" role="group" aria-label="Select an IT operations responsibility">'+
+      workplaceAreas.map((area,i)=>'<button type="button" class="exp-workplace-tile'+
+        (area.id===currentArea?' is-selected':'')+'" data-exp-area="'+area.id+
+        '" aria-pressed="'+(area.id===currentArea)+'">'+
+        '<span class="exp-workplace-count">0'+(i+1)+' / 07</span>'+
+        '<strong>'+escapeText(area.title)+'</strong>'+
+        '<span>'+escapeText(area.tag)+'</span></button>').join('')+'</div>'+
+      '<div class="exp-node-detail exp-workplace-detail" id="exp-workplace-detail" aria-live="polite"></div>'+
+      '<p class="exp-disclosure">This is a high-level summary of hands-on IT responsibilities, not a reproduction of HRC’s internal network configuration or a claim of ownership of every infrastructure component.</p>';
+    renderWorkplaceDetails();
+  }
+
   function renderRole() {
     content.innerHTML=
-      '<div class="exp-intro-row"><div><span class="exp-kicker">MY ROLE IN THE ENVIRONMENT</span>'+
-      '<h3>Application, billing and operational support.</h3>'+
-      '<p>My work sat between the billing platform, the users who depended on it, and the specialist teams maintaining the underlying systems.</p></div></div>'+
-      '<div class="exp-role-grid">'+
-      '<section class="exp-role-panel"><span class="exp-role-icon" aria-hidden="true">✓</span><h4>What I worked on</h4>'+
-      '<ul><li>Billing applications and user-reported incidents</li><li>Red Hat application service checks, log review and approved Tomcat restarts</li><li>Oracle and Microsoft SQL queries for data reconciliation and reporting</li><li>CDR matching, invoice discrepancies and operational validations</li><li>Requirements, vendor coordination, UAT and production readiness support</li><li>IT infrastructure and endpoint support within the team</li></ul></section>'+
-      '<section class="exp-role-panel exp-role-panel-muted"><span class="exp-role-icon" aria-hidden="true">↗</span><h4>Where I collaborated or escalated</h4>'+
-      '<ul><li>Solaris and Sun host administration: dedicated specialists</li><li>Database platform administration: DBA team</li><li>Network faults: network operations team</li><li>Complex application or vendor-level faults: senior colleagues and software vendors</li></ul>'+
-      '<p class="exp-boundary">Working with these systems did not mean owning every layer of their administration.</p></section></div>'+
-      '<div class="exp-role-summary"><span>THE OPERATIONAL THREAD</span><strong>Report → investigate → resolve or escalate → verify → document</strong></div>'+
-      '<p class="exp-disclosure">Responsibilities are summarized at a safe, high level. No internal server identifiers, customer data or access details are displayed.</p>';
+      '<div class="exp-intro-row"><div><span class="exp-kicker">MY RESPONSIBILITIES AT HRC</span>'+
+      '<h3>Workplace IT and telecom billing operations.</h3>'+
+      '<p>My position combined employee-facing infrastructure administration with support for the company’s specialist billing applications and reporting workflows.</p></div></div>'+
+      '<div class="exp-role-grid exp-role-grid--expanded">'+
+      '<section class="exp-role-panel"><span class="exp-role-icon" aria-hidden="true">✓</span><h4>Workplace IT & infrastructure</h4>'+
+      '<ul><li>Employee onboarding, offboarding and IT access handovers</li><li>Desktop, laptop, printer and peripheral administration</li><li>Local LAN and Wi-Fi support, connectivity troubleshooting and network administration</li><li>Equipment inventory, assignment, maintenance and returns</li><li>Meeting room technology and everyday user support</li></ul></section>'+
+      '<section class="exp-role-panel"><span class="exp-role-icon" aria-hidden="true">✓</span><h4>Billing & application support</h4>'+
+      '<ul><li>Billing applications and user-reported production incidents</li><li>Red Hat application service checks, log reviews and approved Tomcat restarts</li><li>Oracle and Microsoft SQL queries for reconciliations and reports</li><li>CDR matching, invoice discrepancies and operational validations</li><li>Requirements, vendor coordination, UAT and production readiness</li></ul></section>'+
+      '<section class="exp-role-panel exp-role-panel-muted exp-role-panel--boundary"><span class="exp-role-icon" aria-hidden="true">↗</span><h4>Where specialist teams took ownership</h4>'+
+      '<p class="exp-role-boundary-intro">Day-to-day local network administration and user support were part of my work, but larger platform responsibilities remained with dedicated teams.</p>'+
+      '<ul><li>Sun hardware and Solaris host administration: infrastructure specialists</li><li>Database platform administration: DBA team</li><li>Core network failures beyond local support: network operations team</li><li>Complex application faults: senior colleagues and software vendors</li></ul>'+
+      '<p class="exp-boundary">Supporting a system or coordinating its recovery did not mean administering every layer of it.</p></section></div>'+
+      '<div class="exp-role-summary"><span>TWO COMPLEMENTARY WORKSTREAMS</span>'+
+      '<strong>Employees, devices and networks + business-critical billing applications</strong></div>'+
+      '<p class="exp-disclosure">All descriptions are deliberately generalized. No actual infrastructure identifiers, user information or confidential operational data are shown.</p>';
   }
   function renderCase() {
+    const network=currentIncident==='connectivity';
     content.innerHTML=
-      '<div class="exp-intro-row"><div><span class="exp-kicker">REPRESENTATIVE INCIDENT WORKFLOW</span>'+
-      '<h3>Investigating a telecom billing mismatch.</h3>'+
-      '<p>A step-by-step example of the diagnostic approach used in application and billing support. This is a reconstructed scenario, not an actual incident record.</p></div></div>'+
+      '<div class="exp-intro-row"><div><span class="exp-kicker">REPRESENTATIVE TROUBLESHOOTING WORKFLOWS</span>'+
+      '<h3>How I approached support incidents.</h3>'+
+      '<p>Explore a billing application investigation or a typical workplace connectivity problem. These are reconstructed scenarios, not actual company tickets.</p></div></div>'+
+      '<div class="exp-scenario-picker" role="group" aria-label="Choose an example incident">'+
+      '<button type="button" data-exp-incident="billing" aria-pressed="'+(!network)+'" class="'+(!network?'is-active':'')+'">Billing reconciliation issue</button>'+
+      '<button type="button" data-exp-incident="connectivity" aria-pressed="'+network+'" class="'+(network?'is-active':'')+'">LAN / Wi-Fi connection issue</button></div>'+
       '<div class="exp-incident-steps" role="group" aria-label="Incident investigation stages">'+
-      steps.map((step,i)=>'<button type="button" data-exp-step="'+i+'" class="exp-incident-step'+(currentStep===i?' is-active':'')+'" aria-pressed="'+(currentStep===i)+'"><span>0'+(i+1)+'</span>'+escapeText(step.title)+'</button>').join('')+'</div>'+
+      (network?connectivitySteps:steps).map((step,i)=>
+        '<button type="button" data-exp-step="'+i+'" class="exp-incident-step'+
+        (currentStep===i?' is-active':'')+'" aria-pressed="'+(currentStep===i)+
+        '"><span>0'+(i+1)+'</span>'+escapeText(step.title)+'</button>').join('')+'</div>'+
       '<div class="exp-incident-panel" id="exp-incident-panel" aria-live="polite"></div>'+
-      '<p class="exp-disclosure">This example illustrates troubleshooting practice only. It does not reproduce confidential tickets, logs, system addresses or client billing records.</p>';
+      '<p class="exp-disclosure">Scenarios illustrate a troubleshooting approach, not actual HRC incident reports, confidential logs, network addresses or customer records.</p>';
     renderStepDetails();
   }
   function renderStepDetails(){
-    const step=steps[currentStep], target=document.getElementById('exp-incident-panel');
+    const step=(currentIncident==='connectivity'?connectivitySteps:steps)[currentStep], target=document.getElementById('exp-incident-panel');
     if(!target)return;
     target.innerHTML='<span class="exp-kicker">'+step.eyebrow+'</span><h4>'+escapeText(step.title)+'</h4><p>'+escapeText(step.body)+'</p>'+
       '<div class="exp-node-detail-label">Typical checks and actions</div><ul>'+step.evidence.map(item=>'<li>'+escapeText(item)+'</li>').join('')+'</ul>';
@@ -191,13 +264,14 @@
       b.tabIndex=active?0:-1;
     });
     if(currentTab==='system')renderArchitecture();
+    else if(currentTab==='workplace')renderWorkplace();
     else if(currentTab==='role')renderRole();
     else renderCase();
   }
   function open(company,trigger){
     if(!companies[company])return;
     lastFocus=trigger||document.activeElement;
-    current=company;currentTab='system';currentNode='app';currentStep=0;
+    current=company;currentTab='system';currentNode='app';currentArea='lifecycle';currentIncident='billing';currentStep=0;
     render();modal.hidden=false;
     document.body.classList.add('experience-modal-open');
     modal.querySelector('[data-exp-close]').focus();
@@ -216,6 +290,10 @@
     if(tab){currentTab=tab.dataset.expTab;render();tab.focus();return;}
     const node=e.target.closest('[data-exp-node]');
     if(node){currentNode=node.dataset.expNode;renderNodeDetails();return;}
+    const area=e.target.closest('[data-exp-area]');
+    if(area){currentArea=area.dataset.expArea;renderWorkplaceDetails();return;}
+    const incident=e.target.closest('[data-exp-incident]');
+    if(incident){currentIncident=incident.dataset.expIncident;currentStep=0;renderCase();return;}
     const step=e.target.closest('[data-exp-step]');
     if(step){currentStep=Number(step.dataset.expStep);renderStepDetails();}
   });
