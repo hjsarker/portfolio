@@ -20,7 +20,9 @@ const problems=[];
         assert.equal(await page.locator('.exp-timeline-open[data-exp-company="'+id+'"]').count(),0);
       }
       assert.equal(await page.locator('#experience-explorer').isVisible(),false);
-      await page.locator('.exp-feature-cta').click();
+      assert.equal(await page.locator('.exp-feature-invite').count(),0,'Promotional experience panel was removed');
+      assert.equal(await page.locator('.exp-explore-note').count(),1,'Short introduction remains');
+      await page.locator('.exp-timeline-open[data-exp-company="hrc"]').click();
       const modal=page.locator('#experience-explorer');
       await modal.waitFor({state:'visible'});
       assert.match(await page.locator('#exp-modal-title').innerText(),/HRC Technologies/);
