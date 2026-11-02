@@ -9,6 +9,13 @@ const problems=[];
       const context=await browser.newContext({viewport:{width:size.width,height:size.height},reducedMotion:'reduce'});
       const page=await context.newPage();
       page.on('pageerror',error=>problems.push(size.name+': '+error.message));
+      // Browser QA always exercises deterministic preview responses. Never
+      // incur real OpenRouter calls just because the production API is live.
+      await page.route('https://virtual-hillol-api-xi.vercel.app/api/health',route=>route.fulfill({
+        status:200,
+        headers:{'access-control-allow-origin':'http://127.0.0.1:8765','content-type':'application/json'},
+        body:JSON.stringify({service:'Virtual Hillol API',mode:'awaiting_key',model:'openai/gpt-6-luna',operational:true})
+      }));
       await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded',timeout:30000});
       await page.locator('.project-card').first().waitFor();
       await page.screenshot({path:'qa-'+size.name+'-portfolio.png',fullPage:true,timeout:45000});
@@ -39,6 +46,31 @@ const problems=[];
       assert.match(await page.locator('.vh-message').last().innerText(),/Kubernetes|cloud administration/i);
       assert.match(await page.locator('.vh-message').last().innerText(),/German/);
       await page.screenshot({path:'qa-'+size.name+'-virtual-hillol.png',timeout:30000});
+      // Live mode UI is tested with a safe mock response, not a paid API call.
+      const livePage=await context.newPage();
+      await livePage.route('https://virtual-hillol-api-xi.vercel.app/api/health',route=>route.fulfill({
+        status:200,
+        headers:{'access-control-allow-origin':'http://127.0.0.1:8765','content-type':'application/json'},
+        body:JSON.stringify({service:'Virtual Hillol API',mode:'live',model:'openai/gpt-6-luna',operational:true})
+      }));
+      await livePage.route('https://virtual-hillol-api-xi.vercel.app/api/chat',async route=>{
+        const post=route.request().postDataJSON();
+        assert.equal(post.messages.at(-1).role,'user');
+        await route.fulfill({
+          status:200,
+          headers:{'access-control-allow-origin':'http://127.0.0.1:8765','content-type':'application/json'},
+          body:JSON.stringify({reply:'I built Power BI reports and used SQL in Databricks at TK Elevator.',mode:'live',model:'openai/gpt-6-luna'})
+        });
+      });
+      await livePage.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
+      await livePage.locator('#vh-launcher').click();
+      await livePage.waitForFunction(()=>document.querySelector('#vh-mode')?.textContent==='AI live',null,{timeout:10000});
+      assert.equal(await livePage.locator('#vh-mode').innerText(),'AI live');
+      await livePage.locator('#vh-input').fill('Tell me about your Power BI and SQL skills.');
+      await livePage.locator('#vh-send').click();
+      await livePage.waitForFunction(()=>document.querySelector('.vh-message:last-child')?.textContent.includes('I built Power BI reports'),null,{timeout:15000});
+      assert.match(await livePage.locator('#vh-privacy-text').innerText(),/Vercel and OpenRouter/);
+      await livePage.close();
       await page.keyboard.press('Escape');
       assert.equal(await vh.isVisible(),false);
       assert.equal(await launch.getAttribute('aria-expanded'),'false');
