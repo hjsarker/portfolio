@@ -31,6 +31,7 @@ jobs:
       - name: Check frontend syntax
         run: |
           node --check experience-explorer.js
+          node --check virtual-hillol.js
           node --check tests/experience-smoke.cjs
           node --check virtual-hillol-api/api/chat.js
           node --check virtual-hillol-api/api/health.js
