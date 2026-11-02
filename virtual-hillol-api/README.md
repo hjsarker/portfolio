@@ -9,6 +9,10 @@ Small serverless backend for the existing [GitHub Pages portfolio](https://hjsar
 
 The verified model is `openai/gpt-6-luna`, OpenRouter's official slug. Output capped at 650 tokens per request. Conversation length is bounded. CORS accepts only `https://hjsarker.github.io` (and localhost for QA). Rate limiting is best effort *per serverless instance*, and **is not a hard quota**. Client-supplied Origin headers can be forged; this service is public.
 
+## Current project
+
+Workspace: **hjsarker's projects**. Project: **virtual-hillol-api**. Production domain: `https://virtual-hillol-api-xi.vercel.app`. Git repository: `hjsarker/portfolio`, main branch; Root Directory: `virtual-hillol-api`. Vercel Authentication was disabled for this project's public API, which still rejects unsupported browser origins. The root webpage is only a status page; the actual assistant lives on GitHub Pages.
+
 ## Setup
 
 Create a Vercel project with the GitHub repo `hjsarker/portfolio` and **Root Directory** `virtual-hillol-api`.
