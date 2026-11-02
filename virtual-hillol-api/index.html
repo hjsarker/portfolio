@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="color-scheme" content="dark">
+  <title>Virtual Hillol API · Service Status</title>
+  <style>
+    :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color-scheme:dark}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100svh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 0%,#18385d 0%,#091424 45%,#050a12 100%);color:#f4f8ff}
+    main{width:min(460px,100%);padding:36px;border:1px solid #44608070;border-radius:24px;background:#ffffff09;box-shadow:0 30px 90px #0007}
+    .mark{height:48px;width:48px;border-radius:15px;display:grid;place-items:center;color:#e4f3ff;background:#225797;border:1px solid #ffffff3a;font-weight:800;font-size:25px}
+    h1{font-size:27px;letter-spacing:-.05em;margin:24px 0 10px}p{line-height:1.65;color:#aabbd0;font-size:14px}
+    .status{display:flex;align-items:center;gap:9px;margin:24px 0 16px;padding:13px 14px;border-radius:12px;border:1px solid #49638266;background:#0b1a2d}
+    .dot{width:8px;height:8px;border-radius:50%;background:#7fa2cd;box-shadow:0 0 0 4px #6fa3db1a}
+    #message{font-size:13px;color:#cadbf0}a{color:#b0d4ff;text-underline-offset:3px}
+    footer{font-size:12px;color:#778ba4;padding-top:17px;border-top:1px solid #ffffff15}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true">H✦</div>
+    <h1>Virtual Hillol API</h1>
+    <p>This is the secure backend for Virtual Hillol, the professional chat assistant on my portfolio. The recruiter-facing chat is available on the portfolio itself.</p>
+    <div class="status" role="status" aria-live="polite"><span class="dot" id="dot"></span><span id="message">Checking API status…</span></div>
+    <p><a href="https://hjsarker.github.io/portfolio/">Visit Hillol's portfolio ↗</a></p>
+    <footer>GPT-6 Luna via OpenRouter · Backend hosted on Vercel</footer>
+  </main>
+  <script>
+    (async()=>{
+      const message=document.getElementById("message"),dot=document.getElementById("dot");
+      try{
+        const r=await fetch("/api/health",{cache:"no-store",signal:AbortSignal.timeout(6500)});
+        if(!r.ok)throw Error("http");
+        const data=await r.json();
+        if(data.mode==="live"){
+          message.textContent="API online · AI connection configured";
+          dot.style.background="#67d6a0";
+        }else if(data.mode==="awaiting_key"){
+          message.textContent="API online · Waiting for OpenRouter API key";
+          dot.style.background="#e8b56b";
+        }else throw Error("unknown");
+      }catch(_){message.textContent="API status temporarily unavailable";}
+    })();
+  </script>
+</body>
+</html>
