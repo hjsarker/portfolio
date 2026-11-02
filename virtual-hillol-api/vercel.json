@@ -2,12 +2,10 @@
   "version": 2,
   "functions": {
     "api/chat.js": {
-      "maxDuration": 30,
-      "memory": 256
+      "maxDuration": 30
     },
     "api/health.js": {
-      "maxDuration": 10,
-      "memory": 256
+      "maxDuration": 10
     }
   },
   "headers": [
