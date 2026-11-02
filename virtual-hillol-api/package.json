@@ -1,0 +1,12 @@
+{
+  "name": "virtual-hillol-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Secure OpenRouter GPT-6 Luna API for Virtual Hillol recruiter portfolio",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.cjs"
+  }
+}
