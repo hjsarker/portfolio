@@ -1,6 +1,6 @@
 "use strict";
 const assert=require("node:assert/strict");
-const URL="https://virtual-hillol-api.vercel.app/api/health";
+const URL="https://virtual-hillol-api-xi.vercel.app/api/health";
 async function main(){
   let last;
   for(let attempt=0;attempt<4;attempt++){
