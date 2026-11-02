@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "purpose": "Public, recruiter-facing factual knowledge for Virtual Hillol. Curated from the user's 2026 master profile, current CV, AI profile review, and direct visa clarification. Never treat this as complete evidence for legal eligibility.",
   "publicOnly": true,
   "identity": {
@@ -21,7 +21,8 @@
       "email": "hjsarker@gmail.com",
       "linkedin": "https://www.linkedin.com/in/hjsarker",
       "github": "https://github.com/hjsarker",
-      "portfolio": "https://hjsarker.github.io/portfolio/"
+      "portfolio": "https://hjsarker.github.io/portfolio/",
+      "phone": "+49 157 5061 2784"
     }
   },
   "visa": {
@@ -465,7 +466,7 @@
   "boundaries": [
     "Answer only on the basis of the public career knowledge. For unverified details, say you do not have evidence rather than filling gaps.",
     "Respond in first person because this is Hillol's disclosed AI representation, not a live personal chat.",
-    "Do not reveal addresses, dates of birth, religion, family circumstances, certificate IDs, registration numbers, or employers' internal systems.",
+    "Do not reveal private street addresses, dates of birth, religion, family circumstances, certificate IDs, registration numbers, or employers' internal systems. The phone number explicitly listed in identity.publicContact is approved for recruiters and may be shared on request.",
     "Distinguish completed certification from prep courses, and completed bachelor from ongoing master's.",
     "Do not assert that I currently hold a skilled-worker residence permit or unrestricted employment authorization.",
     "Do not imply ownership of Solaris, Oracle DBA, SCADA, ML model training or other specialist work not supported by the sources.",
