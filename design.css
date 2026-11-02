@@ -1212,3 +1212,151 @@ button,input{font:inherit}
   .cover-power-bars{height:125px}
   .project-cover--power .real-placeholder strong,.project-cover--collective .real-placeholder strong{font-size:27px}
 }
+
+
+/* ===============================================================
+   Virtual Hillol · recruiter conversation preview
+   Private document fields never appear in these public UI styles.
+   =============================================================== */
+.vh-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.vh-hero-invite{
+  display:inline-flex;gap:8px;align-items:center;justify-content:center;
+  color:#acb8cc;background:transparent;border:0;border-bottom:1px solid rgba(155,190,235,.26);
+  margin:19px auto 0;padding:6px 2px;font-size:12px;line-height:1.4;cursor:pointer;
+  transition:color .2s,border-color .2s;
+}
+.vh-hero-invite strong{color:#e2ecff;font-weight:660}
+.vh-hero-invite:hover{color:#fff;border-color:#a3c8ff}
+.vh-hero-spark{color:#86baff;font-size:16px}
+.vh-launcher{
+  position:fixed;bottom:clamp(15px,2.1vw,27px);right:clamp(15px,2.1vw,27px);
+  z-index:3200;display:flex;align-items:center;gap:12px;
+  padding:10px 14px 10px 10px;min-height:58px;max-width:min(310px,calc(100vw - 30px));
+  border:1px solid rgba(104,164,232,.44);border-radius:999px;
+  background:linear-gradient(140deg,#132c4f,#172844);color:#fff;
+  box-shadow:0 10px 35px rgba(4,16,35,.28),inset 0 1px 0 #ffffff20;
+  cursor:pointer;text-align:left;transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s ease,background .28s ease;
+}
+.vh-launcher:hover{transform:translateY(-3px);box-shadow:0 15px 42px rgba(6,17,40,.37)}
+.vh-launcher[aria-expanded="true"]{display:none}
+.vh-launcher-mark,.vh-brand{
+  flex:none;display:grid;place-items:center;position:relative;font:790 18px var(--display);
+  width:38px;height:38px;border-radius:50%;background:#e6f1ff;color:#17365c;
+}
+.vh-launcher-mark span,.vh-brand span{position:absolute;top:-2px;right:-1px;color:#1674e3;font-size:13px}
+.vh-launcher-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+.vh-launcher-copy strong{font-size:12px;font-weight:760;letter-spacing:-.015em;line-height:1.3}
+.vh-launcher-copy small{font-size:10px;color:#bacde2;line-height:1.3}
+.vh-launcher-arrow{font-size:17px;color:#bfdfff;margin-left:9px}
+.vh-panel[hidden]{display:none!important}
+.vh-panel{
+  position:fixed;z-index:3205;right:clamp(12px,2vw,26px);bottom:clamp(12px,2vw,26px);
+  width:min(440px,calc(100vw - 24px));height:min(690px,calc(100dvh - 28px));
+  display:flex;flex-direction:column;overflow:hidden;
+  color:#1c2d44;background:#fff;border:1px solid #cdd8e5;border-radius:20px;
+  box-shadow:0 26px 100px rgba(6,19,43,.34),0 0 0 1px #fff6;
+  font:400 13px/1.56 var(--sans);
+  animation:vh-rise .3s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes vh-rise{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+.vh-head{
+  flex:none;min-height:75px;padding:14px 16px;display:flex;align-items:center;gap:11px;
+  background:linear-gradient(120deg,#122a49,#1c416f);color:#fff;
+}
+.vh-brand{width:41px;height:41px;background:#e9f3ff}
+.vh-head-copy{flex:1;display:flex;flex-direction:column;gap:1px;min-width:0}
+.vh-head-copy strong{font-size:15px;font-weight:760;letter-spacing:-.02em;color:#fff}
+.vh-head-copy>span{font-size:11px;color:#c8dbf1}
+.vh-head-badge{font-size:9px;font-weight:730;letter-spacing:.04em;padding:5px 8px;
+  border:1px solid #8aaacc77;border-radius:999px;color:#d1e3fb;background:#ffffff12}
+.vh-close{flex:none;width:32px;height:32px;display:grid;place-items:center;background:#ffffff12;
+  border:1px solid #ffffff3e;border-radius:50%;color:#fff;font-size:22px;line-height:1;
+  cursor:pointer;transition:background .2s}
+.vh-close:hover{background:#ffffff2f}
+.vh-disclosure{flex:none;display:flex;gap:8px;align-items:start;
+  font-size:10.5px;line-height:1.5;padding:10px 17px;color:#516c8a;
+  background:#edf5ff;border-bottom:1px solid #deebf7}
+.vh-disclosure>span{font-size:15px;color:#287bc7}
+.vh-messages{
+  flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+  display:flex;flex-direction:column;gap:15px;
+  padding:22px 17px 17px;background:linear-gradient(180deg,#fff,#fbfcfe);
+  scrollbar-width:thin;scrollbar-color:#c8d6e5 transparent;
+}
+.vh-message{width:100%;display:flex}
+.vh-user{justify-content:flex-end}
+.vh-assistant{justify-content:flex-start}
+.vh-bubble{
+  max-width:93%;padding:13px 15px;border-radius:16px;background:#f1f4f8;
+  color:#243852;border:1px solid #e8edf4;
+  font-size:12.5px;line-height:1.62;overflow-wrap:anywhere;white-space:pre-line;
+}
+.vh-user .vh-bubble{background:#175da9;color:#fff;border-color:#175da9;border-bottom-right-radius:5px}
+.vh-assistant .vh-bubble{border-bottom-left-radius:5px}
+.vh-bubble p{margin:0 0 9px;white-space:pre-line;line-height:1.65}
+.vh-bubble p:last-child{margin-bottom:0}
+.vh-bubble .vh-caution{color:#65572d;background:#fff8e9;border-left:2px solid #d6ab4d;
+  padding:8px 10px;border-radius:3px;margin-top:11px;font-size:11px}
+.vh-source{border-top:1px solid #d9e2ee;margin-top:13px;padding-top:9px;
+  font-size:10px;color:#6d829c;white-space:normal}
+.vh-suggestions{
+  padding:11px 15px;flex:none;display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin;
+  border-top:1px solid #e8edf3;background:#fff;
+}
+.vh-suggestions[hidden]{display:none!important}
+.vh-chip{
+  flex:none;max-width:245px;text-align:left;white-space:normal;
+  border:1px solid #d6e4f3;background:#f7faff;border-radius:11px;
+  padding:9px 11px;color:#1e5792;font:650 11px/1.45 var(--sans);cursor:pointer;
+  transition:background .2s,border-color .2s;
+}
+.vh-chip:hover{background:#eaf3ff;border-color:#a1c5ee}
+.vh-form{padding:11px 15px 13px;flex:none;border-top:1px solid #e7ebf1;background:#fff}
+.vh-action-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.vh-mini-action{border:0;background:transparent;color:#4674a8;font:660 10.5px var(--sans);
+  padding:4px 1px;cursor:pointer}
+.vh-mini-action:hover{text-decoration:underline;text-underline-offset:3px}
+.vh-mini-action span{font-size:15px;margin-right:3px}
+.vh-compose{display:flex;align-items:end;gap:8px;border:1px solid #cbd9e9;
+  background:#f8fafc;border-radius:14px;padding:7px 8px 7px 12px;
+  transition:border-color .2s,box-shadow .2s}
+.vh-compose:focus-within{border-color:#3687dc;box-shadow:0 0 0 3px #3c91e31c}
+.vh-compose textarea{
+  min-width:0;flex:1;resize:none;border:0;outline:0;box-shadow:none;
+  background:transparent;color:#1a324f;max-height:138px;min-height:29px;
+  font:500 12px/1.55 var(--sans);padding:6px 0 4px;margin:0;
+  scrollbar-width:thin;
+}
+.vh-compose textarea::placeholder{color:#8a9bae}
+.vh-send{border:0;background:#1765b4;color:white;width:33px;height:33px;
+  flex:none;display:grid;place-items:center;border-radius:10px;cursor:pointer;font-size:21px;
+  transition:background .2s,transform .2s}
+.vh-send:hover:not(:disabled){background:#094e92;transform:translateY(-1px)}
+.vh-send:disabled{opacity:.4;cursor:not-allowed}
+.vh-status,.vh-footnote{font-size:9.7px;line-height:1.45;color:#7c8ea4;margin:7px 2px 0}
+.vh-footnote{margin-top:4px}
+.vh-footnote a{color:#2466ab;text-decoration:underline;text-underline-offset:2px}
+.vh-hero-invite:focus-visible,.vh-launcher:focus-visible,.vh-close:focus-visible,
+.vh-chip:focus-visible,.vh-mini-action:focus-visible,.vh-send:focus-visible{
+  outline:3px solid #4798ea;outline-offset:3px
+}
+@media(max-width:720px){
+  .vh-hero-invite{font-size:11px;flex-wrap:wrap}
+  .vh-panel{right:0;bottom:0;width:100%;height:100dvh;max-height:none;border-radius:0;border:0}
+  .vh-head{padding:14px 16px}
+  .vh-launcher{bottom:14px;right:12px;min-height:54px;gap:9px;padding:8px 12px 8px 9px}
+  .vh-launcher-mark{height:35px;width:35px}
+  .vh-launcher-copy strong{font-size:11px}
+  .vh-launcher-copy small{font-size:9.5px}
+  .vh-launcher-arrow{margin-left:3px}
+  body.vh-chat-open{overflow:hidden}
+  .vh-messages{padding:18px 13px 14px}
+  .vh-bubble{max-width:94%;font-size:13px}
+  .vh-chip{min-height:41px}
+  .vh-form{padding:12px 13px 17px}
+}
+@media(max-width:390px){.vh-launcher-copy small{display:none}.vh-launcher{min-height:48px}}
+@media(prefers-reduced-motion:reduce){
+  .vh-panel{animation:none}
+  .vh-launcher,.vh-hero-invite,.vh-send,.vh-chip{transition:none}
+}
