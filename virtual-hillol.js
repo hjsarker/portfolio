@@ -23,6 +23,7 @@
   let kb=null,opened=false,chatCount=0,lastFocus=null;
   let liveReady=false,conversation=[],checking=false;
   const disclosure=panel.querySelector(".vh-disclosure");
+  const privacyText=panel.querySelector("#vh-privacy-text");
   async function checkAI(){
     if(checking)return;
     checking=true;
@@ -37,10 +38,12 @@
       active.textContent="AI live";
       status.textContent="GPT-6 Luna via OpenRouter · Verified career facts";
       disclosure.textContent="AI representation, not Hillol personally. Chat messages and pasted job descriptions are sent to Vercel and OpenRouter. Avoid sharing confidential information.";
+      privacyText.textContent="Live messages are transmitted to Vercel and OpenRouter. Do not send confidential information.";
     }else{
       active.textContent="Preview";
       status.textContent=kb?"Preview mode · verified career facts":"Loading reviewed career information…";
       disclosure.textContent="AI-style career assistant preview. These are prepared answers, not a live conversation with Hillol or a connected AI model.";
+      privacyText.textContent="No messages are uploaded or saved in preview mode.";
     }
   }
   function fitConversation(items){
@@ -210,6 +213,7 @@
           liveReady=false;
           active.textContent="Preview";
           disclosure.textContent="The AI connection is currently unavailable. Prepared career answers are available in preview mode.";
+          privacyText.textContent="No messages are uploaded or saved in preview mode.";
         }
         throw Error(data.message||(
           response.status===429?"The chat is receiving too many requests. Please try again shortly.":
