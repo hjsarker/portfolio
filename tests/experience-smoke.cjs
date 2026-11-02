@@ -19,6 +19,46 @@ const problems=[];
       await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded',timeout:30000});
       await page.locator('.project-card').first().waitFor();
       await page.screenshot({path:'qa-'+size.name+'-portfolio.png',fullPage:true,timeout:45000});
+      // Timed greeting is an optional desktop card, not an auto-opened modal.
+      // Fake the timer so browser tests never spend eight seconds waiting.
+      const greetingPage=await context.newPage();
+      let aiPosts=0;
+      greetingPage.on('request',r=>{if(r.url().includes('/api/chat'))aiPosts++;});
+      await greetingPage.clock.install();
+      await greetingPage.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
+      await greetingPage.locator('#vh-launcher').waitFor();
+      const invitation=greetingPage.locator('#vh-teaser');
+      assert.equal(await invitation.isVisible(),false,'The invitation starts hidden');
+      await greetingPage.clock.fastForward(7900);
+      assert.equal(await invitation.isVisible(),false,'No early invitation');
+      await greetingPage.clock.fastForward(200);
+      if(size.name==='desktop'){
+        assert.equal(await invitation.isVisible(),true,'The invitation should appear after eight seconds on desktop');
+        assert.equal(await greetingPage.locator('#vh-panel').isVisible(),false,'The full chat should not open automatically');
+        assert.match(await invitation.innerText(),/Hi! Have a question/);
+        await greetingPage.screenshot({path:'qa-'+size.name+'-chat-invitation.png'});
+        await greetingPage.locator('#vh-teaser-dismiss').click();
+        assert.equal(await invitation.isVisible(),false,'Dismissing the invitation hides it');
+        await greetingPage.reload({waitUntil:'domcontentloaded'});
+        await greetingPage.clock.fastForward(9000);
+        assert.equal(await invitation.isVisible(),false,'Do not repeat the invitation after reload in the same tab');
+      }else{
+        assert.equal(await invitation.isVisible(),false,'Never interrupt the mobile visitor with a greeting');
+      }
+      assert.equal(aiPosts,0,'The timer must never submit an AI request');
+      await greetingPage.close();
+      if(size.name==='desktop'){
+        const startPage=await context.newPage();
+        await startPage.clock.install();
+        await startPage.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
+        await startPage.clock.fastForward(8200);
+        assert.equal(await startPage.locator('#vh-teaser').isVisible(),true,'Show on a fresh tab');
+        await startPage.locator('#vh-teaser-start').click();
+        assert.equal(await startPage.locator('#vh-panel').isVisible(),true,'Start opens the chat');
+        assert.equal(await startPage.locator('#vh-teaser').isVisible(),false,'Start hides the teaser');
+        await startPage.close();
+      }
+
 
       // Virtual Hillol: disclosed preview, private source excluded, grounded first-person responses.
       const vh=page.locator('#vh-panel');
@@ -33,6 +73,9 @@ const problems=[];
       assert.match(await page.locator('.vh-message').first().innerText(),/I'm Virtual Hillol/);
       await page.locator('.vh-chip').filter({hasText:'What experience do you have in IT support?'}).click();
       assert.match(await page.locator('.vh-message').last().innerText(),/HRC|IT support|Jira/i);
+      await page.locator('#vh-input').fill('Can you share your phone number?');
+      await page.locator('#vh-send').click();
+      assert.match(await page.locator('.vh-message').last().innerText(),/\\+49 157 5061 2784/,'Approved recruiter phone available in preview mode');
       await page.locator('#vh-input').fill('What experience do you have with Power BI and SQL?');
       await page.locator('#vh-send').click();
       assert.match(await page.locator('.vh-message').last().innerText(),/TK Elevator|Databricks/);
@@ -85,6 +128,7 @@ const problems=[];
       const safeKb=await knowledge.json();
       assert.equal(safeKb.experience.length,6);
       assert.equal(safeKb.projects.length,6);
+      assert.equal(safeKb.identity.publicContact.phone,'+49 157 5061 2784');
       assert.ok(!JSON.stringify(safeKb).includes('Kurfürstenstraße'));
       assert.ok(!JSON.stringify(safeKb).includes('1992-12-09'));
       assert.ok(!JSON.stringify(safeKb).includes('160-038-907'));
