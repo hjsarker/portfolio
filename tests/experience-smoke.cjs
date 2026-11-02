@@ -104,7 +104,7 @@ const problems=[];
         await route.fulfill({
           status:200,
           headers:{'access-control-allow-origin':'http://127.0.0.1:8765','content-type':'application/json'},
-          body:JSON.stringify({reply:'I built Power BI reports and used SQL in Databricks at TK Elevator.',mode:'live',model:'openai/gpt-6-luna'})
+          body:JSON.stringify({reply:"I have **9+ years of combined experience** across IT support and BI/data work.\n\n- **Full-time roles:** At HRC Technologies, I supported operations.\n- **Part-time roles:** I worked with **Power BI** and SQL at TK Elevator.\n\n### Technical skills\nI use `SQL` and Power BI.\nSee [my portfolio](https://hjsarker.github.io/portfolio/) for more.\n\n<script>alert(\"not-safe\")</script>",mode:'live',model:'openai/gpt-6-luna'})
         });
       });
       await livePage.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
@@ -113,7 +113,28 @@ const problems=[];
       assert.equal(await livePage.locator('#vh-mode').innerText(),'Online');
       await livePage.locator('#vh-input').fill('Tell me about your Power BI and SQL skills.');
       await livePage.locator('#vh-send').click();
-      await livePage.waitForFunction(()=>document.querySelector('.vh-message:last-child')?.textContent.includes('I built Power BI reports'),null,{timeout:15000});
+      await livePage.waitForFunction(()=>document.querySelector('.vh-message:last-child')?.textContent.includes('9+ years of combined experience'),null,{timeout:15000});
+      const rendered=livePage.locator('.vh-assistant .vh-bubble').last();
+      assert.equal(await rendered.locator('strong').first().innerText(),'9+ years of combined experience','Markdown bold must render as bold');
+      assert.equal(await rendered.locator('ul.vh-md-list li').count(),2,'Markdown bullets should be real list items');
+      assert.equal(await rendered.locator('.vh-md-heading').innerText(),'Technical skills','Markdown headings should be styled without hashes');
+      assert.equal(await rendered.locator('code').first().innerText(),'SQL','Inline code must be formatted');
+      assert.equal(await rendered.locator('a[href="https://hjsarker.github.io/portfolio/"]').count(),1,'Safe Markdown links are clickable');
+      assert.equal(await rendered.locator('script,iframe,img').count(),0,'Untrusted model HTML must not create DOM nodes');
+      assert.match(await rendered.innerText(),/<script>alert/,'Untrusted markup stays readable as text');
+      assert.doesNotMatch(await rendered.innerText(),/\*\*|^### /m,'Markdown syntax must not leak into display');
+      const formatting=await rendered.locator('ul.vh-md-list').evaluate(el=>({
+        list:getComputedStyle(el).listStyleType,
+        whitespace:getComputedStyle(el).whiteSpace
+      }));
+      assert.equal(formatting.list,'disc','Bullets should be visible');
+      assert.equal(formatting.whitespace,'normal','Line breaks are controlled by rendered HTML');
+      // Pasted user messages stay literal, even if they contain Markdown or HTML.
+      await livePage.locator('#vh-input').fill('Can you explain **Power BI** to me?');
+      await livePage.locator('#vh-send').click();
+      assert.match(await livePage.locator('.vh-user').last().innerText(),/\*\*Power BI\*\*/);
+      assert.equal(await livePage.locator('.vh-user').last().locator('strong').count(),0);
+
       assert.equal(await livePage.locator('.vh-disclosure').count(),0);
       assert.equal(await livePage.locator('#vh-privacy-text').count(),0);
       assert.equal(await livePage.locator('.vh-footnote a[href="./privacy.html"]').count(),1);
