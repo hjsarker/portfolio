@@ -19,7 +19,35 @@
   const jdButton=panel.querySelector("#vh-jd");
   const reset=panel.querySelector("#vh-reset");
   const active=panel.querySelector("#vh-mode");
+  const API_BASE="https://virtual-hillol-api.vercel.app";
   let kb=null,opened=false,chatCount=0,lastFocus=null;
+  let liveReady=false,conversation=[],checking=false;
+  const disclosure=panel.querySelector(".vh-disclosure");
+  async function checkAI(){
+    if(checking)return;
+    checking=true;
+    try{
+      const response=await fetch(API_BASE+"/api/health",{mode:"cors",cache:"no-store",signal:AbortSignal.timeout(6500)});
+      if(!response.ok)throw Error("health_unavailable");
+      const data=await response.json();
+      liveReady=data.operational===true&&data.mode==="live"&&data.model==="openai/gpt-6-luna";
+    }catch(_){liveReady=false;}
+    checking=false;
+    if(liveReady){
+      active.textContent="AI live";
+      status.textContent="GPT-6 Luna via OpenRouter · Verified career facts";
+      disclosure.textContent="AI representation, not Hillol personally. Chat messages and pasted job descriptions are sent to Vercel and OpenRouter. Avoid sharing confidential information.";
+    }else{
+      active.textContent="Preview";
+      status.textContent=kb?"Preview mode · verified career facts":"Loading reviewed career information…";
+      disclosure.textContent="AI-style career assistant preview. These are prepared answers, not a live conversation with Hillol or a connected AI model.";
+    }
+  }
+  function fitConversation(items){
+    let turns=items.slice(-7);
+    while(turns.length>1 && turns.reduce((total,msg)=>total+msg.content.length,0)>17000)turns=turns.slice(2);
+    return turns;
+  }
   const escape=s=>String(s||"").trim();
   const FALLBACK="I don't have enough verified information to answer that confidently in this preview. You can ask about my work history, technical skills, education, portfolio projects, or residence-permit situation. For anything more specific, you can contact me directly.";
   const quick=[
@@ -55,7 +83,7 @@
     return wrap;
   }
   function greeting(){
-    messages.replaceChildren();chatCount=0;
+    messages.replaceChildren();chatCount=0;conversation=[];
     addMessage("assistant","Hi, I'm Virtual Hillol, an AI-style preview of Hillol's professional background. You can ask me about my experience in IT, Power BI, SQL, workplace support, or paste a job description to explore the match.\n\nI'm using reviewed career information in this preview. Open-ended AI conversation will be enabled when the secure AI connection is added.");
     renderSuggestions();
   }
@@ -154,18 +182,59 @@
   async function ask(question){
     const q=escape(question);
     if(!q)return;
-    if(q.length>12000){addMessage("assistant","Please keep your message below 12,000 characters for this preview.");return;}
+    if(q.length>11500){addMessage("assistant","Please keep your message below 11,500 characters.");return;}
     addMessage("user",q);chatCount++;renderSuggestions();
     input.value="";autoResize();
-    const answer=kb?getAnswer(q):{text:"My profile data couldn't be loaded at the moment. Please try again or contact me directly."};
-    addMessage("assistant",answer.text,answer);
-    input.focus();
+    if(!liveReady){
+      const answer=kb?getAnswer(q):{text:"My verified career knowledge could not be loaded."};
+      addMessage("assistant",answer.text,answer);
+      input.focus();
+      return;
+    }
+    send.disabled=true;
+    input.disabled=true;
+    status.textContent="Virtual Hillol is writing a reply…";
+    const requestMessages=fitConversation([...conversation,{role:"user",content:q}]);
+    try{
+      const response=await fetch(API_BASE+"/api/chat",{
+        method:"POST",
+        mode:"cors",
+        cache:"no-store",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({messages:requestMessages}),
+        signal:AbortSignal.timeout(28000)
+      });
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok){
+        if(data.error==="not_configured"||data.error==="budget_exhausted"){
+          liveReady=false;
+          active.textContent="Preview";
+          disclosure.textContent="The AI connection is currently unavailable. Prepared career answers are available in preview mode.";
+        }
+        throw Error(data.message||(
+          response.status===429?"The chat is receiving too many requests. Please try again shortly.":
+          "My AI connection is temporarily unavailable. You can try again shortly."));
+      }
+      if(typeof data.reply!=="string"||!data.reply.trim())throw Error("I couldn't generate a complete reply. Please try again.");
+      const answer=data.reply.trim();
+      addMessage("assistant",answer);
+      conversation=[...requestMessages,{role:"assistant",content:answer}].slice(-8);
+    }catch(err){
+      addMessage("assistant",String(err.message||"AI connection unavailable.")+
+        "\n\nI can still give you an evidence-based preview answer:\n\n"+
+        (kb?getAnswer(q).text:"Please contact me directly."));
+    }finally{
+      send.disabled=false;input.disabled=false;
+      status.textContent=liveReady?"Live AI · GPT-6 Luna via OpenRouter":"Preview mode · verified career facts";
+      input.focus();
+    }
   }
   function autoResize(){input.style.height="auto";input.style.height=Math.min(input.scrollHeight,138)+"px";}
   function open(){
     if(opened)return;lastFocus=document.activeElement;opened=true;
     panel.hidden=false;launcher.setAttribute("aria-expanded","true");
     document.body.classList.add("vh-chat-open");
+    checkAI();
     setTimeout(()=>input.focus(),0);
   }
   function close(){
@@ -204,6 +273,7 @@
     kb=data;send.disabled=false;status.textContent="Preview mode · verified career facts";
     active.textContent="Preview";
     input.disabled=false;
+    checkAI();
   }).catch(()=>{
     status.textContent="Knowledge temporarily unavailable";
     send.disabled=true;input.disabled=true;
