@@ -944,3 +944,194 @@ body.experience-modal-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){
   .exp-workplace-tile,.exp-scenario-picker button{transition:none}
 }
+
+
+/* ======================================================================
+   Portfolio finishing pass / November 2026
+   Precision, hierarchy, subtle interaction and accessibility.
+   Inspired by restrained product-editorial design, with original content.
+   ====================================================================== */
+:root{
+  --ui-ease:cubic-bezier(.2,.7,.2,1);
+  --ui-blue:#0071e3;
+  --ui-ink:#1d1d1f;
+}
+html{-webkit-text-size-adjust:100%}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a,button{-webkit-tap-highlight-color:transparent}
+button,input{font:inherit}
+:where(a,button):focus-visible{outline:3px solid #3595ff;outline-offset:4px}
+.section-pad{position:relative}
+.section-head h2,.about h2,.experience h2,.credentials h2,.contact h2{
+  text-wrap:balance;
+  font-kerning:normal;
+}
+.eyebrow{display:flex;align-items:center;gap:9px;line-height:1.4}
+.tiny-square{flex:none;box-shadow:0 0 0 3px rgba(0,113,227,.07)}
+
+/* Dark translucent navigation with a deliberate, quiet hierarchy. */
+.site-header{
+  background:rgba(12,13,17,.88);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  box-shadow:0 2px 18px rgba(0,0,0,.12);
+  -webkit-backdrop-filter:saturate(160%) blur(22px);
+  backdrop-filter:saturate(160%) blur(22px);
+}
+.desktop-nav a{position:relative;transition:color .2s ease}
+.desktop-nav a::after{
+  content:"";position:absolute;left:0;right:0;bottom:-8px;
+  height:1px;border-radius:2px;background:#e2e9f6;
+  transform:scaleX(0);transform-origin:center;
+  transition:transform .28s var(--ui-ease);opacity:.9;
+}
+.desktop-nav a:hover::after,.desktop-nav a:focus-visible::after{transform:scaleX(1)}
+.nav-cta{
+  box-shadow:0 3px 12px rgba(0,113,227,.18);
+  transition:background .22s ease,box-shadow .22s ease,transform .22s var(--ui-ease);
+}
+.nav-cta:hover{box-shadow:0 6px 19px rgba(0,113,227,.28);transform:translateY(-1px)}
+.nav-cta:active{transform:translateY(0)}
+/* Keep the particle field readable without increasing visual noise. */
+.hero{background-color:#030407}
+.hero h1{font-kerning:normal}
+.hero-intro{text-wrap:pretty}
+.hero .btn{
+  transition:background .22s ease,color .22s ease,border-color .22s ease,
+    box-shadow .25s ease,transform .25s var(--ui-ease);
+}
+.hero .btn:hover{transform:translateY(-2px)}
+.hero .btn:active{transform:translateY(0)}
+.hero .btn-primary{box-shadow:0 8px 25px rgba(0,113,227,.17)}
+.hero .btn-primary:hover{box-shadow:0 12px 30px rgba(0,113,227,.28)}
+.hero-marquee{border-top-color:rgba(255,255,255,.14)}
+.hero-marquee .marquee-companies .company-wordmark{
+  transition:background .24s ease,border-color .24s ease,
+    box-shadow .3s ease,transform .3s var(--ui-ease);
+}
+.hero-marquee .marquee-companies .company-wordmark:focus-visible{
+  outline:3px solid #81b7ff;outline-offset:3px;
+}
+.about-copy p,.section-head>p,.credential-copy{max-width:68ch}
+.about-facts{border-top:1px solid #e2e3e7}
+
+/* Project cards: refined edges and consistent interactions, still compact. */
+.project-grid{align-items:stretch}
+.project-card{
+  border:1px solid #e4e5e9;
+  background:#fff;
+  box-shadow:0 2px 9px rgba(18,29,49,.025);
+  transition:transform .34s var(--ui-ease),box-shadow .34s var(--ui-ease),
+    border-color .26s ease;
+}
+.project-card:hover,.project-card:focus-within{
+  transform:translateY(-3px);
+  border-color:#d4d9e2;
+  box-shadow:0 14px 37px rgba(20,30,52,.095);
+}
+.project-real .real-project-image{
+  transition:opacity .5s ease,transform .55s var(--ui-ease);
+}
+.project-real.shot-loaded .real-project-image{filter:saturate(.96)}
+.project-card:hover .project-real.shot-loaded .real-project-image{transform:scale(1.025)}
+.project-body .project-kicker{color:#898991;letter-spacing:.09em}
+.project-body .project-category{color:#6e727b}
+.project-body h3{letter-spacing:-.042em}
+.project-body p{color:#636872;text-wrap:pretty}
+.project-body .tech-tags span{
+  color:#565c66;
+  background:#f4f5f7;
+  transition:background .2s ease;
+}
+.project-card:hover .tech-tags span{background:#f0f2f6}
+.project-body .project-links a{
+  text-decoration:none;text-underline-offset:3px;
+  transition:color .2s ease;
+}
+.project-body .project-links a:hover{text-decoration:underline}
+.filter{
+  transition:background .2s ease,border-color .2s ease,
+    color .2s ease,box-shadow .2s ease;
+}
+.filter:hover:not(.active){background:#fff;border-color:#d0d4dd}
+.filter:focus-visible{outline-offset:3px}
+.filter.active{box-shadow:0 3px 10px rgba(19,22,33,.1)}
+
+/* Expertise tiles that read like a professional profile, not advertisements. */
+.expertise-card{
+  border:1px solid #ececf0;
+  transition:transform .3s var(--ui-ease),border-color .3s ease,
+    box-shadow .3s var(--ui-ease);
+}
+.expertise-card:hover{
+  transform:translateY(-2px);
+  border-color:#e0e3ea;
+  box-shadow:0 13px 30px rgba(24,33,54,.055);
+}
+.skill-cloud span{line-height:1.4}
+
+/* Career entries: lighter separation and improved scanning. */
+.timeline li{transition:color .2s ease}
+.timeline li::before{transition:border-color .2s ease,box-shadow .2s ease}
+.timeline li:hover::before{border-color:#3c87d2;box-shadow:0 0 0 6px #e6f0fc}
+.timeline .timeline-content{padding-bottom:4px}
+.timeline .timeline-heading{gap:13px}
+.timeline h3{letter-spacing:-.035em;line-height:1.28}
+.timeline p{max-width:70ch}
+.exp-timeline-open{transition:background .2s ease,border-color .2s ease,transform .2s var(--ui-ease)}
+.exp-timeline-open:active{transform:translateY(0)}
+.experience-title .exp-explore-note{border-left-color:#7aaada;color:#626b78}
+
+/* Certifications and contact details: tactile but not decorative-heavy. */
+.credential-row--branded{transition:background .2s ease}
+.credential-logo{
+  border-color:#e7e8ec;
+  transition:border-color .25s ease,box-shadow .25s ease;
+}
+.credential-row--branded:hover .credential-logo{
+  border-color:#d4dce8;box-shadow:0 8px 22px rgba(31,49,78,.07);
+}
+.contact-method{
+  transition:background .25s ease,border-color .25s ease,
+    transform .28s var(--ui-ease),box-shadow .28s ease;
+}
+.contact-method:hover{
+  transform:translateY(-2px);
+  box-shadow:0 13px 32px rgba(0,0,0,.16);
+}
+.footer{border-top:1px solid rgba(255,255,255,.09)}
+.footer a{text-underline-offset:4px}
+.footer a:hover{color:#fff}
+
+/* Consistent action sizes and careful small-screen behavior. */
+@media(max-width:1180px){
+  .project-card:hover,.project-card:focus-within{transform:translateY(-2px)}
+}
+@media(max-width:720px){
+  .section-pad{padding-top:clamp(73px,12vw,90px);padding-bottom:clamp(73px,12vw,90px)}
+  .hero .btn{min-height:46px}
+  .nav-cta{min-height:39px}
+  .mobile-toggle{min-width:42px;min-height:42px}
+  .mobile-nav a{min-height:44px;display:flex;align-items:center}
+  .project-card{border-radius:19px}
+  .project-body p{line-height:1.55}
+  .filter{min-height:39px}
+  .experience-title .exp-explore-note{font-size:13px}
+  .exp-timeline-open{min-height:42px}
+  .project-body .project-links a{display:inline-flex;align-items:center;min-height:36px}
+  .credential-row--branded:hover .credential-logo{box-shadow:none}
+}
+@media(max-width:430px){
+  .section-head h2,.about h2,.experience h2,.credentials h2{letter-spacing:-.052em}
+  .hero h1{letter-spacing:-.067em}
+  .project-body{padding:18px 19px 19px}
+  .contact-methods{gap:10px}
+}
+@media(hover:none){
+  .project-card:hover,.expertise-card:hover,.contact-method:hover,
+  .hero .btn:hover,.nav-cta:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .project-card,.expertise-card,.contact-method,.nav-cta,
+  .hero .btn,.desktop-nav a::after,.credential-logo,
+  .exp-timeline-open{transition:none!important;transform:none}
+}
