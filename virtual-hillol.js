@@ -19,7 +19,7 @@
   const jdButton=panel.querySelector("#vh-jd");
   const reset=panel.querySelector("#vh-reset");
   const active=panel.querySelector("#vh-mode");
-  const API_BASE="https://virtual-hillol-api.vercel.app";
+  const API_BASE="https://virtual-hillol-api-xi.vercel.app";
   let kb=null,opened=false,chatCount=0,lastFocus=null;
   let liveReady=false,conversation=[],checking=false;
   const disclosure=panel.querySelector(".vh-disclosure");
@@ -34,6 +34,7 @@
       liveReady=data.operational===true&&data.mode==="live"&&data.model==="openai/gpt-6-luna";
     }catch(_){liveReady=false;}
     checking=false;
+    if(chatCount===0)greeting();
     if(liveReady){
       active.textContent="AI live";
       status.textContent="GPT-6 Luna via OpenRouter · Verified career facts";
@@ -47,8 +48,11 @@
     }
   }
   function fitConversation(items){
+    // A request always begins and ends with a user message.
+    // Retain complete recent user/assistant pairs within the API limits.
     let turns=items.slice(-7);
-    while(turns.length>1 && turns.reduce((total,msg)=>total+msg.content.length,0)>17000)turns=turns.slice(2);
+    while(turns.length>1&&turns[0].role!=="user")turns.shift();
+    while(turns.length>1&&turns.reduce((total,msg)=>total+msg.content.length,0)>17000)turns=turns.slice(2);
     return turns;
   }
   const escape=s=>String(s||"").trim();
@@ -87,7 +91,7 @@
   }
   function greeting(){
     messages.replaceChildren();chatCount=0;conversation=[];
-    addMessage("assistant","Hi, I'm Virtual Hillol, an AI-style preview of Hillol's professional background. You can ask me about my experience in IT, Power BI, SQL, workplace support, or paste a job description to explore the match.\n\nI'm using reviewed career information in this preview. Open-ended AI conversation will be enabled when the secure AI connection is added.");
+    addMessage("assistant",liveReady?"Hi, I'm Virtual Hillol, Hillol's AI career assistant. You can speak with me as though you're asking Hillol about his professional experience, technical skills, projects or work eligibility. You can also paste a job description.\n\nI'm an AI representation, not Hillol personally.":"Hi, I'm Virtual Hillol, an AI-style preview of Hillol's professional background. You can ask me about my experience in IT, Power BI, SQL, workplace support, or paste a job description to explore the match.\n\nI'm using reviewed career information in this preview. Open-ended AI conversation will be enabled when the secure AI connection is added.");
     renderSuggestions();
   }
   function renderSuggestions(){
