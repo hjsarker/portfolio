@@ -16,6 +16,10 @@ async function main(){
       assert.equal(payload.model,"openai/gpt-6-luna");
       assert.equal(payload.operational,true);
       assert.ok(["awaiting_key","live"].includes(payload.mode));
+      const home=await fetch("https://virtual-hillol-api-xi.vercel.app/",{signal:AbortSignal.timeout(12000)});
+      assert.equal(home.status,200,"The API homepage should explain the service, not show a 404");
+      assert.match(await home.text(),/Virtual Hillol API/);
+      console.log("Public Vercel homepage PASS.");
       console.log("Public Vercel health PASS. Mode:",payload.mode);
       return;
     }catch(error){
