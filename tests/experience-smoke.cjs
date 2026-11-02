@@ -75,7 +75,7 @@ const problems=[];
       assert.match(await page.locator('.vh-message').last().innerText(),/HRC|IT support|Jira/i);
       await page.locator('#vh-input').fill('Can you share your phone number?');
       await page.locator('#vh-send').click();
-      assert.match(await page.locator('.vh-message').last().innerText(),/\\+49 157 5061 2784/,'Approved recruiter phone available in preview mode');
+      assert.match(await page.locator('.vh-message').last().innerText(),/\+49 157 5061 2784/,'Approved recruiter phone available in preview mode');
       await page.locator('#vh-input').fill('What experience do you have with Power BI and SQL?');
       await page.locator('#vh-send').click();
       assert.match(await page.locator('.vh-message').last().innerText(),/TK Elevator|Databricks/);
