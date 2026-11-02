@@ -64,7 +64,7 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
 @media(prefers-reduced-motion:reduce){.particle-field{opacity:.52}}
 
   </style>
-  <link rel="stylesheet" href="./design.css?v=20261102-polish2">
+  <link rel="stylesheet" href="./design.css?v=20261102-virtual-hillol">
   <title>Hillol Sarker Jogesh | IT Operations, BI & Data</title>
   <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"Person","name":"Hillol Sarker Jogesh","url":"https://hjsarker.github.io/portfolio/","homeLocation":{"@type":"Place","name":"Dortmund, Germany"},"email":"mailto:hjsarker@gmail.com","sameAs":["https://github.com/hjsarker","https://www.linkedin.com/in/hjsarker"],"knowsAbout":["IT service management","Application support","Business intelligence","Power BI","SQL","Data quality","IT process governance"]}
@@ -112,6 +112,7 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
             <a class="btn btn-primary" href="#work">Explore my projects <span aria-hidden="true">↗</span></a>
             <a class="btn btn-ghost" href="#experience">My experience <span aria-hidden="true">↓</span></a>
           </div>
+          <button type="button" class="vh-hero-invite" data-vh-open aria-label="Open Virtual Hillol recruiter chat"><span class="vh-hero-spark" aria-hidden="true">✦</span> Have a question about my experience? <strong>Ask Virtual Hillol <span aria-hidden="true">↗</span></strong></button>
           <div class="hero-bottom"><span class="availability"><span class="availability-dot"></span> Open to full-time opportunities across Germany</span><span class="hero-location">Based in Dortmund, Germany</span></div>
         </div>
       </div>
@@ -311,6 +312,38 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
 <a class="contact-method" href="tel:+4915750612784"><span class="contact-method-label">PHONE</span><span class="contact-method-value">+49 15750 612 784 <span aria-hidden="true">↗</span></span></a>
 </div><div class="contact-links"><a href="https://www.linkedin.com/in/hjsarker" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/hjsarker" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></div><div class="contact-shape" aria-hidden="true"><span>THANKS FOR<br>VISITING.</span><div class="shape-ring shape-ring-1"></div><div class="shape-ring shape-ring-2"></div><div class="shape-star">✳</div></div></div></section>
   </main>
+
+  <!-- Public career facts only. This is a deterministic preview until the secure AI API is connected. -->
+  <button type="button" class="vh-launcher" id="vh-launcher" aria-expanded="false" aria-controls="vh-panel" aria-label="Open Virtual Hillol recruiter conversation">
+    <span class="vh-launcher-mark" aria-hidden="true">H<span>✦</span></span>
+    <span class="vh-launcher-copy"><strong>Ask Virtual Hillol</strong><small>Chat about my experience</small></span>
+    <span class="vh-launcher-arrow" aria-hidden="true">↗</span>
+  </button>
+  <section class="vh-panel" id="vh-panel" role="dialog" aria-modal="true" aria-label="Virtual Hillol, professional career chat" hidden>
+    <div class="vh-head">
+      <span class="vh-brand" aria-hidden="true">H<span>✦</span></span>
+      <div class="vh-head-copy"><strong>Virtual Hillol</strong><span>Ask me about my experience</span></div>
+      <span class="vh-head-badge" id="vh-mode">Preview</span>
+      <button type="button" class="vh-close" data-vh-close aria-label="Close Virtual Hillol chat">×</button>
+    </div>
+    <div class="vh-disclosure"><span aria-hidden="true">✦</span> AI-style career assistant preview. These are prepared answers, not a live conversation with Hillol or a connected AI model.</div>
+    <div class="vh-messages" id="vh-messages" role="log" aria-label="Chat messages" aria-live="polite" aria-relevant="additions"></div>
+    <div class="vh-suggestions" id="vh-suggestions" aria-label="Suggested questions"></div>
+    <form class="vh-form" id="vh-form" autocomplete="off">
+      <div class="vh-action-row">
+        <button type="button" class="vh-mini-action" id="vh-jd"><span aria-hidden="true">▤</span> Paste a job description</button>
+        <button type="button" class="vh-mini-action" id="vh-reset"><span aria-hidden="true">↻</span> Start over</button>
+      </div>
+      <div class="vh-compose">
+        <label class="vh-sr-only" for="vh-input">Your question or job description</label>
+        <textarea id="vh-input" rows="1" maxlength="12000" placeholder="Ask me about IT support, Power BI, SQL…" aria-label="Ask Virtual Hillol a question" disabled></textarea>
+        <button type="submit" class="vh-send" id="vh-send" aria-label="Send message" disabled><span aria-hidden="true">↑</span></button>
+      </div>
+      <p class="vh-status" id="vh-status">Loading reviewed career information…</p>
+      <p class="vh-footnote">No messages are uploaded or saved in preview mode. <a href="mailto:hjsarker@gmail.com?subject=Portfolio%20recruiter%20enquiry">Contact me directly ↗</a></p>
+    </form>
+  </section>
+
   <footer class="footer"><div class="shell footer-inner"><span>© <span id="year">2026</span> Hillol Sarker Jogesh</span><span>Built for clarity. Hosted on GitHub Pages.</span><a href="./privacy.html" aria-label="Privacy notice">Privacy</a><button type="button" id="portfolio-privacy-choices" class="portfolio-privacy-choices" hidden>Privacy choices</button><a href="#top" id="back-to-top">Back to top ↑</a></div></footer>
   <script>
 (() => {
@@ -549,6 +582,7 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
 
   </script>
   <script src="./experience-explorer.js?v=20261101-workplace" defer></script>
+  <script src="./virtual-hillol.js?v=20261102-preview" defer></script>
   <script src="./tracker-config.js" defer></script>
   <script src="./tracker.js" defer></script>
 </body>
