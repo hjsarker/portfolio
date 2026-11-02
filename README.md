@@ -33,22 +33,23 @@ Interactive UI checks are in `tests/experience-smoke.cjs` and run through `.gith
 
 ## Virtual Hillol recruiter chatbot
 
-The portfolio includes **Virtual Hillol**, a first-person professional career assistant **in transparent preview mode**, using a reviewed, public-only career knowledge base at `data/virtual-hillol-knowledge.json`. The user provided a master career-profile JSON, a current two-page CV, an AI-specific profile update and a direct clarification about their current student residence permit.
+The portfolio includes **Virtual Hillol**, a first-person professional AI career assistant with a prepared-answer fallback, using a reviewed, public-only career knowledge base at `data/virtual-hillol-knowledge.json`. The user provided a master career-profile JSON, a current two-page CV, an AI-specific profile update and a direct clarification about their current student residence permit.
 
 The public knowledge was curated to include:
 - all six employers and responsibilities, with evidence and boundaries;
 - IT support, infrastructure, Power BI, SQL, reporting, Databricks, migration/governance and independent applied-AI project work;
 - completed education and credentials, with the M.Sc. still ongoing and AZ-900/ITIL learning items not misrepresented as formal exam passes;
 - six portfolio projects and their ownership limitations;
+- the public phone number +49 157 5061 2784, approved for recruiter inquiries, and the contact email;
 - truthful first-person residence-permit wording: student status, ZAB bachelor comparability, user-reported foreigners-authority guidance, potential employment-permit application on a suitable contract, and a non-guaranteed approximate Dortmund processing estimate.
 
 **Security and privacy:** The complete original JSON/CV/summary are *not* checked into this repository. The published knowledge JSON is deliberately scrubbed of the user's home address, date of birth, religion, certificate and registration identifiers, family information, and confidential employer architecture. Be aware: the curated knowledge file is **public** on GitHub Pages; it is not a private server database.
 
-The UI uses `virtual-hillol.js`, with styling in `design.css` and a floating chat launcher in `index.html`. It supports prepared interview questions and a **deterministic, rule-based** preliminary job-description comparison, but it is **not an AI model** and cannot answer arbitrary questions reliably. Messages stay in the visitor's browser tab and are neither uploaded nor retained by this preview. The project is not collecting recruiters' names or CVs.
+The UI uses `virtual-hillol.js`, with styling in `design.css` and a floating chat launcher in `index.html`. On desktop, a dismissible one-time greeting appears after eight seconds and is remembered for the current browser-tab session. It doesn't auto-open the full chat, doesn't appear on mobile, and doesn't generate an AI request. It supports prepared interview questions and a **deterministic, rule-based** preliminary job-description comparison, but it is **not an AI model** and cannot answer arbitrary questions reliably. Messages stay in the visitor's browser tab and are neither uploaded nor retained by this preview. The project is not collecting recruiters' names or CVs.
 
 **Vercel backend installed:** The source is in `virtual-hillol-api/`. The Vercel project `virtual-hillol-api` is deployed in the user's **hjsarker's projects** workspace and exposes `https://virtual-hillol-api-xi.vercel.app/api/health` and `/api/chat`. The root URL has a small status homepage. The frontend checks the health endpoint and activates live AI automatically if an OpenRouter credential is configured. Until then it stays in clearly labeled prepared-answer preview mode.
 
-**Remaining user step:** In the Vercel project settings, add a *sensitive* or *encrypted* Production environment variable called `OPENROUTER_API_KEY` and deploy the production project again. Never commit or share that key. The server uses OpenRouter's verified `openai/gpt-6-luna` model. It caps messages, response tokens and content lengths, enforces narrow CORS, and does best-effort per-instance throttling; the user's $2/month OpenRouter guardrail is still the primary spend limit. Once configured, live conversations and pasted job descriptions are transmitted to Vercel and OpenRouter. Never paste confidential material into the chat.
+**Live AI configured:** Production uses a sensitive environment variable named `OPENROUTER_API_KEY`, stored privately in Vercel. Never commit or share the key. The server uses OpenRouter's verified `openai/gpt-6-luna` model. It caps messages, response tokens and content lengths, enforces narrow CORS, and does best-effort per-instance throttling; the user's $2/month OpenRouter guardrail is still the primary spend limit. Once configured, live conversations and pasted job descriptions are transmitted to Vercel and OpenRouter. Never paste confidential material into the chat.
 
 **Deployment:** This Vercel project is Git-linked to `hjsarker/portfolio`, production branch `main`, root directory `virtual-hillol-api`. Vercel deploys backend updates when the repository changes. The earlier API-only deployment in a different Vercel workspace is not used by the portfolio.
 
