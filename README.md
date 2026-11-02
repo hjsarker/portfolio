@@ -46,9 +46,13 @@ The public knowledge was curated to include:
 
 The UI uses `virtual-hillol.js`, with styling in `design.css` and a floating chat launcher in `index.html`. It supports prepared interview questions and a **deterministic, rule-based** preliminary job-description comparison, but it is **not an AI model** and cannot answer arbitrary questions reliably. Messages stay in the visitor's browser tab and are neither uploaded nor retained by this preview. The project is not collecting recruiters' names or CVs.
 
-**Next step when an AI API is provided:** Deploy a small protected serverless backend (GitHub Pages cannot host server-side secrets), store the API credential in server-side environment variables, load/retrieve only approved career facts, maintain an allowlisted CORS origin, enforce message-length/rate limits and abuse safeguards, and test grounding/hallucinations and prompt injection. Then change the clearly labeled preview to an AI-powered conversation. Never place the AI key or the private master profile in a browser bundle.
+**Vercel backend installed:** The source is in `virtual-hillol-api/`. A Vercel project named `virtual-hillol-api` is deployed in the existing account and exposes `https://virtual-hillol-api.vercel.app/api/health` and `/api/chat`. The frontend checks the health endpoint and activates live AI automatically if an OpenRouter credential is configured. Until then it stays in clearly labeled prepared-answer preview mode.
 
-The preview is checked in desktop/mobile browser QA via `tests/experience-smoke.cjs`, including first-person answers, immigration caveats, job matching and knowledge sanitization.
+**Remaining user step:** In the Vercel project settings, add a *sensitive* or *encrypted* Production environment variable called `OPENROUTER_API_KEY` and deploy the production project again. Never commit or share that key. The server uses OpenRouter's verified `openai/gpt-6-luna` model. It caps messages, response tokens and content lengths, enforces narrow CORS, and does best-effort per-instance throttling; the user's $2/month OpenRouter guardrail is still the primary spend limit. Once configured, live conversations and pasted job descriptions are transmitted to Vercel and OpenRouter. Never paste confidential material into the chat.
+
+**Deployment limitation:** The connected Vercel account currently lacks a GitHub login connection, so the Vercel project was deployed through Vercel's API rather than automatically linked to the portfolio repository. Later backend source changes require a new Vercel deployment until the user connects GitHub to Vercel.
+
+The preview and frontend integration are checked in desktop/mobile browser QA via `tests/experience-smoke.cjs`, and backend request handling is tested with `node --test virtual-hillol-api/tests/*.test.cjs`.
 
 ## Contents
 
