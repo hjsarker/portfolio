@@ -148,7 +148,7 @@ const problems=[];
       });
       assert.equal(visual.cards,6,'Keep the six selected projects');
       assert.ok(visual.scrollWidth<=visual.width+8,'No unwanted horizontal overflow: '+JSON.stringify(visual));
-      assert.match(visual.stylesheet,/20261103-clean-chat/);
+      assert.match(visual.stylesheet,/20261103-teaser1/);
       assert.ok(parseFloat(visual.radius)>=18,'Refined card corner radius applied');
       console.log('VISUAL '+size.name+': '+JSON.stringify(visual));
       await page.locator('[data-exp-company="hrc"]').first().waitFor();
