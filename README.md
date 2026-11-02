@@ -31,6 +31,25 @@ The HRC diagram is a conceptual educational reconstruction, **not** a verified i
 
 Interactive UI checks are in `tests/experience-smoke.cjs` and run through `.github/workflows/experience-qa.yml`.
 
+## Virtual Hillol recruiter chatbot
+
+The portfolio includes **Virtual Hillol**, a first-person professional career assistant **in transparent preview mode**, using a reviewed, public-only career knowledge base at `data/virtual-hillol-knowledge.json`. The user provided a master career-profile JSON, a current two-page CV, an AI-specific profile update and a direct clarification about their current student residence permit.
+
+The public knowledge was curated to include:
+- all six employers and responsibilities, with evidence and boundaries;
+- IT support, infrastructure, Power BI, SQL, reporting, Databricks, migration/governance and independent applied-AI project work;
+- completed education and credentials, with the M.Sc. still ongoing and AZ-900/ITIL learning items not misrepresented as formal exam passes;
+- six portfolio projects and their ownership limitations;
+- truthful first-person residence-permit wording: student status, ZAB bachelor comparability, user-reported foreigners-authority guidance, potential employment-permit application on a suitable contract, and a non-guaranteed approximate Dortmund processing estimate.
+
+**Security and privacy:** The complete original JSON/CV/summary are *not* checked into this repository. The published knowledge JSON is deliberately scrubbed of the user's home address, date of birth, religion, certificate and registration identifiers, family information, and confidential employer architecture. Be aware: the curated knowledge file is **public** on GitHub Pages; it is not a private server database.
+
+The UI uses `virtual-hillol.js`, with styling in `design.css` and a floating chat launcher in `index.html`. It supports prepared interview questions and a **deterministic, rule-based** preliminary job-description comparison, but it is **not an AI model** and cannot answer arbitrary questions reliably. Messages stay in the visitor's browser tab and are neither uploaded nor retained by this preview. The project is not collecting recruiters' names or CVs.
+
+**Next step when an AI API is provided:** Deploy a small protected serverless backend (GitHub Pages cannot host server-side secrets), store the API credential in server-side environment variables, load/retrieve only approved career facts, maintain an allowlisted CORS origin, enforce message-length/rate limits and abuse safeguards, and test grounding/hallucinations and prompt injection. Then change the clearly labeled preview to an AI-powered conversation. Never place the AI key or the private master profile in a browser bundle.
+
+The preview is checked in desktop/mobile browser QA via `tests/experience-smoke.cjs`, including first-person answers, immigration caveats, job matching and knowledge sanitization.
+
 ## Contents
 
 - `index.html`: Portfolio content, interactive JavaScript, project links and SEO metadata, with base styles.
