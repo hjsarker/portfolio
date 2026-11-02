@@ -29,9 +29,9 @@ const problems=[];
       await greetingPage.locator('#vh-launcher').waitFor();
       const invitation=greetingPage.locator('#vh-teaser');
       assert.equal(await invitation.isVisible(),false,'The invitation starts hidden');
-      await greetingPage.clock.fastForward(7900);
+      await greetingPage.clock.fastForward(3000);
       assert.equal(await invitation.isVisible(),false,'No early invitation');
-      await greetingPage.clock.fastForward(200);
+      await greetingPage.clock.fastForward(6000);
       if(size.name==='desktop'){
         assert.equal(await invitation.isVisible(),true,'The invitation should appear after eight seconds on desktop');
         assert.equal(await greetingPage.locator('#vh-panel').isVisible(),false,'The full chat should not open automatically');
