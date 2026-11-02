@@ -19,6 +19,35 @@
   const reset=panel.querySelector("#vh-reset");
   const active=panel.querySelector("#vh-mode");
   const API_BASE="https://virtual-hillol-api-xi.vercel.app";
+  const teaser=document.getElementById("vh-teaser");
+  const teaserDismiss=document.getElementById("vh-teaser-dismiss");
+  const teaserStart=document.getElementById("vh-teaser-start");
+  const TEASER_DELAY_MS=8000;
+  const TEASER_SESSION_KEY="virtual-hillol-greeting-seen-v1";
+  let teaserHandled=false;
+  let teaserTimer=null;
+  function hasSeenTeaser(){
+    if(teaserHandled)return true;
+    try{return sessionStorage.getItem(TEASER_SESSION_KEY)==="1";}
+    catch(_){return false;}
+  }
+  function hideTeaser(){
+    if(teaserTimer!==null){clearTimeout(teaserTimer);teaserTimer=null;}
+    if(teaser)teaser.hidden=true;
+    teaserHandled=true;
+    try{sessionStorage.setItem(TEASER_SESSION_KEY,"1");}catch(_){}
+  }
+  function scheduleTeaser(){
+    if(!teaser||hasSeenTeaser())return;
+    teaserTimer=setTimeout(()=>{
+      teaserTimer=null;
+      if(opened||hasSeenTeaser()||document.hidden||
+         window.matchMedia("(max-width: 720px)").matches)return;
+      teaser.hidden=false;
+      teaserHandled=true;
+      try{sessionStorage.setItem(TEASER_SESSION_KEY,"1");}catch(_){}
+    },TEASER_DELAY_MS);
+  }
   let kb=null,opened=false,chatCount=0,lastFocus=null;
   let liveReady=false,conversation=[],checking=false;
   async function checkAI(){
@@ -155,6 +184,11 @@
   }
   function getAnswer(q){
     const input=q.toLowerCase().trim();
+    if(/\b(phone|telephone|mobile|call me|call you|number|contact|reach you|reach hillol|email|e-mail|whatsapp)\b/i.test(q)){
+      const details=kb?.identity?.publicContact||{};
+      if(!details.phone||!details.email)return {text:"You can use the contact details on my portfolio to get in touch."};
+      return {text:"You can reach me on "+details.phone+" or email me at "+details.email+". I'm happy to discuss suitable full-time opportunities.",sources:["Approved public contact details"]};
+    }
     if(q.length>180||/\b(job description|job posting|your requirements|responsibilities include|requirements:|required qualifications)\b/i.test(q)&&q.length>60)return jobMatch(q);
     if(/\b(visa|residence|permit|work authori[sz]ation|right to work|sponsor|sponsorship|zab|foreigners.office|immigration|work eligibility)\b/i.test(q))return visaAnswer();
     if(/\b(job description|job match|match my job|compare|suitable for my role|fit this role|requirements)\b/i.test(q))return {text:"Please paste the job description into the message box, ideally including the responsibilities and required skills. I can give you a preliminary evidence-based comparison in preview mode. I won't claim a guaranteed match.",sources:["CV"]};
@@ -230,6 +264,7 @@
   }
   function autoResize(){input.style.height="auto";input.style.height=Math.min(input.scrollHeight,138)+"px";}
   function open(){
+    hideTeaser();
     if(opened)return;lastFocus=document.activeElement;opened=true;
     panel.hidden=false;launcher.setAttribute("aria-expanded","true");
     document.body.classList.add("vh-chat-open");
@@ -242,6 +277,11 @@
     document.body.classList.remove("vh-chat-open");
     if(lastFocus?.isConnected)lastFocus.focus();
     else launcher.focus();
+  }
+  if(teaser&&teaserDismiss&&teaserStart){
+    teaserDismiss.addEventListener("click",hideTeaser);
+    teaserStart.addEventListener("click",open);
+    scheduleTeaser();
   }
   launcher.addEventListener("click",()=>opened?close():open());
   document.querySelectorAll("[data-vh-open]").forEach(b=>b.addEventListener("click",open));
