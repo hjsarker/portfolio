@@ -10,6 +10,26 @@ const problems=[];
       const page=await context.newPage();
       page.on('pageerror',error=>problems.push(size.name+': '+error.message));
       await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded',timeout:30000});
+      await page.locator('.project-card').first().waitFor();
+      await page.screenshot({path:'qa-'+size.name+'-portfolio.png',fullPage:true,timeout:45000});
+      const visual=await page.evaluate(()=>{
+        const card=document.querySelector('.project-card');
+        const heading=document.querySelector('#work-heading');
+        const link=document.querySelector('link[href*="design.css"]');
+        return {
+          width:document.documentElement.clientWidth,
+          scrollWidth:document.documentElement.scrollWidth,
+          cards:document.querySelectorAll('.project-card').length,
+          radius:getComputedStyle(card).borderRadius,
+          headingWeight:getComputedStyle(heading).fontWeight,
+          stylesheet:link?.getAttribute('href')
+        };
+      });
+      assert.equal(visual.cards,6,'Keep the six selected projects');
+      assert.ok(visual.scrollWidth<=visual.width+8,'No unwanted horizontal overflow: '+JSON.stringify(visual));
+      assert.match(visual.stylesheet,/20261102-polish/);
+      assert.ok(parseFloat(visual.radius)>=18,'Refined card corner radius applied');
+      console.log('VISUAL '+size.name+': '+JSON.stringify(visual));
       await page.locator('[data-exp-company="hrc"]').first().waitFor();
       assert.equal(await page.locator('.exp-timeline-open').count(),3);
       assert.equal(await page.locator('.timeline > li').count(),6,'Keep all six employment entries');
