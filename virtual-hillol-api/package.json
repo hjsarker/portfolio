@@ -4,7 +4,7 @@
   "private": true,
   "description": "Secure OpenRouter GPT-6 Luna API for Virtual Hillol recruiter portfolio",
   "engines": {
-    "node": ">=22"
+    "node": "22.x"
   },
   "scripts": {
     "test": "node --test tests/*.test.cjs"
