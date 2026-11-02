@@ -1,0 +1,212 @@
+/**
+ * Virtual Hillol recruiter assistant, preview mode.
+ * All answers are from reviewed public career facts, loaded from a local JSON.
+ * No API keys, no remote calls, no chat persistence and no arbitrary LLM text.
+ * A secure AI endpoint can replace getAnswer() when an API is provided.
+ */
+(() => {
+  "use strict";
+  const launcher=document.getElementById("vh-launcher");
+  const panel=document.getElementById("vh-panel");
+  if(!launcher||!panel)return;
+  const closeButton=panel.querySelector("[data-vh-close]");
+  const messages=panel.querySelector("#vh-messages");
+  const form=panel.querySelector("#vh-form");
+  const input=panel.querySelector("#vh-input");
+  const send=panel.querySelector("#vh-send");
+  const suggestions=panel.querySelector("#vh-suggestions");
+  const status=panel.querySelector("#vh-status");
+  const jdButton=panel.querySelector("#vh-jd");
+  const reset=panel.querySelector("#vh-reset");
+  const active=panel.querySelector("#vh-mode");
+  let kb=null,opened=false,chatCount=0,lastFocus=null;
+  const escape=s=>String(s||"").trim();
+  const FALLBACK="I don't have enough verified information to answer that confidently in this preview. You can ask about my work history, technical skills, education, portfolio projects, or residence-permit situation. For anything more specific, you can contact me directly.";
+  const quick=[
+    "What experience do you have in IT support?",
+    "Tell me about your Power BI and SQL skills.",
+    "What did you do at HRC Technologies?",
+    "Can you explain your visa and work permit?",
+    "How would you match my job description?"
+  ];
+  function addMessage(kind,text,opts={}){
+    const wrap=document.createElement("div");
+    wrap.className="vh-message "+(kind==="user"?"vh-user":"vh-assistant");
+    const bubble=document.createElement("div");
+    bubble.className="vh-bubble";
+    const segments=String(text).split(/\n{2,}/);
+    for(const segment of segments){
+      if(!segment.trim())continue;
+      const p=document.createElement("p");
+      p.textContent=segment.trim();
+      bubble.appendChild(p);
+    }
+    if(opts.sources?.length){
+      const note=document.createElement("div");note.className="vh-source";
+      note.textContent="Based on: "+opts.sources.join(" · ");
+      bubble.appendChild(note);
+    }
+    if(opts.caution){
+      const note=document.createElement("p");note.className="vh-caution";
+      note.textContent=opts.caution;bubble.appendChild(note);
+    }
+    wrap.appendChild(bubble);messages.appendChild(wrap);
+    messages.scrollTop=messages.scrollHeight;
+    return wrap;
+  }
+  function greeting(){
+    messages.replaceChildren();chatCount=0;
+    addMessage("assistant","Hi, I'm Virtual Hillol, an AI-style preview of Hillol's professional background. You can ask me about my experience in IT, Power BI, SQL, workplace support, or paste a job description to explore the match.\n\nI'm using reviewed career information in this preview. Open-ended AI conversation will be enabled when the secure AI connection is added.");
+    renderSuggestions();
+  }
+  function renderSuggestions(){
+    suggestions.replaceChildren();
+    if(chatCount>1){suggestions.hidden=true;return;}
+    suggestions.hidden=false;
+    for(const q of quick){
+      const b=document.createElement("button");b.type="button";b.className="vh-chip";b.textContent=q;
+      b.addEventListener("click",()=>ask(q));suggestions.appendChild(b);
+    }
+  }
+  function getRole(id){
+    return kb.experience.find(x=>x.id===id);
+  }
+  function roleAnswer(id){
+    const r=getRole(id);
+    if(!r)return {text:FALLBACK};
+    const tasks=r.work.slice(0,id==="hrc"?5:4);
+    return {text:"At "+r.company+", I worked as "+r.title+" ("+r.period+"). "+r.summary+
+      "\n\n"+tasks.join(". ")+".\n\n"+(r.limits?r.limits:"I can explain specific responsibilities or technologies if you'd like."),
+      sources:["CV","Master career profile"]};
+  }
+  function skillAnswer(ids){
+    const ss=ids.map(id=>kb.skills.find(x=>x.id===id)).filter(Boolean);
+    if(!ss.length)return {text:FALLBACK};
+    const text=ss.map(x=>x.name+": "+x.topics.slice(0,5).join(", ")+". My relevant experience includes "+x.evidence.join(" and ")+".").join("\n\n");
+    return {text:"Yes. Here's how I've used these skills in practice.\n\n"+text+"\n\nI can go into more detail about any specific tool or example.",sources:["CV","Master career profile"]};
+  }
+  function visaAnswer(){
+    const v=kb.visa;
+    return {text:"I'm currently in Germany on a student residence permit. I've already completed a bachelor's degree in Computer Science and Engineering, and ZAB has officially assessed it as comparable to a German bachelor's degree.\n\nI've also been informed by the Dortmund foreigners authority that I can apply to change to a suitable employment residence permit when I have an eligible job offer or contract. The authority still has to approve the application and the appropriate work authorization before I can begin work beyond my current permit conditions.\n\nBased on the information I've received locally, I expect the process may take around three weeks, but that is an estimate, not a guaranteed processing time. I'm happy to provide my ZAB document and discuss the paperwork with a recruiting team.",sources:["User-provided residence clarification","ZAB degree assessment"],caution:"Residence-permit eligibility and approval are determined by the competent authority; the estimated timing is not guaranteed."};
+  }
+  function overview(){
+    return {text:"I'm an IT and data professional based in Dortmund, with more than nine years of combined experience in workplace IT, infrastructure support, ITSM, application operations and BI/data reporting.\n\nMy experience includes full-time IT and telecom billing administration at HRC Technologies, BI platform support at TK Elevator, and roles with E.ON, Vaillant and RWE. I enjoy solving operational problems, explaining technical issues clearly and building practical tools.\n\nI'm looking for a permanent full-time position in Germany. What would you like to explore?",sources:["Current CV","Master career profile"]};
+  }
+  const patterns=[
+    {label:"IT support / service desk",re:/\b(it support|service desk|help.?desk|desktop support|technical support|l[123]\s*support|1st.{0,12}level|2nd.{0,12}level|3rd.{0,12}level)\b/i,group:"direct",source:"HRC, YES, E.ON and TK Elevator"},
+    {label:"ITSM, incidents and Jira",re:/\b(itsm|itil|incident|problem management|ticketing|jira|sla|service now|servicenow)\b/i,group:"direct",source:"HRC, E.ON, TK Elevator and RWE"},
+    {label:"Active Directory and Windows",re:/\b(active directory|group policy|gpo|windows|endpoint|user provisioning)\b/i,group:"direct",source:"HRC Technologies"},
+    {label:"Microsoft 365 support",re:/\b(microsoft 365|m365|office 365|o365|teams|sharepoint|outlook|onedrive|exchange)\b/i,group:"direct",source:"HRC and workplace support experience"},
+    {label:"Network troubleshooting",re:/\b(network|dns|dhcp|tcp\/ip|lan\b|wlan|wi.?fi|vpn|routing|switching)\b/i,group:"direct",source:"HRC and YES"},
+    {label:"Asset / hardware administration",re:/\b(asset|inventory|printer|hardware|device management|onboarding|offboarding|meeting room|peripheral)\b/i,group:"direct",source:"HRC and YES"},
+    {label:"Power BI reporting",re:/\b(power\s?bi|dax|power query|kpi|business intelligence|bi reporting)\b/i,group:"direct",source:"TK Elevator and HRC"},
+    {label:"SQL and data checks",re:/\b(sql|oracle|databricks|spark|query|reconciliation|data quality)\b/i,group:"direct",source:"TK Elevator and HRC"},
+    {label:"Application / platform support",re:/\b(application support|platform support|production support|uat|migration|confluence|runbook)\b/i,group:"direct",source:"E.ON, TK Elevator, HRC and RWE"},
+    {label:"Process governance",re:/\b(aris|bpmn|it4it|process governance|process model)\b/i,group:"direct",source:"Vaillant Group"},
+    {label:"Linux service operations",re:/\b(red hat|rhel|linux|tomcat|ssh)\b/i,group:"direct",source:"HRC Technologies"},
+    {label:"Applied LLM / SaaS integration",re:/\b(genai|generative ai|llm|prompt engineering|fastapi|ai integration|api integrations|saas)\b/i,group:"related",source:"Independent HireDraftAI project; not professional AI tenure"},
+    {label:"Enterprise cloud administration",re:/\b(azure architect|aws architect|kubernetes|terraform|cloud infrastructure|intune administration|azure administrator)\b/i,group:"gap",source:"Not evidenced as deep production ownership"},
+    {label:"Fluent German",re:/\b(fluent german|german c1|german c2|german b2|native german)\b/i,group:"gap",source:"German is currently elementary"},
+    {label:"Advanced ML/MLOps",re:/\b(mlops|pytorch|tensorflow|fine tuning|fine-tuning|model training|deep learning research)\b/i,group:"gap",source:"Not evidenced as production specialization"},
+    {label:"Completed master's degree",re:/\b(completed m\.?sc|master.s degree required|completed master|master.s degree in data science)\b/i,group:"gap",source:"M.Sc. Data Science is ongoing"}
+  ];
+  function jobMatch(raw){
+    const jd=escape(raw);
+    if(jd.length<40)return {text:"Please paste more of the job description so I can compare its requirements with my documented experience."};
+    const hits=patterns.filter(p=>p.re.test(jd));
+    const direct=hits.filter(p=>p.group==="direct");
+    const related=hits.filter(p=>p.group==="related");
+    const gaps=hits.filter(p=>p.group==="gap");
+    if(!hits.length)return {text:"I can compare the role with my experience, but this description doesn't contain enough recognizable technical requirements for a meaningful offline check. For a useful assessment, include responsibilities, tools and required qualifications.\n\nWhen the AI integration is enabled, I'll be able to analyze less structured descriptions too.",sources:["Role text entered in this browser","CV"]};
+    let lines=["Here's my evidence-based first look at this position. This preview checks stated keywords against my documented background; it isn't a hiring recommendation or a complete AI evaluation."];
+    if(direct.length)lines.push("DOCUMENTED EXPERIENCE\n"+direct.map(p=>"• "+p.label+" ("+p.source+")").join("\n"));
+    if(related.length)lines.push("RELATED PROJECT EXPERIENCE\n"+related.map(p=>"• "+p.label+" ("+p.source+")").join("\n"));
+    if(gaps.length)lines.push("GAPS OR QUALIFICATIONS TO VERIFY\n"+gaps.map(p=>"• "+p.label+": "+p.source).join("\n"));
+    lines.push("Some requirements might not have been recognized by this offline preview. I would be happy to discuss the role and explain my experience in detail rather than claim a percentage match.");
+    return {text:lines.join("\n\n"),sources:["Pasted job description","CV and curated career knowledge"]};
+  }
+  function getAnswer(q){
+    const input=q.toLowerCase().trim();
+    if(q.length>180||/\b(job description|job posting|your requirements|responsibilities include|requirements:|required qualifications)\b/i.test(q)&&q.length>60)return jobMatch(q);
+    if(/\b(visa|residence|permit|work authori[sz]ation|right to work|sponsor|sponsorship|zab|foreigners.office|immigration|work eligibility)\b/i.test(q))return visaAnswer();
+    if(/\b(job description|job match|match my job|compare|suitable for my role|fit this role|requirements)\b/i.test(q))return {text:"Please paste the job description into the message box, ideally including the responsibilities and required skills. I can give you a preliminary evidence-based comparison in preview mode. I won't claim a guaranteed match.",sources:["CV"]};
+    if(/\b(about yourself|tell me about yourself|introduce yourself|who are you|what do you do|your background|experience overall)\b/i.test(q))return overview();
+    if(/\b(hrc|billing|telecom|call detail|cdr)\b/i.test(q))return roleAnswer("hrc");
+    if(/\b(tk elevator|tke|elevator|iot|predictive maintenance)\b/i.test(q))return roleAnswer("tke");
+    if(/\b(rwe|renewable|scada|it\/ot)\b/i.test(q))return roleAnswer("rwe");
+    if(/\b(vaillant|aris|bpmn|it4it)\b/i.test(q))return roleAnswer("vaillant");
+    if(/\b(e\.?on|intranet|unily|compass)\b/i.test(q))return roleAnswer("eon");
+    if(/\b(yes private)\b/i.test(q))return roleAnswer("yes");
+    if(/\b(power\s?bi|dashboard|dax|power query|sql|databricks|spark|reporting|analytics)\b/i.test(q))return skillAnswer(["powerbi","sql","data-platform"]);
+    if(/\b(microsoft 365|office 365|m365|intune|exchange|active directory|windows|gpo|network|wi.fi|vpn|dns|dhcp|device|printers|infrastructure)\b/i.test(q))return skillAnswer(["infrastructure","it-support"]);
+    if(/\b(it support|it operations|helpdesk|service desk|ticket|jira|incident|itsm|troubleshoot|end user)\b/i.test(q))return skillAnswer(["it-support","infrastructure"]);
+    if(/\b(ml|ai|artificial intelligence|genai|llm|saas|hiredraft|project|github|portfolio|built|build)\b/i.test(q)){
+      if(/\b(ml|ai|genai|llm|saas|hiredraft)\b/i.test(q))return {text:"My main independent AI application project is HireDraftAI, a SaaS product for CV and cover letter generation. I've directed its product workflows and worked on LLM integrations, prompt design, testing, validation, deployment and maintenance with extensive assistance from Codex and Claude.\n\nThat is applied AI project experience, not years of employment as an AI engineer. I also have projects in 3D visualization, energy data and analytics.",sources:["AI profile update","Portfolio projects"]};
+      return {text:"My public projects include HireDraftAI (an AI-assisted career document SaaS), Cosmic Atlas (an interactive 3D Solar System), Germany Power Pulse (electricity data visualization), Auto Pulse, an AI history timeline, and the collaborative Collective AI Tools directory.\n\nYou can open these projects on my portfolio and ask me about the technologies behind each.",sources:["Portfolio projects"]};
+    }
+    if(/\b(education|bachelor|master|degree|university|zab|study|studies)\b/i.test(q))return {text:"I completed my B.Sc. in Computer Science and Engineering at American International University-Bangladesh in 2015. ZAB has assessed it as comparable to a German bachelor's degree.\n\nI'm also studying for an M.Sc. in Data Science at TU Dortmund University. The master's is still ongoing; I haven't completed it yet.",sources:["CV","ZAB comparability noted in profile"]};
+    if(/\b(certifi|qualification|rhce|rhsca|red hat|itil|azure exam)\b/i.test(q))return {text:"I hold Red Hat Certified System Administrator (RHCSA), the Google Data Analytics Professional Certificate, and the Wharton/University of Pennsylvania Business Analytics Specialization.\n\nI've also studied ITIL v4 and Microsoft Azure Fundamentals preparation material, but I'm not representing those courses as passed professional certification exams.",sources:["CV","Master profile"]};
+    if(/\b(german|english|language|relocation|remote|full.time|availability|start date|notice)\b/i.test(q))return {text:"I'm based in Dortmund and looking for a permanent full-time position in Germany. My CV lists a one-month notice period, and I'm open to discussing relocation, hybrid or remote roles.\n\nI work professionally in English. Bangla is my native language, Hindi is fluent, and my German is currently elementary.",sources:["Current CV"]};
+    if(/\b(what can you do for|how could you help|why hire|why choose|strengths|your value)\b/i.test(q))return {text:"I can help keep users and enterprise applications productive through structured troubleshooting, incident ownership, Windows and Microsoft 365 support, and clear documentation. I can also support Power BI and SQL reporting, investigate data-quality issues, and coordinate migrations or IT processes.\n\nMy strength is combining operational IT support with data analysis and working well across technical and business teams.",sources:["CV and work history"]};
+    if(/\b(hello|hi|hey|good morning|good evening)\b/i.test(q))return {text:"Hello! You can ask me about my IT support background, Power BI and SQL work, specific employers, projects, visa situation, or paste a job description. What would you like to know?"};
+    return {text:FALLBACK};
+  }
+  async function ask(question){
+    const q=escape(question);
+    if(!q)return;
+    if(q.length>12000){addMessage("assistant","Please keep your message below 12,000 characters for this preview.");return;}
+    addMessage("user",q);chatCount++;renderSuggestions();
+    input.value="";autoResize();
+    const answer=kb?getAnswer(q):{text:"My profile data couldn't be loaded at the moment. Please try again or contact me directly."};
+    addMessage("assistant",answer.text,answer);
+    input.focus();
+  }
+  function autoResize(){input.style.height="auto";input.style.height=Math.min(input.scrollHeight,138)+"px";}
+  function open(){
+    if(opened)return;lastFocus=document.activeElement;opened=true;
+    panel.hidden=false;launcher.setAttribute("aria-expanded","true");
+    document.body.classList.add("vh-chat-open");
+    setTimeout(()=>input.focus(),0);
+  }
+  function close(){
+    if(!opened)return;opened=false;panel.hidden=true;
+    launcher.setAttribute("aria-expanded","false");
+    document.body.classList.remove("vh-chat-open");
+    if(lastFocus?.isConnected)lastFocus.focus();
+    else launcher.focus();
+  }
+  launcher.addEventListener("click",()=>opened?close():open());
+  document.querySelectorAll("[data-vh-open]").forEach(b=>b.addEventListener("click",open));
+  closeButton.addEventListener("click",close);
+  document.addEventListener("keydown",e=>{
+    if(!opened)return;
+    if(e.key==="Escape"){e.preventDefault();close();}
+    if(e.key!=="Tab")return;
+    const els=Array.from(panel.querySelectorAll("button:not(:disabled),textarea,[href]")).filter(el=>el.getClientRects().length>0);
+    if(!els.length)return;
+    const first=els[0],last=els[els.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  },true);
+  form.addEventListener("submit",e=>{e.preventDefault();ask(input.value);});
+  input.addEventListener("input",autoResize);
+  input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();form.requestSubmit();}});
+  jdButton.addEventListener("click",()=>{
+    open();input.placeholder="Paste the job description and press Enter to compare…";
+    input.focus();addMessage("assistant","Paste the job description here. In preview mode, I can compare recognizable skills with my documented experience, but I won't generate an invented compatibility score.");
+  });
+  reset.addEventListener("click",()=>{greeting();input.value="";autoResize();input.focus();});
+  greeting();send.disabled=true;
+  fetch("./data/virtual-hillol-knowledge.json",{cache:"no-cache"}).then(r=>{
+    if(!r.ok)throw new Error("Knowledge request "+r.status);return r.json();
+  }).then(data=>{
+    if(data.schemaVersion!==1||!Array.isArray(data.experience)||data.experience.length!==6||!Array.isArray(data.skills))throw new Error("Knowledge structure");
+    kb=data;send.disabled=false;status.textContent="Preview mode · verified career facts";
+    active.textContent="Preview";
+    input.disabled=false;
+  }).catch(()=>{
+    status.textContent="Knowledge temporarily unavailable";
+    send.disabled=true;input.disabled=true;
+    addMessage("assistant","Sorry, my career knowledge file isn't available right now. Please use the contact link on this portfolio.");
+  });
+})();
