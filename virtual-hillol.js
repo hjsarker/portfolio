@@ -86,16 +86,107 @@
     "Can you explain your visa and work permit?",
     "How would you match my job description?"
   ];
+  // Render the small subset of Markdown used by the AI, using DOM nodes only.
+  // Never inject model-generated HTML into the page.
+  function appendInline(parent,line){
+    const re=/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+|tel:[^\s)]+)\)|\*\*([^*\n]+)\*\*|__([^_\n]+)__|`([^`\n]+)`|\*([^*\n]+)\*|_([^_\n]+)_/g;
+    let last=0,match;
+    while((match=re.exec(line))!==null){
+      if(match.index>last)parent.appendChild(document.createTextNode(line.slice(last,match.index)));
+      if(match[1]!==undefined){
+        const a=document.createElement("a");
+        a.textContent=match[1];
+        a.href=match[2];
+        if(/^https?:\/\//i.test(match[2])){
+          a.target="_blank";
+          a.rel="noopener noreferrer";
+        }
+        parent.appendChild(a);
+      }else{
+        const name=match[3]!==undefined||match[4]!==undefined?"strong":
+          match[5]!==undefined?"code":"em";
+        const element=document.createElement(name);
+        element.textContent=match[3]??match[4]??match[5]??match[6]??match[7];
+        parent.appendChild(element);
+      }
+      last=re.lastIndex;
+    }
+    if(last<line.length)parent.appendChild(document.createTextNode(line.slice(last)));
+  }
+  function renderAnswer(bubble,content){
+    const lines=String(content).replace(/\r\n?/g,"\n").trim().split("\n");
+    let paragraph=[],list=null,code=null;
+    function flushParagraph(){
+      if(!paragraph.length)return;
+      const p=document.createElement("p");
+      paragraph.forEach((line,index)=>{
+        if(index)p.appendChild(document.createElement("br"));
+        appendInline(p,line);
+      });
+      bubble.appendChild(p);
+      paragraph=[];
+    }
+    function closeList(){list=null;}
+    function flushCode(){
+      if(code===null)return;
+      const pre=document.createElement("pre"),element=document.createElement("code");
+      element.textContent=code.join("\n");
+      pre.appendChild(element);bubble.appendChild(pre);code=null;
+    }
+    for(const line of lines){
+      const trimmed=line.trim();
+      if(/^(`{3,}|~{3,})/.test(trimmed)){
+        flushParagraph();closeList();
+        if(code===null)code=[];else flushCode();
+        continue;
+      }
+      if(code!==null){code.push(line);continue;}
+      if(!trimmed){flushParagraph();closeList();continue;}
+      const bullet=line.match(/^\s{0,3}([-+*]|\d+[.)])\s+(.+)$/);
+      if(bullet){
+        flushParagraph();
+        const type=/^\d/.test(bullet[1])?"ol":"ul";
+        if(!list||list.tagName.toLowerCase()!==type){
+          list=document.createElement(type);
+          list.className="vh-md-list";
+          bubble.appendChild(list);
+        }
+        const item=document.createElement("li");
+        appendInline(item,bullet[2].trim());
+        list.appendChild(item);
+        continue;
+      }
+      closeList();
+      const heading=line.match(/^\s{0,3}#{1,4}\s+(.+)$/);
+      if(heading){
+        flushParagraph();
+        const p=document.createElement("p");p.className="vh-md-heading";
+        appendInline(p,heading[1].replace(/\s+#+\s*$/,"").trim());
+        bubble.appendChild(p);
+        continue;
+      }
+      const quote=line.match(/^\s*>\s?(.+)$/);
+      if(quote){
+        flushParagraph();
+        const p=document.createElement("p");p.className="vh-md-quote";
+        appendInline(p,quote[1]);
+        bubble.appendChild(p);
+        continue;
+      }
+      paragraph.push(trimmed);
+    }
+    flushParagraph();flushCode();
+  }
   function addMessage(kind,text,opts={}){
     const wrap=document.createElement("div");
     wrap.className="vh-message "+(kind==="user"?"vh-user":"vh-assistant");
     const bubble=document.createElement("div");
     bubble.className="vh-bubble";
-    const segments=String(text).split(/\n{2,}/);
-    for(const segment of segments){
-      if(!segment.trim())continue;
+    if(kind==="assistant")renderAnswer(bubble,text);
+    else {
+      // Recruiter questions must remain literal, including pasted Markdown/HTML.
       const p=document.createElement("p");
-      p.textContent=segment.trim();
+      p.textContent=String(text);
       bubble.appendChild(p);
     }
     if(opts.sources?.length){
