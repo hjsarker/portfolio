@@ -7,6 +7,7 @@ on:
       - 'design.css'
       - 'experience-explorer.js'
       - 'tests/experience-smoke.cjs'
+      - 'tests/vercel-health.cjs'
       - 'virtual-hillol.js'
       - 'virtual-hillol-api/**'
       - '.github/workflows/experience-qa.yml'
@@ -34,6 +35,8 @@ jobs:
           node --check virtual-hillol-api/api/chat.js
           node --check virtual-hillol-api/api/health.js
           node --test virtual-hillol-api/tests/*.test.cjs
+      - name: Check deployed Vercel health and portfolio CORS
+        run: node tests/vercel-health.cjs
       - name: Install Chromium for accessibility and interaction smoke tests
         run: |
           npm install --no-save playwright@1.56.1
