@@ -12,6 +12,45 @@ const problems=[];
       await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded',timeout:30000});
       await page.locator('.project-card').first().waitFor();
       await page.screenshot({path:'qa-'+size.name+'-portfolio.png',fullPage:true,timeout:45000});
+
+      // Virtual Hillol: disclosed preview, private source excluded, grounded first-person responses.
+      const vh=page.locator('#vh-panel');
+      const launch=page.locator('#vh-launcher');
+      assert.equal(await vh.isVisible(),false);
+      await page.waitForFunction(()=>document.querySelector('#vh-status')?.textContent.includes('verified career facts'),null,{timeout:15000});
+      await launch.click();
+      await vh.waitFor({state:'visible'});
+      assert.match(await page.locator('.vh-disclosure').innerText(),/not a live conversation/i);
+      assert.match(await page.locator('.vh-message').first().innerText(),/I'm Virtual Hillol/);
+      await page.locator('.vh-chip').filter({hasText:'What experience do you have in IT support?'}).click();
+      assert.match(await page.locator('.vh-message').last().innerText(),/HRC|IT support|Jira/i);
+      await page.locator('#vh-input').fill('What experience do you have with Power BI and SQL?');
+      await page.locator('#vh-send').click();
+      assert.match(await page.locator('.vh-message').last().innerText(),/TK Elevator|Databricks/);
+      await page.locator('#vh-input').fill('What is your visa situation and can you work full-time?');
+      await page.locator('#vh-send').click();
+      assert.match(await page.locator('.vh-message').last().innerText(),/student residence permit/i);
+      assert.match(await page.locator('.vh-message').last().innerText(),/ZAB/);
+      assert.match(await page.locator('.vh-message').last().innerText(),/three weeks/);
+      assert.match(await page.locator('.vh-message').last().innerText(),/estimate, not a guaranteed/i);
+      await page.locator('#vh-input').fill('Job description: We are looking for an IT support engineer experienced with Microsoft 365, Jira, Windows, Power BI, SQL and Kubernetes. Fluent German B2 required. Responsibilities include supporting incidents and maintaining reports.');
+      await page.locator('#vh-send').click();
+      assert.match(await page.locator('.vh-message').last().innerText(),/DOCUMENTED EXPERIENCE/);
+      assert.match(await page.locator('.vh-message').last().innerText(),/Kubernetes|cloud administration/i);
+      assert.match(await page.locator('.vh-message').last().innerText(),/German/);
+      await page.screenshot({path:'qa-'+size.name+'-virtual-hillol.png',timeout:30000});
+      await page.keyboard.press('Escape');
+      assert.equal(await vh.isVisible(),false);
+      assert.equal(await launch.getAttribute('aria-expanded'),'false');
+      const knowledge=await page.request.get('http://127.0.0.1:8765/data/virtual-hillol-knowledge.json');
+      assert.equal(knowledge.status(),200);
+      const safeKb=await knowledge.json();
+      assert.equal(safeKb.experience.length,6);
+      assert.equal(safeKb.projects.length,6);
+      assert.ok(!JSON.stringify(safeKb).includes('Kurfürstenstraße'));
+      assert.ok(!JSON.stringify(safeKb).includes('1992-12-09'));
+      assert.ok(!JSON.stringify(safeKb).includes('160-038-907'));
+
       const visual=await page.evaluate(()=>{
         const card=document.querySelector('.project-card');
         const heading=document.querySelector('#work-heading');
