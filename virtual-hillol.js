@@ -1,8 +1,7 @@
 /**
- * Virtual Hillol recruiter assistant, preview mode.
- * All answers are from reviewed public career facts, loaded from a local JSON.
- * No API keys, no remote calls, no chat persistence and no arbitrary LLM text.
- * A secure AI endpoint can replace getAnswer() when an API is provided.
+ * Virtual Hillol career assistant.
+ * Live model calls use a secure server-side API; if unavailable,
+ * a deterministic preview answers from reviewed public career facts.
  */
 (() => {
   "use strict";
@@ -22,8 +21,6 @@
   const API_BASE="https://virtual-hillol-api-xi.vercel.app";
   let kb=null,opened=false,chatCount=0,lastFocus=null;
   let liveReady=false,conversation=[],checking=false;
-  const disclosure=panel.querySelector(".vh-disclosure");
-  const privacyText=panel.querySelector("#vh-privacy-text");
   async function checkAI(){
     if(checking)return;
     checking=true;
@@ -36,15 +33,11 @@
     checking=false;
     if(chatCount===0)greeting();
     if(liveReady){
-      active.textContent="AI live";
-      status.textContent="GPT-6 Luna via OpenRouter · Verified career facts";
-      disclosure.textContent="AI representation, not Hillol personally. Chat messages and pasted job descriptions are sent to Vercel and OpenRouter. Avoid sharing confidential information.";
-      privacyText.textContent="Live messages are transmitted to Vercel and OpenRouter. Do not send confidential information.";
+      active.textContent="Online";
+      status.textContent="Ready to chat";
     }else{
       active.textContent="Preview";
-      status.textContent=kb?"Preview mode · verified career facts":"Loading reviewed career information…";
-      disclosure.textContent="AI-style career assistant preview. These are prepared answers, not a live conversation with Hillol or a connected AI model.";
-      privacyText.textContent="No messages are uploaded or saved in preview mode.";
+      status.textContent=kb?"Preview answers":"Loading career information…";
     }
   }
   function fitConversation(items){
@@ -91,7 +84,7 @@
   }
   function greeting(){
     messages.replaceChildren();chatCount=0;conversation=[];
-    addMessage("assistant",liveReady?"Hi, I'm Virtual Hillol, Hillol's AI career assistant. You can speak with me as though you're asking Hillol about his professional experience, technical skills, projects or work eligibility. You can also paste a job description.\n\nI'm an AI representation, not Hillol personally.":"Hi, I'm Virtual Hillol, an AI-style preview of Hillol's professional background. You can ask me about my experience in IT, Power BI, SQL, workplace support, or paste a job description to explore the match.\n\nI'm using reviewed career information in this preview. Open-ended AI conversation will be enabled when the secure AI connection is added.");
+    addMessage("assistant","Hi, I'm Virtual Hillol. Ask me about my experience, technical skills or projects. Have a job opening in mind? Paste the description here and I'll explain how my background fits.");
     renderSuggestions();
   }
   function renderSuggestions(){
@@ -200,7 +193,7 @@
     }
     send.disabled=true;
     input.disabled=true;
-    status.textContent="Virtual Hillol is writing a reply…";
+    status.textContent="Writing a reply…";
     const requestMessages=fitConversation([...conversation,{role:"user",content:q}]);
     try{
       const response=await fetch(API_BASE+"/api/chat",{
@@ -216,8 +209,6 @@
         if(data.error==="not_configured"||data.error==="budget_exhausted"){
           liveReady=false;
           active.textContent="Preview";
-          disclosure.textContent="The AI connection is currently unavailable. Prepared career answers are available in preview mode.";
-          privacyText.textContent="No messages are uploaded or saved in preview mode.";
         }
         throw Error(data.message||(
           response.status===429?"The chat is receiving too many requests. Please try again shortly.":
@@ -233,7 +224,7 @@
         (kb?getAnswer(q).text:"Please contact me directly."));
     }finally{
       send.disabled=false;input.disabled=false;
-      status.textContent=liveReady?"Live AI · GPT-6 Luna via OpenRouter":"Preview mode · verified career facts";
+      status.textContent=liveReady?"Ready to chat":"Preview answers";
       input.focus();
     }
   }
@@ -270,7 +261,7 @@
   input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();form.requestSubmit();}});
   jdButton.addEventListener("click",()=>{
     open();input.placeholder="Paste the job description and press Enter to compare…";
-    input.focus();addMessage("assistant","Paste the job description here. In preview mode, I can compare recognizable skills with my documented experience, but I won't generate an invented compatibility score.");
+    input.focus();addMessage("assistant","Paste the job description here. I'll compare the requirements with my experience and explain where my background fits.");
   });
   reset.addEventListener("click",()=>{greeting();input.value="";autoResize();input.focus();});
   greeting();send.disabled=true;
@@ -278,7 +269,7 @@
     if(!r.ok)throw new Error("Knowledge request "+r.status);return r.json();
   }).then(data=>{
     if(data.schemaVersion!==1||!Array.isArray(data.experience)||data.experience.length!==6||!Array.isArray(data.skills))throw new Error("Knowledge structure");
-    kb=data;send.disabled=false;status.textContent="Preview mode · verified career facts";
+    kb=data;send.disabled=false;status.textContent="Preview answers";
     active.textContent="Preview";
     input.disabled=false;
     checkAI();
