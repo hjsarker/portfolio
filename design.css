@@ -1273,10 +1273,6 @@ button,input{font:inherit}
   border:1px solid #ffffff3e;border-radius:50%;color:#fff;font-size:22px;line-height:1;
   cursor:pointer;transition:background .2s}
 .vh-close:hover{background:#ffffff2f}
-.vh-disclosure{flex:none;display:flex;gap:8px;align-items:start;
-  font-size:10.5px;line-height:1.5;padding:10px 17px;color:#516c8a;
-  background:#edf5ff;border-bottom:1px solid #deebf7}
-.vh-disclosure>span{font-size:15px;color:#287bc7}
 .vh-messages{
   flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;
   display:flex;flex-direction:column;gap:15px;
@@ -1334,7 +1330,7 @@ button,input{font:inherit}
 .vh-send:hover:not(:disabled){background:#094e92;transform:translateY(-1px)}
 .vh-send:disabled{opacity:.4;cursor:not-allowed}
 .vh-status,.vh-footnote{font-size:9.7px;line-height:1.45;color:#7c8ea4;margin:7px 2px 0}
-.vh-footnote{margin-top:4px}
+.vh-footnote{margin-top:7px;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .vh-footnote a{color:#2466ab;text-decoration:underline;text-underline-offset:2px}
 .vh-hero-invite:focus-visible,.vh-launcher:focus-visible,.vh-close:focus-visible,
 .vh-chip:focus-visible,.vh-mini-action:focus-visible,.vh-send:focus-visible{
