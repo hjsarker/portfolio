@@ -1415,3 +1415,43 @@ button,input{font:inherit}
   .vh-teaser{animation:none}
   .vh-teaser-start,.vh-teaser-dismiss{transition:none}
 }
+
+
+/* Virtual Hillol: readable, safe light Markdown in AI responses. */
+.vh-assistant .vh-bubble,
+.vh-assistant .vh-bubble p{white-space:normal}
+.vh-assistant .vh-bubble strong{font-weight:750;color:#18314f}
+.vh-assistant .vh-bubble em{font-style:italic}
+.vh-assistant .vh-bubble .vh-md-heading{
+  margin:12px 0 7px;font-weight:750;font-size:13px;line-height:1.45;color:#16314d;
+}
+.vh-assistant .vh-bubble .vh-md-heading:first-child{margin-top:0}
+.vh-assistant .vh-bubble .vh-md-list{
+  margin:3px 0 12px;padding-left:20px;list-style-position:outside;
+  white-space:normal
+}
+.vh-assistant .vh-bubble ul.vh-md-list{list-style-type:disc}
+.vh-assistant .vh-bubble ol.vh-md-list{list-style-type:decimal}
+.vh-assistant .vh-bubble .vh-md-list li{
+  padding-left:2px;margin:5px 0;line-height:1.6
+}
+.vh-assistant .vh-bubble :is(p,ul,ol,pre):last-child{margin-bottom:0}
+.vh-assistant .vh-bubble a{
+  color:#155da5;overflow-wrap:anywhere;text-decoration:underline;
+  text-underline-offset:2px
+}
+.vh-assistant .vh-bubble a:focus-visible{outline:2px solid #217bce;outline-offset:2px}
+.vh-assistant .vh-bubble code{
+  font:500 11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;
+  background:#e5ecf4;border-radius:4px;padding:1px 4px
+}
+.vh-assistant .vh-bubble pre{
+  margin:5px 0 12px;background:#e5ecf4;border:1px solid #d9e4ef;
+  border-radius:8px;padding:9px 11px;white-space:pre-wrap;
+  word-break:break-word;overflow-wrap:anywhere
+}
+.vh-assistant .vh-bubble pre code{padding:0;background:transparent;font-size:11px}
+.vh-assistant .vh-bubble .vh-md-quote{
+  border-left:3px solid #99b5d2;padding:4px 0 4px 11px;
+  color:#536a83;background:transparent
+}
