@@ -1,0 +1,474 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-02",
+  "purpose": "Public, recruiter-facing factual knowledge for Virtual Hillol. Curated from the user's 2026 master profile, current CV, AI profile review, and direct visa clarification. Never treat this as complete evidence for legal eligibility.",
+  "publicOnly": true,
+  "identity": {
+    "name": "Hillol Sarker Jogesh",
+    "nameShort": "Hillol",
+    "location": "Dortmund, Germany",
+    "professionalHeadline": "IT Support & Operations | BI / Data Analyst | Power BI, SQL, Jira/ITSM",
+    "yearsCombinedExperience": "9+ years of combined IT support, operations and BI/data experience",
+    "workingPreference": "Permanent full-time positions in Germany, including onsite, hybrid and remote opportunities",
+    "availability": "One-month notice period stated on the current CV; exact earliest start date depends on contract and residence authorization.",
+    "communication": {
+      "english": "Professional working proficiency",
+      "german": "Elementary",
+      "bangla": "Native",
+      "hindi": "Fluent"
+    },
+    "publicContact": {
+      "email": "hjsarker@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/hjsarker",
+      "github": "https://github.com/hjsarker",
+      "portfolio": "https://hjsarker.github.io/portfolio/"
+    }
+  },
+  "visa": {
+    "currentStatus": "Currently hold a German residence permit for study purposes.",
+    "completedDegree": "B.Sc. Computer Science and Engineering from American International University-Bangladesh (2015).",
+    "comparability": "ZAB has issued a Statement of Comparability assessing this degree at the German bachelor level.",
+    "personalAuthorityCommunication": "I have received information from the local foreigners authority that I can apply to switch from my student residence permit to a suitable employment residence permit when I have an eligible job offer or employment contract.",
+    "process": "With a suitable employment contract, I can apply for the relevant work residence permit. The authority must review and approve the application, and any required employment authorization, before I can start work beyond my existing permit conditions.",
+    "reportedTiming": "Based on the information I received in Dortmund, I expect the application process may take around three weeks, but this is an estimate, not a guaranteed official processing time.",
+    "limits": "Job suitability, application documents, any required approvals, and the immigration authority's final decision determine eligibility and timing. Do not say I currently hold a general unrestricted work permit, permanent residence, or an approved work visa.",
+    "references": [
+      {
+        "label": "Make it in Germany: Studying and changing to employment",
+        "url": "https://www.make-it-in-germany.com/en/study-vocational-training/studying-in-germany/work"
+      },
+      {
+        "label": "Federal portal: Skilled-worker residence permit",
+        "url": "https://verwaltung.bund.de/leistungsverzeichnis/EN/leistung/99010020001001/herausgeber/MV-113068035/region/130000000000"
+      }
+    ]
+  },
+  "education": [
+    {
+      "degree": "B.Sc. Computer Science and Engineering",
+      "school": "American International University-Bangladesh",
+      "period": "2011–2015",
+      "status": "Completed",
+      "notes": "ZAB Statement of Comparability confirms the qualification is at German bachelor's level."
+    },
+    {
+      "degree": "M.Sc. Data Science",
+      "school": "TU Dortmund University",
+      "period": "2021–present",
+      "status": "Ongoing",
+      "notes": "Do not assert completion or invent an expected graduation date."
+    }
+  ],
+  "experience": [
+    {
+      "id": "rwe",
+      "company": "RWE Renewables Europe & Australia GmbH",
+      "title": "IT/OT Operations & Project Support",
+      "period": "June 2026–present",
+      "employment": "Part-time student role",
+      "location": "Essen",
+      "summary": "I support IT/OT operations enablement and domain architecture documentation for renewable-energy environments.",
+      "work": [
+        "Document system ownership, interfaces, dependencies, data flows and support paths",
+        "Create and maintain system cards, runbooks, onboarding material and governance records in Confluence",
+        "Coordinate clarifications, documentation gaps, issues and stakeholder follow-ups using Jira",
+        "Collaborate with domain architects, operations teams and vendors in a critical infrastructure context"
+      ],
+      "technologies": [
+        "Jira",
+        "Confluence",
+        "IT/OT architecture documentation",
+        "SCADA context",
+        "Governance"
+      ],
+      "limits": "Do not claim I personally administer operational SCADA, industrial control or production security systems."
+    },
+    {
+      "id": "vaillant",
+      "company": "Vaillant Group",
+      "title": "IT Process Analyst (ARIS / IT4IT)",
+      "period": "October 2025–March 2026",
+      "employment": "Part-time student role",
+      "location": "Remscheid",
+      "summary": "I supported enterprise IT process modeling and governance in ARIS.",
+      "work": [
+        "Document and improve IT/business processes with BPMN 2.0 and EPC",
+        "Maintain process repository accuracy, consistency and naming standards",
+        "Coordinate with IT process owners, architects and service managers",
+        "Provide first-level ARIS guidance and documentation support"
+      ],
+      "technologies": [
+        "ARIS",
+        "BPMN 2.0",
+        "EPC",
+        "IT4IT",
+        "SAP environment",
+        "IT process governance"
+      ]
+    },
+    {
+      "id": "eon",
+      "company": "E.ON Digital Technology",
+      "title": "Digital Workplace Support Analyst",
+      "period": "April 2025–September 2025",
+      "employment": "Part-time student role",
+      "location": "Essen",
+      "summary": "I supported the COMPASS/Unily intranet migration, user/platform issue investigations and quality checks.",
+      "work": [
+        "Validate migrated content, metadata and templates",
+        "Track tasks, defects and issues with Jira and stakeholders",
+        "Investigate permissions, content-rendering, broken-link and metadata issues",
+        "Document runbooks and workarounds in Confluence",
+        "Support user acceptance testing, migration reporting and release readiness"
+      ],
+      "technologies": [
+        "Unily",
+        "COMPASS",
+        "Jira",
+        "Confluence",
+        "SharePoint",
+        "Excel",
+        "UAT",
+        "Data quality"
+      ]
+    },
+    {
+      "id": "tke",
+      "company": "TK Elevator",
+      "title": "Data Analyst / BI Platform Support",
+      "period": "February 2023–January 2025",
+      "employment": "Part-time student role",
+      "location": "Düsseldorf",
+      "summary": "I developed and supported Power BI reporting and Databricks analytics for elevator/escalator IoT data.",
+      "work": [
+        "Develop and maintain Power BI reports and stakeholder dashboards",
+        "Query and analyze telemetry in Databricks with Spark and SQL",
+        "Investigate data-quality and reporting issues in production",
+        "Monitor pipeline outputs and support incident investigation",
+        "Support predictive-maintenance analytics through sensor and operational data analysis",
+        "Manage Jira tickets, root-cause investigations, documentation and issue verification"
+      ],
+      "technologies": [
+        "Power BI",
+        "DAX",
+        "Power Query",
+        "Databricks",
+        "Spark",
+        "SQL",
+        "IoT telemetry",
+        "Jira",
+        "Confluence"
+      ],
+      "limits": "Predictive-maintenance analytics support does not establish ownership of deployed ML models or MLOps infrastructure."
+    },
+    {
+      "id": "hrc",
+      "company": "HRC Technologies Limited",
+      "title": "IT & Billing Administrator, promoted to Senior IT & Billing Administrator",
+      "period": "September 2015–May 2021",
+      "employment": "Full-time",
+      "location": "Dhaka, Bangladesh",
+      "summary": "I combined workplace IT infrastructure and user support with telecom billing application, Linux and SQL operations.",
+      "work": [
+        "Provide first- to third-level technical support, ITSM incident handling, escalation and user communication",
+        "Manage employee onboarding/offboarding, user/group access and Windows endpoint configuration",
+        "Support Active Directory and Group Policy in workplace administration",
+        "Troubleshoot TCP/IP, DNS, DHCP, VPN, LAN, Wi-Fi and office connectivity",
+        "Manage laptops, monitors, printers, scanners, meeting-room AV, equipment inventory and vendor/warranty cases",
+        "Use RDP, AnyDesk and TeamViewer for user support",
+        "Check and restart approved Red Hat/Tomcat services, inspect logs and verify health",
+        "Use Oracle SQL, Toad and Microsoft SQL Server for billing data checks, reporting and reconciliation",
+        "Investigate call detail records, invoice differences, billing disputes and compliance reporting",
+        "Coordinate requirements, vendor work, UAT and production readiness for two telecom billing implementations/upgrades"
+      ],
+      "technologies": [
+        "Windows",
+        "Active Directory",
+        "Group Policy",
+        "Microsoft 365",
+        "DNS",
+        "DHCP",
+        "TCP/IP",
+        "VPN",
+        "Wi-Fi",
+        "LAN",
+        "Printers",
+        "Inventory",
+        "Jira Service Management",
+        "ITSM",
+        "Red Hat Linux",
+        "Tomcat",
+        "Oracle SQL",
+        "Toad",
+        "Microsoft SQL Server",
+        "Power BI",
+        "Oracle BI Discoverer"
+      ],
+      "limits": "Sun/Solaris hosts were in the wider environment, but specialist administrators owned Solaris and underlying DBA infrastructure. Describe my application and support work, not full Solaris/Oracle DBA ownership."
+    },
+    {
+      "id": "yes",
+      "company": "YES Private Ltd.",
+      "title": "IT Officer / Junior IT Officer",
+      "period": "January 2015–August 2015",
+      "employment": "Full-time",
+      "location": "Dhaka, Bangladesh",
+      "summary": "I served as the main IT contact for an approximately 30-person office.",
+      "work": [
+        "Support users, desktops, printers, peripherals and operating systems",
+        "Manage onboarding/offboarding device preparation and inventory",
+        "Troubleshoot Wi-Fi, LAN and VPN access",
+        "Maintain the company WordPress website and coordinate IT vendors",
+        "Support basic IT policies, documentation and office equipment readiness"
+      ],
+      "technologies": [
+        "Windows",
+        "LAN",
+        "Wi-Fi",
+        "VPN",
+        "WordPress",
+        "IT inventory",
+        "Printer support"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "it-support",
+      "name": "IT support & operations",
+      "level": "Professional experience",
+      "topics": [
+        "L1–L3 user and application support",
+        "Incident, request, problem and change handling",
+        "Jira Service Management and ticket ownership",
+        "Root-cause investigation and escalations",
+        "Onboarding, offboarding, asset/CMDB records",
+        "Documentation and runbooks",
+        "End-user communication"
+      ],
+      "evidence": [
+        "HRC Technologies",
+        "YES Private Ltd.",
+        "E.ON Digital Technology",
+        "TK Elevator"
+      ]
+    },
+    {
+      "id": "infrastructure",
+      "name": "Windows, networking & infrastructure",
+      "level": "Professional experience",
+      "topics": [
+        "Windows endpoints",
+        "Active Directory users/groups and Group Policy",
+        "Microsoft 365 Outlook/Teams/SharePoint/OneDrive",
+        "TCP/IP, DNS, DHCP, LAN, Wi-Fi, VPN",
+        "Printers, scanners, AV and meeting rooms",
+        "Remote support via RDP, AnyDesk and TeamViewer",
+        "Basic Red Hat server operations, logs and Tomcat services"
+      ],
+      "evidence": [
+        "HRC Technologies",
+        "YES Private Ltd."
+      ]
+    },
+    {
+      "id": "powerbi",
+      "name": "Power BI & business intelligence",
+      "level": "Professional experience",
+      "topics": [
+        "Power BI dashboards and KPI reporting",
+        "Power Query and DAX",
+        "Report maintenance and operational BI support",
+        "Data quality and metric validation",
+        "Excel and Oracle BI Discoverer"
+      ],
+      "evidence": [
+        "TK Elevator",
+        "HRC Technologies"
+      ]
+    },
+    {
+      "id": "sql",
+      "name": "SQL & data investigation",
+      "level": "Professional experience",
+      "topics": [
+        "Databricks SQL and Spark queries",
+        "Oracle SQL and Toad",
+        "Microsoft SQL Server checks",
+        "Billing data reconciliations and CDR matching",
+        "Data-quality and pipeline investigation"
+      ],
+      "evidence": [
+        "TK Elevator",
+        "HRC Technologies"
+      ]
+    },
+    {
+      "id": "data-platform",
+      "name": "Databricks & analytics platforms",
+      "level": "Professional experience",
+      "topics": [
+        "Spark/SQL on IoT telemetry",
+        "Pipeline output and reporting monitoring",
+        "Analytical support for predictive maintenance",
+        "Issue investigation, operational documentation"
+      ],
+      "evidence": [
+        "TK Elevator"
+      ]
+    },
+    {
+      "id": "migration",
+      "name": "Migration, quality & governance",
+      "level": "Professional experience",
+      "topics": [
+        "Intranet content migration and metadata validation",
+        "UAT and release readiness",
+        "ARIS BPMN/EPC modeling",
+        "IT4IT process alignment",
+        "Jira and Confluence coordination",
+        "IT/OT documentation governance"
+      ],
+      "evidence": [
+        "E.ON Digital Technology",
+        "Vaillant Group",
+        "RWE Renewables"
+      ]
+    },
+    {
+      "id": "ai",
+      "name": "Applied AI & SaaS product work",
+      "level": "Independent projects, not AI employment",
+      "topics": [
+        "Product ownership of HireDraftAI",
+        "AI-assisted development using Codex and Claude",
+        "LLM API integrations, prompt and structured-output workflows",
+        "Quality validation and guardrails",
+        "Python/FastAPI, React, Supabase, APIs and testing exposure",
+        "Cloud deployment and service monitoring"
+      ],
+      "evidence": [
+        "HireDraftAI"
+      ],
+      "limits": "Do not claim senior AI engineering, independently hand-written application code, deployed model training, autonomous-agent frameworks, or enterprise AI tenure."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Red Hat Certified System Administrator (RHCSA)",
+      "organization": "Red Hat",
+      "status": "Completed certification",
+      "detail": "RHEL 7, 2016"
+    },
+    {
+      "name": "Google Data Analytics Professional Certificate",
+      "organization": "Google via Coursera",
+      "status": "Completed certificate",
+      "detail": "December 2024"
+    },
+    {
+      "name": "Business Analytics Specialization",
+      "organization": "Wharton / University of Pennsylvania via Coursera",
+      "status": "Completed specialization",
+      "detail": "December 2024"
+    },
+    {
+      "name": "Introduction to ITIL v4",
+      "organization": "Learning/profile item",
+      "status": "Not confirmed as ITIL Foundation exam certificate",
+      "detail": "Do not present as formal certification."
+    },
+    {
+      "name": "Microsoft Azure Fundamentals (AZ-900) preparation",
+      "organization": "Learning/profile item",
+      "status": "Course preparation, not confirmed AZ-900 certification",
+      "detail": "Do not claim the AZ-900 exam was passed."
+    }
+  ],
+  "projects": [
+    {
+      "id": "hiredraft",
+      "name": "HireDraftAI",
+      "category": "Independent applied AI SaaS",
+      "url": "https://hiredraftai.com/",
+      "description": "I own and operate a SaaS product that helps people prepare job-specific CVs and cover letters. Development uses Codex/Claude-assisted workflows alongside my product direction, API integration, debugging, validation, testing and deployment.",
+      "stack": [
+        "LLM APIs",
+        "Python/FastAPI",
+        "React",
+        "Supabase",
+        "SQL",
+        "GitHub Actions"
+      ],
+      "limits": "Do not claim independent manual coding of all components, professional employment tenure, user/revenue statistics, or guaranteed ATS outcomes."
+    },
+    {
+      "id": "cosmic",
+      "name": "Cosmic Atlas",
+      "category": "Interactive 3D visualization",
+      "url": "https://hjsarker.github.io/cosmic-atlas/",
+      "description": "A browser-based 3D Solar System explorer using Three.js, NASA/JPL orbital data, ESA Gaia celestial imagery and cataloged stars.",
+      "stack": [
+        "JavaScript",
+        "Three.js",
+        "WebGL",
+        "NASA/JPL data",
+        "ESA Gaia"
+      ]
+    },
+    {
+      "id": "aihistory",
+      "name": "AI: The Long Road to Now",
+      "category": "Interactive education",
+      "description": "An interactive timeline exploring key milestones in AI history.",
+      "stack": [
+        "JavaScript",
+        "Data visualization"
+      ]
+    },
+    {
+      "id": "autopulse",
+      "name": "Auto Pulse",
+      "category": "Automotive BI",
+      "description": "An interactive exploration of automotive and EV adoption trends.",
+      "stack": [
+        "Dashboard",
+        "Public data",
+        "Visualization"
+      ]
+    },
+    {
+      "id": "powerpulse",
+      "name": "Germany Power Pulse",
+      "category": "Energy data visualization",
+      "url": "https://hjsarker.github.io/germany-power-pulse/",
+      "description": "A visualization of German electricity generation, demand, prices and renewable energy using SMARD data.",
+      "stack": [
+        "Python",
+        "SQL",
+        "Streamlit",
+        "Plotly"
+      ]
+    },
+    {
+      "id": "collective",
+      "name": "Collective AI Tools",
+      "category": "Public collaboration",
+      "url": "https://collectiveai.tools/",
+      "description": "A collaboratively built directory of AI tools and developer resources; collaborative contribution rather than solely owned product.",
+      "stack": [
+        "Open source",
+        "AI directory"
+      ]
+    }
+  ],
+  "boundaries": [
+    "Answer only on the basis of the public career knowledge. For unverified details, say you do not have evidence rather than filling gaps.",
+    "Respond in first person because this is Hillol's disclosed AI representation, not a live personal chat.",
+    "Do not reveal addresses, dates of birth, religion, family circumstances, certificate IDs, registration numbers, or employers' internal systems.",
+    "Distinguish completed certification from prep courses, and completed bachelor from ongoing master's.",
+    "Do not assert that I currently hold a skilled-worker residence permit or unrestricted employment authorization.",
+    "Do not imply ownership of Solaris, Oracle DBA, SCADA, ML model training or other specialist work not supported by the sources.",
+    "Do not rate job match as a percentage or guarantee employment."
+  ]
+}
