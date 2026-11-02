@@ -135,7 +135,7 @@ module.exports=async function handler(req,res){
         Authorization:"Bearer "+key,
         "Content-Type":"application/json",
         "HTTP-Referer":"https://hjsarker.github.io/portfolio/",
-        "X-Title":"Virtual Hillol — Career Portfolio"
+        "X-Title":"Virtual Hillol Career Portfolio"
       },
       body:JSON.stringify({
         model:MODEL,
