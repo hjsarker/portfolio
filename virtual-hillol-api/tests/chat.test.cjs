@@ -59,6 +59,7 @@ test("a bounded valid request uses approved public facts and fixed Luna model",a
     }
     assert.equal(String(url),"https://openrouter.ai/api/v1/chat/completions");
     assert.equal(options.headers.Authorization,"Bearer test-key-do-not-use");
+    assert.doesNotThrow(()=>new Headers(options.headers),"Provider headers must use browser-compatible ByteString values");
     const payload=JSON.parse(options.body);
     assert.equal(payload.model,"openai/gpt-6-luna");
     assert.equal(payload.max_tokens,650);
