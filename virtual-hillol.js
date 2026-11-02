@@ -49,7 +49,7 @@
     },TEASER_DELAY_MS);
   }
   let kb=null,opened=false,chatCount=0,lastFocus=null;
-  let liveReady=false,conversation=[],checking=false;
+  let liveReady=false,conversation=[],checking=false,conversationGeneration=0;
   async function checkAI(){
     if(checking)return;
     checking=true;
@@ -203,6 +203,7 @@
     return wrap;
   }
   function greeting(){
+    conversationGeneration++;
     messages.replaceChildren();chatCount=0;conversation=[];
     addMessage("assistant","Hi, I'm Virtual Hillol. Ask me about my experience, technical skills or projects. Have a job opening in mind? Paste the description here and I'll explain how my background fits.");
     renderSuggestions();
@@ -305,6 +306,9 @@
     return {text:FALLBACK};
   }
   async function ask(question){
+    // Ignore extra clicks while loading or while an AI response is in flight.
+    if(send.disabled||input.disabled)return;
+    const generation=conversationGeneration;
     const q=escape(question);
     if(!q)return;
     if(q.length>11500){addMessage("assistant","Please keep your message below 11,500 characters.");return;}
@@ -330,6 +334,7 @@
         signal:AbortSignal.timeout(28000)
       });
       const data=await response.json().catch(()=>({}));
+      if(generation!==conversationGeneration)return;
       if(!response.ok){
         if(data.error==="not_configured"||data.error==="budget_exhausted"){
           liveReady=false;
@@ -344,6 +349,7 @@
       addMessage("assistant",answer);
       conversation=[...requestMessages,{role:"assistant",content:answer}].slice(-8);
     }catch(err){
+      if(generation!==conversationGeneration)return;
       addMessage("assistant",String(err.message||"AI connection unavailable.")+
         "\n\nI can still give you an evidence-based preview answer:\n\n"+
         (kb?getAnswer(q).text:"Please contact me directly."));
