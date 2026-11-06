@@ -169,7 +169,31 @@ const problems=[];
       });
       assert.equal(visual.cards,6,'Keep the six selected projects');
       assert.ok(visual.scrollWidth<=visual.width+8,'No unwanted horizontal overflow: '+JSON.stringify(visual));
-      assert.match(visual.stylesheet,/20261103-markdown1/);
+      assert.match(visual.stylesheet,/^\.\/design\.css\?v=\d{8}-[a-z0-9-]+$/,'Versioned portfolio CSS URL');
+      const headerLinks=page.locator('.header-quicklinks a');
+      assert.equal(await headerLinks.count(),5,'Five professional and contact links in header');
+      const expectedHeaderLinks=[
+        'https://www.linkedin.com/in/hjsarker/',
+        'https://github.com/hjsarker',
+        'https://hiredraftai.com/',
+        'tel:+4915750612784',
+        'mailto:hjsarker@gmail.com?subject=Portfolio%20enquiry'
+      ];
+      assert.deepEqual(await headerLinks.evaluateAll(items=>items.map(link=>link.getAttribute('href'))),expectedHeaderLinks);
+      const pngs=page.locator('.header-quicklinks img');
+      assert.equal(await pngs.count(),5,'Five self-hosted PNG icons');
+      await page.waitForFunction(()=>[...document.querySelectorAll('.header-quicklinks img')].every(img=>img.complete&&img.naturalWidth>0));
+      if(size.name==='desktop'){
+        assert.equal(await page.locator('.header-quicklinks').isVisible(),true,'Icon dock visible on desktop');
+      }else{
+        assert.equal(await page.locator('.header-quicklinks').isVisible(),false,'Small mobile header remains uncluttered');
+        const menuButton=page.locator('#mobile-toggle');
+        await menuButton.click();
+        assert.equal(await page.locator('.mobile-quicklinks').isVisible(),true,'Mobile menu contains contact icons');
+        assert.equal(await page.locator('.mobile-quicklinks a:visible').count(),5);
+        await menuButton.click();
+        assert.equal(await page.locator('#mobile-nav').isVisible(),false);
+      }
       assert.ok(parseFloat(visual.radius)>=18,'Refined card corner radius applied');
       console.log('VISUAL '+size.name+': '+JSON.stringify(visual));
       await page.locator('[data-exp-company="hrc"]').first().waitFor();
