@@ -1534,3 +1534,46 @@ button,input{font:inherit}
   .header-quicklinks .quicklink,.mobile-quicklinks .quicklink,
   .header-quicklinks .quicklink img,.mobile-quicklinks .quicklink img {transition:none;transform:none;}
 }
+
+
+/* Header polish: ungrouped social links and readable brand subtitle. */
+.site-header .header-quicklinks{
+  gap:5px;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+.site-header .header-quicklinks .quicklink{
+  background:transparent;
+  border-color:transparent;
+}
+.site-header .header-quicklinks .quicklink:hover{
+  background:rgba(210,224,245,.11);
+  border-color:transparent;
+}
+.site-header .brand-name > span {
+  display:block;
+  margin-top:5px;
+  font-size:10.5px;
+  font-weight:680;
+  line-height:1.25;
+  letter-spacing:.135em;
+  color:#adb9c9;
+}
+@media(max-width:1180px){
+  .site-header .header-quicklinks{gap:3px;padding:0;}
+}
+@media(max-width:720px){
+  .site-header .brand-name > span{font-size:10px;letter-spacing:.115em;}
+}
+@media(max-width:620px){
+  .site-header .mobile-nav .mobile-quicklinks{
+    background:transparent;
+    border:0;
+    border-radius:0;
+    padding:7px 0;
+    margin:10px 0 2px;
+  }
+}
