@@ -1577,3 +1577,66 @@ button,input{font:inherit}
     margin:10px 0 2px;
   }
 }
+
+
+/* Recruiter-focused updates: professional role and selected project order. */
+.hero-professional-line{
+  max-width:750px;margin:-1px auto 18px;
+  color:#d7e4f6;font-size:clamp(13px,1.34vw,17px);
+  line-height:1.55;font-weight:660;letter-spacing:.014em;
+  text-wrap:balance;
+}
+.hero-professional-line span{color:#78aef0;padding:0 6px}
+.hero-professional-line + .hero-intro{margin-top:0}
+.project-visual.project-real.project-cover--bahn{
+  background:
+    radial-gradient(ellipse at 75% 32%,rgba(94,205,192,.30),transparent 47%),
+    linear-gradient(135deg,#12263b 0%,#113a48 56%,#17605d 100%);
+}
+.project-cover--bahn::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(5,15,29,.58),transparent 85%);
+}
+.project-cover--bahn .real-placeholder{
+  z-index:2;justify-content:center;align-items:flex-start;
+  max-width:84%;padding:15px 16px;gap:7px;
+}
+.project-cover--bahn .real-placeholder-label{color:#b7f2e5;font-size:8px;letter-spacing:.12em}
+.project-cover--bahn .real-placeholder strong{font-size:26px;line-height:1.05}
+.project-cover--bahn .real-placeholder-subtitle{color:#d2f1eb;font-size:10px;max-width:190px;line-height:1.4}
+.project-cover--bahn .real-preview-chip{z-index:3}
+.bahn-cover-rails{
+  position:absolute;right:17px;top:22px;bottom:17px;width:35%;
+  display:flex;justify-content:space-between;align-items:center;gap:6px;
+  transform:skewY(-12deg);opacity:.66;
+}
+.bahn-cover-rails i{
+  display:block;flex:1;height:82%;border:1px solid rgba(176,244,223,.40);
+  background:repeating-linear-gradient(180deg,rgba(102,231,192,.55) 0 10px,transparent 10px 18px);
+  border-radius:4px;
+}
+.bahn-cover-rails i:nth-child(2){height:65%}
+.bahn-cover-rails i:nth-child(3){height:94%}
+.bahn-cover-rails i:nth-child(4){height:74%}
+.bahn-cover-rails i:nth-child(5){height:50%}
+.project-collaboration{
+  display:flex;justify-content:space-between;align-items:center;gap:25px;
+  margin-top:24px;padding:23px 27px;background:#fff;
+  border:1px solid #e5e9ee;border-radius:19px;
+}
+.project-collaboration-copy{min-width:0}
+.project-collaboration-label{font:700 10px/1.5 var(--sans);letter-spacing:.12em;color:#767b85}
+.project-collaboration h3{font:700 19px/1.25 var(--display);letter-spacing:-.025em;color:#222833;margin:6px 0 6px}
+.project-collaboration p{font-size:13px;color:#6f7680;line-height:1.6;margin:0}
+.project-collaboration-links{flex:none;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.project-collaboration-links a{font-size:12px;font-weight:650;color:#0066c9}
+.project-collaboration-links a:hover{text-decoration:underline;text-underline-offset:3px}
+.project-collaboration-links a:focus-visible{outline:2px solid #0066c9;outline-offset:3px}
+@media(max-width:720px){
+  .hero-professional-line{max-width:470px;margin:-4px auto 16px;font-size:13px;line-height:1.6;}
+  .project-collaboration{flex-direction:column;align-items:flex-start;padding:21px;gap:14px}
+  .project-collaboration-links{gap:12px 21px}
+}
+@media(max-width:430px){
+  .hero-professional-line{max-width:320px;font-size:12.5px}
+}

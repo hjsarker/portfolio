@@ -176,7 +176,8 @@ const problems=[];
       assert.equal(knowledge.status(),200);
       const safeKb=await knowledge.json();
       assert.equal(safeKb.experience.length,6);
-      assert.equal(safeKb.projects.length,6);
+      assert.equal(safeKb.projects.length,7);
+      assert.ok(safeKb.projects.some(project=>project.name==='BahnPulse'));
       assert.equal(safeKb.identity.publicContact.phone,'+49 157 5061 2784');
       assert.ok(!JSON.stringify(safeKb).includes('Kurfürstenstraße'));
       assert.ok(!JSON.stringify(safeKb).includes('1992-12-09'));
@@ -196,6 +197,16 @@ const problems=[];
         };
       });
       assert.equal(visual.cards,6,'Keep the six selected projects');
+      assert.deepEqual(await page.locator('.project-grid .project-card h3').allTextContents().then(items=>items.map(item=>item.replace(/\s+Live\s*$/,'').trim())),[
+        'Germany Power Pulse','Auto Pulse','HireDraftAI','BahnPulse','Cosmic Atlas','AI: The Long Road to Now'
+      ],'Recruiter-focused project order');
+      assert.equal(await page.locator('.project-collaboration h3').innerText(),'Collective AI Tools');
+      assert.equal(await page.locator('.filter[data-filter="collab"]').count(),0,'Collaboration moved out of the featured grid');
+      assert.match(await page.locator('.hero-professional-line').innerText(),/IT Operations & Application Support.*Business Intelligence & Data Analytics/);
+      await page.locator('.filter[data-filter="data"]').click();
+      assert.equal(await page.locator('.project-card:visible').count(),3,'Data filter includes BahnPulse');
+      await page.locator('.filter[data-filter="all"]').click();
+      assert.equal(await page.locator('.project-card:visible').count(),6);
       assert.ok(visual.scrollWidth<=visual.width+8,'No unwanted horizontal overflow: '+JSON.stringify(visual));
       assert.match(visual.stylesheet,/^\.\/design\.css\?v=\d{8}-[a-z0-9-]+$/,'Versioned portfolio CSS URL');
       const headerLinks=page.locator('.header-quicklinks a');
@@ -225,12 +236,12 @@ const problems=[];
       assert.ok(parseFloat(visual.radius)>=18,'Refined card corner radius applied');
       console.log('VISUAL '+size.name+': '+JSON.stringify(visual));
       await page.locator('[data-exp-company="hrc"]').first().waitFor();
-      assert.equal(await page.locator('.exp-timeline-open').count(),3);
+      assert.equal(await page.locator('.exp-timeline-open').count(),1,'Only HRC should have Explore my work');
       assert.equal(await page.locator('.timeline > li').count(),6,'Keep all six employment entries');
-      for(const id of ['rwe','tke','hrc']){
+      for(const id of ['hrc']){
         assert.equal(await page.locator('.exp-timeline-open[data-exp-company="'+id+'"]').count(),1);
       }
-      for(const id of ['vaillant','eon','yes']){
+      for(const id of ['rwe','tke','vaillant','eon','yes']){
         assert.equal(await page.locator('.exp-timeline-open[data-exp-company="'+id+'"]').count(),0);
       }
       assert.equal(await page.locator('#experience-explorer').isVisible(),false);
@@ -276,20 +287,7 @@ const problems=[];
       await page.keyboard.press('Escape');
       assert.equal(await modal.isVisible(),false);
       assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('experience-modal-open')),false);
-      await page.locator('[data-exp-company="rwe"]').last().click();
-      await modal.waitFor({state:'visible'});
-      assert.match(await page.locator('#exp-modal-title').innerText(),/RWE Renewables/);
-      assert.match(await page.locator('.exp-preview').innerText(),/placeholder/i);
-      assert.equal(await page.locator('#exp-tabs').isVisible(),false);
-      await page.screenshot({path:'qa-'+size.name+'-preview.png'});
-      await page.locator('.exp-modal-close').click();
-      assert.equal(await modal.isVisible(),false);
-      await page.locator('[data-exp-company="tke"]').last().click();
-      assert.match(await page.locator('#exp-modal-title').innerText(),/TK Elevator/);
-      assert.match(await page.locator('.exp-preview').innerText(),/placeholder/i);
-      await page.keyboard.press('Escape');
-      assert.equal(await modal.isVisible(),false);
-      console.log('PASSED '+size.name+': three explorer links, six timeline jobs, HRC tabs, incident workflows, RWE/TK previews, Escape');
+      console.log('PASSED '+size.name+': six selected projects, seven KB projects, six timeline jobs, HRC-only interactive walkthrough, Escape');
       await context.close();
     }
     assert.deepEqual(problems,[]);

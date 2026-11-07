@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-11-03",
+  "updated": "2026-11-07",
   "purpose": "Public, recruiter-facing factual knowledge for Virtual Hillol. Curated from the user's 2026 master profile, current CV, AI profile review, and direct visa clarification. Never treat this as complete evidence for legal eligibility.",
   "publicOnly": true,
   "identity": {
@@ -21,7 +21,7 @@
       "email": "hjsarker@gmail.com",
       "linkedin": "https://www.linkedin.com/in/hjsarker",
       "github": "https://github.com/hjsarker",
-      "portfolio": "https://hjsarker.github.io/portfolio/",
+      "portfolio": "https://hillol.de/",
       "phone": "+49 157 5061 2784"
     }
   },
@@ -388,6 +388,30 @@
   ],
   "projects": [
     {
+      "id": "powerpulse",
+      "name": "Germany Power Pulse",
+      "category": "Energy data visualization",
+      "url": "https://hjsarker.github.io/germany-power-pulse/",
+      "description": "A visualization of German electricity generation, demand, prices and renewable energy using SMARD data.",
+      "stack": [
+        "Python",
+        "SQL",
+        "Streamlit",
+        "Plotly"
+      ]
+    },
+    {
+      "id": "autopulse",
+      "name": "Auto Pulse",
+      "category": "Automotive BI",
+      "description": "An interactive exploration of automotive and EV adoption trends.",
+      "stack": [
+        "Dashboard",
+        "Public data",
+        "Visualization"
+      ]
+    },
+    {
       "id": "hiredraft",
       "name": "HireDraftAI",
       "category": "Independent applied AI SaaS",
@@ -402,6 +426,21 @@
         "GitHub Actions"
       ],
       "limits": "Do not claim independent manual coding of all components, professional employment tenure, user/revenue statistics, or guaranteed ATS outcomes."
+    },
+    {
+      "id": "bahnpulse",
+      "name": "BahnPulse",
+      "category": "German rail reliability analytics",
+      "url": "https://bahn-pulse.vercel.app/",
+      "description": "An independent historical railway reliability dashboard analyzing scheduled train-stop delays, cancellations and station-level patterns using archived Deutsche Bahn public timetable API observations. September 2026 is the first verified reporting month; the dashboard is not live train tracking or a prediction model.",
+      "stack": [
+        "Python",
+        "DuckDB/SQL",
+        "Parquet",
+        "Data validation",
+        "GitHub Actions"
+      ],
+      "limits": "Do not describe it as real-time, a journey-level passenger punctuality metric or a predictive model."
     },
     {
       "id": "cosmic",
@@ -425,30 +464,6 @@
       "stack": [
         "JavaScript",
         "Data visualization"
-      ]
-    },
-    {
-      "id": "autopulse",
-      "name": "Auto Pulse",
-      "category": "Automotive BI",
-      "description": "An interactive exploration of automotive and EV adoption trends.",
-      "stack": [
-        "Dashboard",
-        "Public data",
-        "Visualization"
-      ]
-    },
-    {
-      "id": "powerpulse",
-      "name": "Germany Power Pulse",
-      "category": "Energy data visualization",
-      "url": "https://hjsarker.github.io/germany-power-pulse/",
-      "description": "A visualization of German electricity generation, demand, prices and renewable energy using SMARD data.",
-      "stack": [
-        "Python",
-        "SQL",
-        "Streamlit",
-        "Plotly"
       ]
     },
     {
