@@ -11,7 +11,7 @@
 "use strict";
 const OPENROUTER_URL="https://openrouter.ai/api/v1/chat/completions";
 const PORTFOLIO_ORIGIN="https://hjsarker.github.io";
-const KNOWLEDGE_URL="https://hjsarker.github.io/portfolio/data/virtual-hillol-knowledge.json";
+const KNOWLEDGE_URL="https://hillol.de/data/virtual-hillol-knowledge.json";
 const ALLOWED_ORIGINS=new Set([PORTFOLIO_ORIGIN,"https://hillol.de","https://www.hillol.de","http://127.0.0.1:8765","http://localhost:8765"]);
 const MODEL="openai/gpt-6-luna";
 const MAX_TURNS=8;
@@ -135,7 +135,7 @@ module.exports=async function handler(req,res){
       headers:{
         Authorization:"Bearer "+key,
         "Content-Type":"application/json",
-        "HTTP-Referer":"https://hjsarker.github.io/portfolio/",
+        "HTTP-Referer":"https://hillol.de/",
         "X-Title":"Virtual Hillol Career Portfolio"
       },
       body:JSON.stringify({

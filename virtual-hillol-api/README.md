@@ -1,13 +1,13 @@
 # Virtual Hillol API
 
-Small serverless backend for the existing [GitHub Pages portfolio](https://hjsarker.github.io/portfolio/). The browser UI stays on GitHub Pages. This directory is the Vercel project root.
+Small serverless backend for the existing [GitHub Pages portfolio](https://hillol.de/). The browser UI stays on GitHub Pages. This directory is the Vercel project root.
 
 ## Endpoints
 
 - `GET /api/health` returns `mode: "awaiting_key"` until OpenRouter is configured, otherwise `mode: "live"`.
 - `POST /api/chat` accepts `{"messages":[{"role":"user","content":"..."}]}` from the exact GitHub Pages origin. Returns `{"reply":"...", "mode":"live"}` when configured.
 
-The verified model is `openai/gpt-6-luna`, OpenRouter's official slug. Output capped at 650 tokens per request. Conversation length is bounded. CORS accepts only `https://hjsarker.github.io` (and localhost for QA). Rate limiting is best effort *per serverless instance*, and **is not a hard quota**. Client-supplied Origin headers can be forged; this service is public.
+The verified model is `openai/gpt-6-luna`, OpenRouter's official slug. Output capped at 650 tokens per request. Conversation length is bounded. CORS accepts the portfolio origins `https://hillol.de` and `https://www.hillol.de`, the previous `https://hjsarker.github.io` origin for compatibility, and localhost for QA. Rate limiting is best effort *per serverless instance*, and **is not a hard quota**. Client-supplied Origin headers can be forged; this service is public.
 
 ## Current project
 
@@ -21,7 +21,7 @@ In Vercel dashboard go to the project > Settings > Environment Variables. Add **
 
 **After adding the environment variable, redeploy the latest production deployment** so the Vercel function receives it. Check `/api/health`; it should show `mode: "live"`. The portfolio automatically switches to live AI mode when the health check is ready.
 
-This repository never stores the private original CV or master JSON in the backend. It retrieves only the existing **public, sanitized career facts** from `https://hjsarker.github.io/portfolio/data/virtual-hillol-knowledge.json`. That document is public and may be cached for up to 10 minutes per function instance.
+This repository never stores the private original CV or master JSON in the backend. It retrieves only the existing **public, sanitized career facts** from `https://hillol.de/data/virtual-hillol-knowledge.json`. That document is public and may be cached for up to 10 minutes per function instance.
 
 ## Cost and privacy
 
@@ -42,3 +42,4 @@ No hard claim that the assistant is perfect: it may make mistakes, especially ab
 - No fallback to higher-cost models.
 - Set reasonable Vercel project protection/WAF where available.
 - Avoid sending pasted job descriptions that contain sensitive personal information.
+

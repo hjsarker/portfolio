@@ -4,7 +4,7 @@ A responsive, static portfolio showcasing experience in IT operations, applicati
 
 ## Live website
 
-**https://hjsarker.github.io/portfolio/**
+**https://hillol.de/**
 
 The site includes a custom HTML Canvas particle network that drifts and responds to mouse movement, with mobile and reduced-motion accommodations.
 
@@ -69,7 +69,7 @@ No backend, external build tools, trackers, or hosting service beyond GitHub Pag
 
 Open **Settings → Pages**, set **Build and deployment → Source: Deploy from a branch**, select **main** and **/(root)**, then save.
 
-Your published URL should be **https://hjsarker.github.io/portfolio/**. Publishing can take a few minutes. Until Pages is enabled, the repository's files exist but the website may not be reachable.
+Set **Custom domain** to **hillol.de** and keep the root `CNAME` file. Namecheap BasicDNS points `@` to `hjsarker.github.io` with an ALIAS record and `www` to `hjsarker.github.io` with a CNAME record. Enable **Enforce HTTPS** once GitHub provisions the certificate. The canonical portfolio URL is **https://hillol.de/**; the former GitHub Pages portfolio URL redirects here.
 
 ## Updating content
 
