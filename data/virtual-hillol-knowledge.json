@@ -412,6 +412,22 @@
       ]
     },
     {
+      "id": "opslens",
+      "name": "OpsLens",
+      "category": "IT operations / service desk BI dashboard",
+      "url": "https://opslens-hjsarkers-projects.vercel.app/",
+      "description": "A live, independent portfolio demonstration using 3,200 synthetic IT incidents. Features incident searches, lifecycle timelines, SLA monitoring, operational reporting, CSV export and data quality checks. The demonstration does not connect to real employer ITSM systems.",
+      "stack": [
+        "Python",
+        "SQL / DuckDB",
+        "Incident analytics",
+        "ITSM",
+        "SLA monitoring",
+        "Data validation"
+      ],
+      "limits": "All incidents and metrics are generated from a synthetic dataset; do not imply real company tickets, live ServiceNow/Jira integration, production support usage or predictive AI."
+    },
+    {
       "id": "hiredraft",
       "name": "HireDraftAI",
       "category": "Independent applied AI SaaS",

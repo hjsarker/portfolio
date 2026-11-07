@@ -176,8 +176,9 @@ const problems=[];
       assert.equal(knowledge.status(),200);
       const safeKb=await knowledge.json();
       assert.equal(safeKb.experience.length,6);
-      assert.equal(safeKb.projects.length,7);
+      assert.equal(safeKb.projects.length,8);
       assert.ok(safeKb.projects.some(project=>project.name==='BahnPulse'));
+      assert.ok(safeKb.projects.some(project=>project.name==='OpsLens'&&project.url==='https://opslens-hjsarkers-projects.vercel.app/'));
       assert.equal(safeKb.identity.publicContact.phone,'+49 157 5061 2784');
       assert.ok(!JSON.stringify(safeKb).includes('Kurfürstenstraße'));
       assert.ok(!JSON.stringify(safeKb).includes('1992-12-09'));
@@ -196,17 +197,23 @@ const problems=[];
           stylesheet:link?.getAttribute('href')
         };
       });
-      assert.equal(visual.cards,6,'Keep the six selected projects');
+      assert.equal(visual.cards,7,'Show all seven selected projects');
+      assert.equal(await page.locator('.filter[data-filter="all"] span').innerText(),'07');
+      assert.equal(await page.locator('.about-facts .fact-number').nth(1).innerText(),'07');
+      assert.equal(await page.locator('#p-opslens').count(),1);
+      assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href="https://opslens-hjsarkers-projects.vercel.app/"]').count(),1);
+      assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href^="https://github.com/hjsarker/opslens"]').count(),0,'No uncreated code repository link');
+
       assert.deepEqual(await page.locator('.project-grid .project-card h3').allTextContents().then(items=>items.map(item=>item.replace(/\s+Live\s*$/,'').trim())),[
-        'Germany Power Pulse','Auto Pulse','HireDraftAI','BahnPulse','Cosmic Atlas','AI: The Long Road to Now'
+        'Germany Power Pulse','Auto Pulse','OpsLens','HireDraftAI','BahnPulse','Cosmic Atlas','AI: The Long Road to Now'
       ],'Recruiter-focused project order');
       assert.equal(await page.locator('.project-collaboration h3').innerText(),'Collective AI Tools');
       assert.equal(await page.locator('.filter[data-filter="collab"]').count(),0,'Collaboration moved out of the featured grid');
       assert.match(await page.locator('.hero-professional-line').innerText(),/IT Operations & Application Support.*Business Intelligence & Data Analytics/);
       await page.locator('.filter[data-filter="data"]').click();
-      assert.equal(await page.locator('.project-card:visible').count(),3,'Data filter includes BahnPulse');
+      assert.equal(await page.locator('.project-card:visible').count(),4,'Data filter includes BahnPulse and OpsLens');
       await page.locator('.filter[data-filter="all"]').click();
-      assert.equal(await page.locator('.project-card:visible').count(),6);
+      assert.equal(await page.locator('.project-card:visible').count(),7);
       assert.ok(visual.scrollWidth<=visual.width+8,'No unwanted horizontal overflow: '+JSON.stringify(visual));
       assert.match(visual.stylesheet,/^\.\/design\.css\?v=\d{8}-[a-z0-9-]+$/,'Versioned portfolio CSS URL');
       // New portrait must be accessible without breaking the name's back-to-top link.
@@ -301,7 +308,7 @@ const problems=[];
       await page.keyboard.press('Escape');
       assert.equal(await modal.isVisible(),false);
       assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('experience-modal-open')),false);
-      console.log('PASSED '+size.name+': six selected projects, seven KB projects, six timeline jobs, HRC-only interactive walkthrough, Escape');
+      console.log('PASSED '+size.name+': seven selected projects, eight KB projects, six timeline jobs, HRC-only interactive walkthrough, Escape');
       await context.close();
     }
     assert.deepEqual(problems,[]);

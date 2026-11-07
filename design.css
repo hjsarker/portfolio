@@ -1684,3 +1684,42 @@ button,input{font:inherit}
   .portrait-dialog{padding:10px;border-radius:20px;}
   .portrait-dialog-close{right:16px;top:16px;}
 }
+
+
+/* OpsLens project cover: self-hosted CSS illustration, no screenshot provider. */
+.project-visual.project-real.project-cover--opslens{
+  background:radial-gradient(ellipse at 85% -15%,#28688d66,transparent 65%),
+    linear-gradient(135deg,#071a2e 0%,#0e263e 55%,#143952 100%);
+  color:#ecf7ff;
+  isolation:isolate;
+}
+.opslens-preview{
+  position:absolute;inset:0;padding:15px 17px 18px;
+  display:flex;flex-direction:column;gap:10px;z-index:1;
+}
+.opslens-preview-top{display:flex;align-items:center;gap:9px;color:#a6c8de;font-size:8px;font-weight:800;letter-spacing:.10em}
+.opslens-symbol{width:29px;height:29px;display:grid;place-items:center;border:1px solid #73c5e966;border-radius:8px;background:#235c77aa;font:800 16px/1 var(--display);color:#f7ffff}
+.opslens-symbol span{color:#81e8b5}
+.opslens-preview-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.opslens-preview-metrics>div{display:flex;flex-direction:column;gap:6px;padding:10px 9px 9px;background:#ffffff10;border:1px solid #ffffff17;border-radius:9px;min-width:0}
+.opslens-preview-metrics>div>span{font-size:7px;letter-spacing:.08em;font-weight:750;color:#b0c6d8;white-space:nowrap}
+.opslens-preview-metrics strong{font:760 19px/1 var(--display);color:#f4fbff;letter-spacing:-.04em}
+.opslens-preview-chart{flex:1;min-height:25px;max-height:46px;display:flex;align-items:end;gap:7px;opacity:.86;margin:2px 42px 0 4px;border-bottom:1px solid #83adc366}
+.opslens-preview-chart i{flex:1;max-height:100%;border-radius:2px 2px 0 0;background:linear-gradient(0deg,#317fba77,#7de2c6)}
+.opslens-preview-chart i:nth-child(12n+1){height:55%}
+.opslens-preview-chart i:nth-child(12n+2){height:78%}
+.opslens-preview-chart i:nth-child(12n+3){height:46%}
+.opslens-preview-chart i:nth-child(12n+4){height:91%}
+.opslens-preview-chart i:nth-child(12n+5){height:64%}
+.opslens-preview-chart i:nth-child(12n+6){height:87%}
+.opslens-preview-chart i:nth-child(12n+7){height:69%}
+.opslens-preview-chart i:nth-child(12n+8){height:97%}
+.opslens-preview-chart i:nth-child(12n+9){height:53%}
+.opslens-preview-chart i:nth-child(12n+10){height:79%}
+.opslens-preview-chart i:nth-child(12n+11){height:61%}
+.opslens-preview-chart i:nth-child(12n+12){height:87%}
+.project-cover--opslens .real-preview-chip{z-index:3}
+@media(max-width:430px){
+ .opslens-preview{padding:13px 14px}
+ .opslens-preview-metrics{gap:6px}
+}
