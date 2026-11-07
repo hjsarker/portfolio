@@ -202,7 +202,7 @@ const problems=[];
       assert.equal(await page.locator('.about-facts .fact-number').nth(1).innerText(),'07');
       assert.equal(await page.locator('#p-opslens').count(),1);
       assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href="https://opslens-hjsarkers-projects.vercel.app/"]').count(),1);
-      assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href^="https://github.com/hjsarker/opslens"]').count(),0,'No uncreated code repository link');
+      assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href="https://github.com/hjsarker/opslens"]').count(),1,'Published OpsLens code repository link');
 
       assert.deepEqual(await page.locator('.project-grid .project-card h3').allTextContents().then(items=>items.map(item=>item.replace(/\s+Live\s*$/,'').trim())),[
         'Germany Power Pulse','Auto Pulse','OpsLens','HireDraftAI','BahnPulse','Cosmic Atlas','AI: The Long Road to Now'

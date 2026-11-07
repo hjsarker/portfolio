@@ -419,13 +419,14 @@
       "description": "A live, independent portfolio demonstration using 3,200 synthetic IT incidents. Features incident searches, lifecycle timelines, SLA monitoring, operational reporting, CSV export and data quality checks. The demonstration does not connect to real employer ITSM systems.",
       "stack": [
         "Python",
-        "SQL / DuckDB",
+        "SQL / SQLite",
         "Incident analytics",
         "ITSM",
         "SLA monitoring",
         "Data validation"
       ],
-      "limits": "All incidents and metrics are generated from a synthetic dataset; do not imply real company tickets, live ServiceNow/Jira integration, production support usage or predictive AI."
+      "limits": "All incidents and metrics are generated from a synthetic dataset; do not imply real company tickets, live ServiceNow/Jira integration, production support usage or predictive AI.",
+      "repository": "https://github.com/hjsarker/opslens"
     },
     {
       "id": "hiredraft",
