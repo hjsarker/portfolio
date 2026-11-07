@@ -1640,3 +1640,47 @@ button,input{font:inherit}
 @media(max-width:430px){
   .hero-professional-line{max-width:320px;font-size:12.5px}
 }
+
+
+/* Personal portrait, accessible click-to-expand view. */
+.site-header .brand{display:flex;align-items:center;gap:11px;}
+.brand-photo-toggle{
+  display:grid;place-items:center;flex:none;
+  appearance:none;-webkit-appearance:none;
+  margin:0;padding:0;background:transparent;border:0;border-radius:50%;
+  cursor:zoom-in;line-height:0;
+}
+.brand-photo-toggle .brand-photo{display:block;}
+.brand-photo-toggle:focus-visible{outline:2px solid #9cc8ff;outline-offset:4px;}
+.brand-photo-toggle:focus-visible .brand-photo{
+  transform:scale(1.10);border-color:rgba(255,255,255,.48);
+}
+.brand-name-link{display:inline-flex;align-items:center;min-width:0;text-decoration:none;color:inherit;}
+.brand-name-link:hover .brand-name{color:#fff;}
+.brand-name-link:focus-visible{outline:2px solid #9cc8ff;outline-offset:5px;border-radius:4px;}
+.portrait-dialog{
+  position:fixed;max-width:min(92vw,470px);width:calc(100% - 36px);
+  max-height:calc(100dvh - 36px);margin:auto;padding:14px;
+  border:1px solid rgba(224,234,249,.20);border-radius:25px;
+  color:#f3f6fc;background:#171b26;box-shadow:0 35px 110px rgba(0,0,0,.45);
+  overflow:auto;
+}
+.portrait-dialog::backdrop{background:rgba(5,10,22,.82);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);}
+.portrait-dialog figure{margin:0;}
+.portrait-dialog figure img{
+  display:block;width:100%;height:auto;max-height:min(76dvh,560px);
+  aspect-ratio:1/1;object-fit:contain;border-radius:16px;background:#e5e5e5;
+}
+.portrait-dialog figcaption{padding:15px 5px 3px;text-align:center;font-size:14px;font-weight:650;letter-spacing:.015em;}
+.portrait-dialog-close{
+  position:absolute;z-index:2;right:23px;top:23px;display:grid;place-items:center;
+  width:36px;height:36px;padding:0;border:1px solid rgba(255,255,255,.32);
+  border-radius:50%;background:rgba(12,19,31,.75);color:#fff;
+  font:400 26px/1 Arial,sans-serif;cursor:pointer;backdrop-filter:blur(6px);
+}
+.portrait-dialog-close:hover{background:#303c50;}
+.portrait-dialog-close:focus-visible{outline:2px solid #aaccff;outline-offset:3px;}
+@media(max-width:620px){
+  .portrait-dialog{padding:10px;border-radius:20px;}
+  .portrait-dialog-close{right:16px;top:16px;}
+}

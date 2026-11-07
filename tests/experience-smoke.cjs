@@ -209,6 +209,20 @@ const problems=[];
       assert.equal(await page.locator('.project-card:visible').count(),6);
       assert.ok(visual.scrollWidth<=visual.width+8,'No unwanted horizontal overflow: '+JSON.stringify(visual));
       assert.match(visual.stylesheet,/^\.\/design\.css\?v=\d{8}-[a-z0-9-]+$/,'Versioned portfolio CSS URL');
+      // New portrait must be accessible without breaking the name's back-to-top link.
+      assert.equal(await page.locator('.brand-name-link[href="#top"]').count(),1,'Name still links to top');
+      const portraitIcon=page.locator('#brand-photo-toggle img');
+      assert.match(await portraitIcon.getAttribute('src'),/assets\/portrait\.webp/);
+      await page.waitForFunction(()=>document.querySelector('#brand-photo-toggle img')?.naturalWidth>0);
+      await page.locator('#brand-photo-toggle').click();
+      const portraitDialog=page.locator('#portrait-dialog');
+      assert.equal(await portraitDialog.isVisible(),true,'Clicking the portrait opens a larger view');
+      assert.equal(await portraitDialog.locator('img').isVisible(),true);
+      await page.keyboard.press('Escape');
+      assert.equal(await portraitDialog.isVisible(),false,'Escape closes the enlarged portrait');
+      await page.locator('#brand-photo-toggle').click();
+      await page.locator('#portrait-dialog-close').click();
+      assert.equal(await portraitDialog.isVisible(),false,'Close button dismisses portrait');
       const headerLinks=page.locator('.header-quicklinks a');
       assert.equal(await headerLinks.count(),5,'Five professional and contact links in header');
       const expectedHeaderLinks=[
