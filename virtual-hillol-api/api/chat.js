@@ -12,7 +12,7 @@
 const OPENROUTER_URL="https://openrouter.ai/api/v1/chat/completions";
 const PORTFOLIO_ORIGIN="https://hjsarker.github.io";
 const KNOWLEDGE_URL="https://hjsarker.github.io/portfolio/data/virtual-hillol-knowledge.json";
-const ALLOWED_ORIGINS=new Set([PORTFOLIO_ORIGIN,"http://127.0.0.1:8765","http://localhost:8765"]);
+const ALLOWED_ORIGINS=new Set([PORTFOLIO_ORIGIN,"https://hillol.de","https://www.hillol.de","http://127.0.0.1:8765","http://localhost:8765"]);
 const MODEL="openai/gpt-6-luna";
 const MAX_TURNS=8;
 const MAX_LAST=11500;
@@ -160,3 +160,4 @@ module.exports=async function handler(req,res){
   }catch(_){return reply(res,502,{error:"request_failed",message:"The AI response was interrupted. Please try again."});}
   finally{clearTimeout(timer);}
 };
+

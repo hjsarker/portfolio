@@ -14,6 +14,30 @@ function res(){
   };
 }
 const req=(method,origin,body)=>({method,headers:{origin,"x-forwarded-for":"203.0.113.8"},body});
+test("portfolio domains receive health and chat preflight permission",async()=>{
+  for(const origin of [ORIGIN,"https://hillol.de","https://www.hillol.de"]){
+    const status=res();
+    health(req("GET",origin),status);
+    assert.equal(status.code,200);
+    assert.equal(status.headers["Access-Control-Allow-Origin"],origin);
+    const preflight=res();
+    await chat(req("OPTIONS",origin),preflight);
+    assert.equal(preflight.code,204);
+    assert.equal(preflight.headers["Access-Control-Allow-Origin"],origin);
+    assert.equal(preflight.headers["Access-Control-Allow-Methods"],"POST, OPTIONS");
+  }
+});
+test("similar-looking and insecure domains remain outside the CORS allowlist",async()=>{
+  for(const origin of ["https://hillol.de.evil.example","https://evilhillol.de","http://hillol.de"]){
+    const status=res();
+    health(req("GET",origin),status);
+    assert.equal(status.headers["Access-Control-Allow-Origin"],undefined);
+    const preflight=res();
+    await chat(req("OPTIONS",origin),preflight);
+    assert.equal(preflight.code,403);
+    assert.equal(preflight.headers["Access-Control-Allow-Origin"],undefined);
+  }
+});
 test("health is in awaiting_key mode without credential",()=>{
   delete process.env.OPENROUTER_API_KEY;
   const out=res();
@@ -77,3 +101,4 @@ test("a bounded valid request uses approved public facts and fixed Luna model",a
     assert.ok(!JSON.stringify(out.payload).includes("test-key-do-not-use"));
   }finally{global.fetch=originalFetch;delete process.env.OPENROUTER_API_KEY;}
 });
+
