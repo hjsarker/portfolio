@@ -48,6 +48,34 @@ const problems=[];
       assert.equal(aiPosts,0,'The timer must never submit an AI request');
       await greetingPage.close();
       if(size.name==='desktop'){
+        // An incognito-like fresh page that stays in a background tab must
+        // still show the invitation after eight cumulative visible seconds.
+        const bgPage=await context.newPage();
+        await bgPage.clock.install();
+        await bgPage.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
+        await bgPage.locator('#vh-teaser').waitFor({state:'attached'});
+        await bgPage.evaluate(()=>{
+          window.__teaserTestHidden=false;
+          Object.defineProperty(document,'hidden',{
+            configurable:true,get:()=>window.__teaserTestHidden
+          });
+        });
+        await bgPage.clock.fastForward(3500);
+        await bgPage.evaluate(()=>{
+          window.__teaserTestHidden=true;
+          document.dispatchEvent(new Event('visibilitychange'));
+        });
+        await bgPage.clock.fastForward(12000);
+        assert.equal(await bgPage.locator('#vh-teaser').isVisible(),false,'Background time must not show the invitation');
+        await bgPage.evaluate(()=>{
+          window.__teaserTestHidden=false;
+          document.dispatchEvent(new Event('visibilitychange'));
+        });
+        await bgPage.clock.fastForward(4500);
+        assert.equal(await bgPage.locator('#vh-teaser').isVisible(),true,'The invitation resumes after returning to the visible tab');
+        await bgPage.close();
+      }
+      if(size.name==='desktop'){
         const startPage=await context.newPage();
         await startPage.clock.install();
         await startPage.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});

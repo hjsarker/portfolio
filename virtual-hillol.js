@@ -24,30 +24,52 @@
   const teaserStart=document.getElementById("vh-teaser-start");
   const TEASER_DELAY_MS=8000;
   const TEASER_SESSION_KEY="virtual-hillol-greeting-seen-v1";
+  const teaserMobileQuery=window.matchMedia("(max-width: 720px)");
   let teaserHandled=false;
   let teaserTimer=null;
+  let teaserElapsedVisibleMs=0;
+  let teaserStartedAt=0;
   function hasSeenTeaser(){
     if(teaserHandled)return true;
     try{return sessionStorage.getItem(TEASER_SESSION_KEY)==="1";}
     catch(_){return false;}
   }
+  function pauseTeaser(){
+    if(teaserTimer===null)return;
+    clearTimeout(teaserTimer);
+    teaserTimer=null;
+    teaserElapsedVisibleMs=Math.min(TEASER_DELAY_MS,
+      teaserElapsedVisibleMs+Math.max(0,Date.now()-teaserStartedAt));
+  }
   function hideTeaser(){
-    if(teaserTimer!==null){clearTimeout(teaserTimer);teaserTimer=null;}
+    pauseTeaser();
     if(teaser)teaser.hidden=true;
     teaserHandled=true;
     try{sessionStorage.setItem(TEASER_SESSION_KEY,"1");}catch(_){}
   }
   function scheduleTeaser(){
-    if(!teaser||hasSeenTeaser())return;
+    if(!teaser||hasSeenTeaser()||opened||teaserTimer!==null||
+       document.hidden||teaserMobileQuery.matches)return;
+    teaserStartedAt=Date.now();
     teaserTimer=setTimeout(()=>{
       teaserTimer=null;
-      if(opened||hasSeenTeaser()||document.hidden||
-         window.matchMedia("(max-width: 720px)").matches)return;
+      teaserElapsedVisibleMs=TEASER_DELAY_MS;
+      if(opened||hasSeenTeaser()||document.hidden||teaserMobileQuery.matches)return;
       teaser.hidden=false;
       teaserHandled=true;
       try{sessionStorage.setItem(TEASER_SESSION_KEY,"1");}catch(_){}
-    },TEASER_DELAY_MS);
+    },Math.max(0,TEASER_DELAY_MS-teaserElapsedVisibleMs));
   }
+  // Count time spent actively viewing the page. Returning to a background
+  // tab must not silently cancel the one-time invitation.
+  document.addEventListener("visibilitychange",()=>{
+    if(document.hidden)pauseTeaser();
+    else scheduleTeaser();
+  });
+  teaserMobileQuery.addEventListener("change",event=>{
+    if(event.matches)pauseTeaser();
+    else scheduleTeaser();
+  });
   let kb=null,opened=false,chatCount=0,lastFocus=null;
   let liveReady=false,conversation=[],checking=false,conversationGeneration=0;
   async function checkAI(){
