@@ -39,6 +39,15 @@ const destinations = [
         console.warn('SKIP '+name+': '+err.message);
       }finally{await page.close();}
     }
+    // Build a precise 1200x630 social card from the real portrait and authored text.
+    const sharePage=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1,reducedMotion:'reduce'});
+    try{
+      await sharePage.goto('file://'+path.join(process.cwd(),'share-card.html'),{waitUntil:'load'});
+      await sharePage.locator('.avatar img').evaluate(img=>img.decode());
+      const output=path.join(process.cwd(),'assets','social','portfolio-share.jpg');
+      await sharePage.screenshot({path:output,type:'jpeg',quality:86,animations:'disabled'});
+      console.log('OK social-share '+fs.statSync(output).size+' bytes');
+    }finally{await sharePage.close();}
   }finally{await browser.close();}
   if(completed<2)process.exitCode=1;
   console.log('Captured '+completed+' public screenshots');
