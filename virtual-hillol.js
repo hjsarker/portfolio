@@ -22,7 +22,7 @@
   const teaser=document.getElementById("vh-teaser");
   const teaserDismiss=document.getElementById("vh-teaser-dismiss");
   const teaserStart=document.getElementById("vh-teaser-start");
-  const TEASER_DELAY_MS=8000;
+  const TEASER_DELAY_MS=30000;
   const TEASER_SESSION_KEY="virtual-hillol-greeting-seen-v1";
   const teaserMobileQuery=window.matchMedia("(max-width: 720px)");
   let teaserHandled=false;
@@ -55,6 +55,12 @@
       teaserTimer=null;
       teaserElapsedVisibleMs=TEASER_DELAY_MS;
       if(opened||hasSeenTeaser()||document.hidden||teaserMobileQuery.matches)return;
+      // Do not interrupt visitors while an experience or portrait dialog is open.
+      if(document.querySelector('dialog[open], [role="dialog"]:not([hidden])')){
+        teaserElapsedVisibleMs=TEASER_DELAY_MS-3000;
+        scheduleTeaser();
+        return;
+      }
       teaser.hidden=false;
       teaserHandled=true;
       try{sessionStorage.setItem(TEASER_SESSION_KEY,"1");}catch(_){}
