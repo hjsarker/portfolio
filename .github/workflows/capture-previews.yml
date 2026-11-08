@@ -26,5 +26,11 @@ jobs:
           git add assets/previews/*.jpg
           if ! git diff --cached --quiet; then
             git commit -m "Add actual public project screenshots"
-            git push
+            for attempt in 1 2 3 4; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 2
+            done
+            exit 1
           fi
