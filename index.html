@@ -474,12 +474,6 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
     const wasExpanded = projectsExpanded;
     projectsExpanded = !projectsExpanded;
     renderProjects();
-  document.querySelectorAll('[data-role-path]').forEach(link => {
-    link.addEventListener('click', () => {
-      const filter = link.dataset.rolePath === 'data' ? 'data' : 'all';
-      document.querySelector('.filter[data-filter="' + filter + '"]')?.click();
-    });
-  });
     if (wasExpanded) showMoreButton.scrollIntoView({block: 'nearest'});
   });
   document.querySelectorAll('.filter').forEach(button => {
@@ -495,6 +489,12 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
     });
   });
   renderProjects();
+  document.querySelectorAll('[data-role-path]').forEach(link => {
+    link.addEventListener('click', () => {
+      const filter = link.dataset.rolePath === 'data' ? 'data' : 'all';
+      document.querySelector('.filter[data-filter="' + filter + '"]')?.click();
+    });
+  });
 
   document.getElementById('year').textContent = String(new Date().getFullYear());
   // Jump to the absolute top, even with the sticky header and CSS scroll padding.
