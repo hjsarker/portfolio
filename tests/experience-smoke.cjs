@@ -352,6 +352,21 @@ const problems=[];
       console.log('PASSED '+size.name+': seven selected projects, eight KB projects, six timeline jobs, HRC-only interactive walkthrough, Escape');
       await context.close();
     }
+    // Screen-width coverage outside the detailed desktop/390px interaction scenarios.
+    for(const width of [360,430,768,1180]){
+      const probe=await browser.newPage({viewport:{width,height:840},reducedMotion:'reduce'});
+      try{
+        for(const path of ['','projects/opslens/','projects/germany-power-pulse/']){
+          await probe.goto('http://127.0.0.1:8765/'+path,{waitUntil:'domcontentloaded'});
+          const metrics=await probe.evaluate(()=>({
+            width:document.documentElement.clientWidth,
+            scrollWidth:document.documentElement.scrollWidth
+          }));
+          assert.ok(metrics.scrollWidth <= metrics.width+8,
+            'Horizontal overflow at '+width+'px on '+path+': '+JSON.stringify(metrics));
+        }
+      }finally{await probe.close();}
+    }
     assert.deepEqual(problems,[]);
   }finally{await browser.close();}
 })().catch(error=>{console.error('Browser QA failed',problems,error);process.exitCode=1;});
