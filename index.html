@@ -66,7 +66,7 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
 @media(prefers-reduced-motion:reduce){.particle-field{opacity:.52}}
 
   </style>
-  <link rel="stylesheet" href="./design.css?v=20261108-showmore1">
+  <link rel="stylesheet" href="./design.css?v=20261108-v2phase1">
   <title>Hillol Sarker Jogesh | IT Operations, BI & Data</title>
   <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"Person","name":"Hillol Sarker Jogesh","url":"https://hillol.de/","homeLocation":{"@type":"Place","name":"Dortmund, Germany"},"email":"mailto:hjsarker@gmail.com","sameAs":["https://github.com/hjsarker","https://www.linkedin.com/in/hjsarker"],"knowsAbout":["IT service management","Application support","Business intelligence","Power BI","SQL","Data quality","IT process governance"]}
@@ -141,6 +141,10 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
           <div class="hero-actions">
             <a class="btn btn-primary" href="#work">Explore my projects <span aria-hidden="true">↗</span></a>
             <a class="btn btn-ghost" href="#experience">My experience <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-specialties" role="group" aria-label="Explore work by professional area">
+            <a class="hero-specialty" href="#experience" data-role-path="it"><span class="hero-specialty-mark">01</span><span>IT Operations &amp; Support</span><span aria-hidden="true">↗</span></a>
+            <a class="hero-specialty" href="#work" data-role-path="data"><span class="hero-specialty-mark">02</span><span>Business Intelligence &amp; Data</span><span aria-hidden="true">↗</span></a>
           </div>
           <button type="button" class="vh-hero-invite" data-vh-open aria-label="Open Virtual Hillol recruiter chat"><span class="vh-hero-spark" aria-hidden="true">✦</span> Have a question about my experience? <strong>Ask Virtual Hillol <span aria-hidden="true">↗</span></strong></button>
           <div class="hero-bottom"><span class="availability"><span class="availability-dot"></span> Open to full-time opportunities across Germany</span><span class="hero-location">Based in Dortmund, Germany</span></div>
@@ -470,6 +474,12 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
     const wasExpanded = projectsExpanded;
     projectsExpanded = !projectsExpanded;
     renderProjects();
+  document.querySelectorAll('[data-role-path]').forEach(link => {
+    link.addEventListener('click', () => {
+      const filter = link.dataset.rolePath === 'data' ? 'data' : 'all';
+      document.querySelector('.filter[data-filter="' + filter + '"]')?.click();
+    });
+  });
     if (wasExpanded) showMoreButton.scrollIntoView({block: 'nearest'});
   });
   document.querySelectorAll('.filter').forEach(button => {
