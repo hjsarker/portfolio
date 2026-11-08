@@ -1839,3 +1839,12 @@ button,input{font:inherit}
   .vh-hero-invite{display:none}
   .hero-bottom{margin-top:17px}
 }
+
+
+/* WCAG contrast corrections from an automated homepage audit. */
+.project-kicker>span:last-child{color:#535f71}
+.project-collaboration-label{color:#566273}
+.projects-foot>span,.project-disclaimer{color:#505c6c}
+.experience-title p{color:#525e6b}
+.experience .inline-link,.experience .timeline-date{color:#005bb0}
+.experience .timeline-content>p{color:#4e5a68}
