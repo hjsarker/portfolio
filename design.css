@@ -1805,3 +1805,14 @@ button,input{font:inherit}
   .filters{gap:7px}
   .filters .filter{font-size:11px}
 }
+
+
+/* Evidence links beneath skill groups */
+.expertise-card .expertise-proof{
+  display:block;margin:20px 0 0;padding-top:14px;
+  border-top:1px solid #e4e9f0;color:#798395;
+  font-size:12px;line-height:1.65;
+}
+.expertise-proof a{color:#1764af;font-weight:730}
+.expertise-proof a:hover{text-decoration:underline;text-underline-offset:3px}
+.expertise-proof a:focus-visible{outline:2px solid #6faefa;outline-offset:3px}
