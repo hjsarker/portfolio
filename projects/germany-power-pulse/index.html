@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Germany Power Pulse Case Study | Hillol Sarker Jogesh</title>
+<meta name="description" content="How Germany Power Pulse uses official SMARD electricity observations, Python validation, SQLite snapshots and transparent descriptive analytics.">
+<link rel="canonical" href="https://hillol.de/projects/germany-power-pulse/">
+<link rel="stylesheet" href="../../case-study.css?v=20261108">
+<meta property="og:type" content="article"><meta property="og:title" content="Germany Power Pulse | Technical case study">
+<meta property="og:description" content="An electricity market analytics dashboard with reproducible ingestion and careful data-quality handling.">
+<meta property="og:url" content="https://hillol.de/projects/germany-power-pulse/">
+</head><body>
+<a class="skip-link" href="#case-main">Skip to article</a>
+<header class="page-header"><div class="wrap"><a href="../../" class="brand">Hillol Sarker Jogesh<span>IT · BI · DATA</span></a><nav class="header-links" aria-label="Page navigation"><a href="../../#work">All projects</a><a href="../../#experience">Experience</a><a href="mailto:hjsarker@gmail.com?subject=Germany%20Power%20Pulse%20enquiry">Contact ↗</a></nav></div></header>
+<section class="case-hero" aria-labelledby="case-title"><div class="wrap">
+<p class="breadcrumb"><a href="../../">Portfolio</a> / <a href="../../#work">Projects</a> / Germany Power Pulse</p>
+<p class="eyebrow">Energy data / Python / data quality</p>
+<h1 id="case-title">Germany<br>Power Pulse</h1>
+<p class="hero-intro">An interactive look at German wholesale electricity prices, electricity generation and grid load using hourly data from Bundesnetzagentur's SMARD platform.</p>
+<div class="hero-actions"><a class="button button-primary" href="https://hjsarker.github.io/germany-power-pulse/" target="_blank" rel="noopener noreferrer">Explore dashboard ↗</a><a class="button button-outline" href="https://github.com/hjsarker/germany-power-pulse" target="_blank" rel="noopener noreferrer">Inspect source code ↗</a></div>
+<div class="stats" aria-label="Project facts">
+<div class="stat"><strong>13</strong><span>Market data series</span></div>
+<div class="stat"><strong>11</strong><span>Generation categories</span></div>
+<div class="stat"><strong>Hourly</strong><span>Market observation granularity</span></div>
+</div></div></section>
+<main class="wrap case-layout" id="case-main"><article>
+<section class="case-section" id="problem"><div class="section-label">01 / What I wanted to investigate</div><h2>Make electricity market data easier to explore</h2>
+<p>Germany's hourly electricity market data can be used to investigate renewable generation, grid demand and wholesale day-ahead prices. I built a dashboard that makes these observations easier to explore while preserving missing data and source limitations.</p>
+<p>The application is descriptive, not predictive. It does not explain household electricity bills or prove that changes in one generation source cause changes in prices.</p>
+<div class="panel"><h3>Questions the dashboard supports</h3><ul><li>How did day-ahead wholesale prices change over the selected period?</li><li>When did hourly wholesale prices fall below zero?</li><li>How did the observed generation mix change?</li><li>How did high wind and solar output hours compare with other hours?</li><li>How complete are the underlying observations?</li></ul></div>
+</section>
+<section class="case-section" id="architecture"><div class="section-label">02 / Data flow</div><h2>From official API records to usable charts</h2>
+<div class="flow-diagram" role="group" aria-label="Germany Power Pulse processing">
+<div class="flow-step"><strong>SMARD</strong><span>Public hourly market series</span></div><span class="flow-arrow" aria-hidden="true">→</span>
+<div class="flow-step"><strong>Python ingestion</strong><span>Retries, discovery and time alignment</span></div><span class="flow-arrow" aria-hidden="true">→</span>
+<div class="flow-step"><strong>Quality and metrics</strong><span>Coverage checks and observed values</span></div><span class="flow-arrow" aria-hidden="true">→</span>
+<div class="flow-step"><strong>Dashboard</strong><span>Price, generation, calendar and exports</span></div>
+</div>
+<p>The Python ingestion module discovers indexed SMARD data blocks, retries transient HTTP failures and assembles an hourly UTC grid. Any unavailable readings remain missing rather than silently becoming zero. The data can also be stored through a reproducible SQLite snapshot.</p>
+<p>The public GitHub Pages version uses a scheduled GitHub Actions process to publish a static snapshot. Its “Check for new data” button checks for a newer published snapshot, not a live API call or a fresh workflow run.</p>
+<p><a href="https://github.com/hjsarker/germany-power-pulse/blob/main/power_pulse/smard.py" target="_blank" rel="noopener noreferrer">Inspect ingestion code ↗</a> · <a href="https://github.com/hjsarker/germany-power-pulse/blob/main/.github/workflows/pages.yml" target="_blank" rel="noopener noreferrer">Publishing workflow ↗</a></p>
+</section>
+<section class="case-section" id="metrics"><div class="section-label">03 / Analytical logic</div><h2>Completeness before calculation</h2>
+<p>The dashboard reports renewable generation share only for hours when all eleven generation categories have observations. The denominator is total observed generation for those fully covered hours, not national electricity consumption.</p>
+<details><summary>Show the completeness rule from the Python implementation</summary><pre><code>df["generation_complete"] = (
+    df[list(GENERATION)].notna().all(axis=1)
+)
+df["renewable_pct"] = np.where(
+    df["generation_complete"] &amp; df["generation_mwh"].gt(0),
+    df["renewable_mwh"] / df["generation_mwh"] * 100,
+    np.nan
+)</code></pre></details>
+<p>Missing prices are also excluded from price averages. The dashboard displays coverage by market series so a visitor can judge how much data supports a chart.</p>
+<p><a href="https://github.com/hjsarker/germany-power-pulse/blob/main/power_pulse/analytics.py" target="_blank" rel="noopener noreferrer">Read metric calculations ↗</a></p>
+</section>
+<section class="case-section" id="time"><div class="section-label">04 / Time and data quality</div><h2>Hourly reporting needs careful time zones</h2>
+<p>SMARD timestamps are stored in UTC. The dashboard converts them to Europe/Berlin for presentation. At the autumn daylight-saving change, two observations can share the same local clock hour. The calendar display merges repeated hours for the heatmap only; source observations remain separate.</p>
+<div class="evidence-grid">
+<div class="evidence-card"><strong>Coverage reporting</strong><p>Missing hourly observations are counted and described rather than filled with fabricated values.</p></div>
+<div class="evidence-card"><strong>Automated tests</strong><p>Tests cover negative-price hours, renewable share, missing solar values and the spring daylight-saving transition.</p></div>
+</div>
+<p><a href="https://github.com/hjsarker/germany-power-pulse/blob/main/tests/test_analytics.py" target="_blank" rel="noopener noreferrer">Inspect data-quality tests ↗</a></p>
+</section>
+<section class="case-section" id="decisions"><div class="section-label">05 / Choices and limitations</div><h2>What the project demonstrates</h2>
+<p>The repository contains Python ingestion, descriptive analytics, local SQLite storage and a separate Streamlit application, as well as the static HTML/JavaScript dashboard published on GitHub Pages.</p>
+<ul>
+<li><strong>Transparency:</strong> show incomplete observations instead of pretending everything was measured.</li>
+<li><strong>Reproducibility:</strong> retain the transformation logic in source control and test it with known input fixtures.</li>
+<li><strong>Source context:</strong> distinguish wholesale market prices (EUR/MWh) from consumer electricity bills.</li>
+<li><strong>Conservative interpretation:</strong> a statistical association between wind/solar output and price does not establish causation.</li>
+<li><strong>Operational limits:</strong> data refresh depends on upstream SMARD availability and the GitHub Actions schedule, which can be delayed.</li>
+</ul>
+<div class="note">Market data comes from Bundesnetzagentur's SMARD platform, under its published data-use terms. This independent project is not endorsed by the provider.</div>
+<p><a href="https://www.smard.de/en" target="_blank" rel="noopener noreferrer">Official SMARD data ↗</a> · <a href="https://github.com/hjsarker/germany-power-pulse" target="_blank" rel="noopener noreferrer">Full project documentation ↗</a></p>
+</section>
+<div class="related"><a href="../../#work">← All projects</a><a href="../opslens/">See OpsLens case study →</a></div>
+</article>
+<aside class="case-sidebar" aria-label="Case study contents"><h2>On this page</h2><nav><a href="#problem">The problem</a><a href="#architecture">Data flow</a><a href="#metrics">Calculations</a><a href="#time">Data quality</a><a href="#decisions">Decisions and limits</a></nav></aside>
+</main>
+<footer class="site-footer"><div class="wrap"><span>© 2026 Hillol Sarker Jogesh</span><a href="../../">Return to portfolio ↗</a></div></footer>
+</body></html>
