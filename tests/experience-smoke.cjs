@@ -198,8 +198,28 @@ const problems=[];
         };
       });
       const mainSections=await page.locator('main > section').evaluateAll(items=>items.map(el=>el.id||el.classList[0]));
-      assert.deepEqual(mainSections.slice(0,7),['hero','work','experience','expertise','about','credentials','contact'],
+      assert.deepEqual(mainSections.slice(0,8),['hero','work','case-studies','experience','expertise','about','credentials','contact'],
         'Projects and experience precede About');
+      assert.equal(await page.locator('.case-feature').count(),3,'Three case study entry points');
+      assert.equal(await page.locator('.project-link-case').count(),2,'Two project case study links');
+      if(size.name==='mobile') {
+        assert.equal(await page.locator('.filters').evaluate(el=>getComputedStyle(el).display),'grid','Filters wrap in two-column mobile grid');
+      }
+      for(const [path,heading] of [
+        ['projects/opslens/','OpsLens'],
+        ['projects/germany-power-pulse/','Germany']
+      ]){
+        const visit=await context.newPage();
+        const response=await visit.goto('http://127.0.0.1:8765/'+path,{waitUntil:'domcontentloaded'});
+        assert.equal(response.status(),200,'Case study returns HTTP 200');
+        assert.match(await visit.locator('h1').innerText(),new RegExp(heading));
+        assert.equal(await visit.locator('a[href="../../#work"]').count()>=1,true);
+        await visit.close();
+      }
+      for(const asset of ['opslens.png','power-pulse.jpg','auto-pulse.jpg','hiredraftai.jpg','bahnpulse.jpg','cosmic-atlas.jpg','ai-history.jpg']){
+        const response=await page.request.get('http://127.0.0.1:8765/assets/previews/'+asset);
+        assert.equal(response.status(),200,'Preview asset exists: '+asset);
+      }
       assert.equal(await page.locator('.hero-specialties a').count(),2);
       await page.locator('[data-role-path="data"]').click();
       assert.equal(await page.locator('.filter[data-filter="data"]').getAttribute('aria-pressed'),'true');
