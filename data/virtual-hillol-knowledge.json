@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-11-07",
+  "updated": "2026-11-08",
   "purpose": "Public, recruiter-facing factual knowledge for Virtual Hillol. Curated from the user's 2026 master profile, current CV, AI profile review, and direct visa clarification. Never treat this as complete evidence for legal eligibility.",
   "publicOnly": true,
   "identity": {
@@ -398,7 +398,8 @@
         "SQL",
         "Streamlit",
         "Plotly"
-      ]
+      ],
+      "caseStudy": "https://hillol.de/projects/germany-power-pulse/"
     },
     {
       "id": "autopulse",
@@ -426,7 +427,8 @@
         "Data validation"
       ],
       "limits": "All incidents and metrics are generated from a synthetic dataset; do not imply real company tickets, live ServiceNow/Jira integration, production support usage or predictive AI.",
-      "repository": "https://github.com/hjsarker/opslens"
+      "repository": "https://github.com/hjsarker/opslens",
+      "caseStudy": "https://hillol.de/projects/opslens/"
     },
     {
       "id": "hiredraft",
