@@ -72,3 +72,8 @@ details pre{margin:0;border-radius:0}
 @media(max-width:830px){.case-layout{grid-template-columns:1fr;gap:0;padding-top:42px}.case-sidebar{position:static;order:-1;margin:0 0 40px;padding:18px}.case-sidebar nav{display:flex;flex-wrap:wrap;gap:4px}.case-sidebar a{border-left:0;border-bottom:2px solid #e5eaf2;padding:6px 10px}.case-hero{padding:48px 0 51px}}
 @media(max-width:580px){.wrap{width:calc(100% - 36px)}.page-header .wrap{min-height:68px}.header-links{gap:10px;font-size:12px}.case-hero{padding:35px 0 44px}.case-hero h1{font-size:48px}.stats{grid-template-columns:1fr;gap:8px}.stat{display:flex;align-items:center;justify-content:space-between}.stat strong{font-size:23px}.evidence-grid{grid-template-columns:1fr}.flow-diagram{flex-direction:column}.flow-arrow{transform:rotate(90deg);height:15px}.case-section{margin-bottom:46px}.panel{padding:18px}pre{font-size:11px;padding:16px}.related{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}}
+
+
+/* Accessibility: readable small-print labels against white surfaces. */
+.image-panel figcaption{color:#586579}
+.case-sidebar h2{color:#566579}
