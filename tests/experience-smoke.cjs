@@ -197,6 +197,13 @@ const problems=[];
           stylesheet:link?.getAttribute('href')
         };
       });
+      const mainSections=await page.locator('main > section').evaluateAll(items=>items.map(el=>el.id||el.classList[0]));
+      assert.deepEqual(mainSections.slice(0,7),['hero','work','experience','expertise','about','credentials','contact'],
+        'Projects and experience precede About');
+      assert.equal(await page.locator('.hero-specialties a').count(),2);
+      await page.locator('[data-role-path="data"]').click();
+      assert.equal(await page.locator('.filter[data-filter="data"]').getAttribute('aria-pressed'),'true');
+      await page.locator('.filter[data-filter="all"]').click();
       assert.equal(visual.cards,7,'Keep all seven project cards in the DOM');
       assert.equal(await page.locator('.project-card:visible').count(),4,'Initially show the first four projects only');
       const showMore=page.locator('#projects-show-more');
