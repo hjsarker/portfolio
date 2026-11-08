@@ -1757,3 +1757,25 @@ button,input{font:inherit}
 @media(max-width:720px){.hero-specialties{gap:8px;margin-top:16px}.hero-specialty{font-size:11px;min-height:42px}}
 @media(max-width:430px){.hero-specialties{display:grid;grid-template-columns:1fr;max-width:315px}.hero-specialty{justify-content:flex-start}}
 @media(prefers-reduced-motion:reduce){.hero-specialty{transition:none}}
+
+
+/* Portfolio V2 technical case highlights */
+.case-studies{background:#f0f4f9;border-top:1px solid #e4eaf2;border-bottom:1px solid #e4eaf2}
+.case-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.case-feature{
+  background:#fff;border:1px solid #e0e7f0;border-radius:18px;
+  padding:28px 27px;display:flex;flex-direction:column;align-items:flex-start;
+  box-shadow:0 3px 12px rgba(26,49,78,.025);
+}
+.case-feature-number{color:#4c78a9;font-size:10px;letter-spacing:.13em;font-weight:820}
+.case-feature h3{color:#15253b;font-size:clamp(19px,2.2vw,27px);line-height:1.24;letter-spacing:-.045em;margin:17px 0 12px}
+.case-feature p{font-size:14px;color:#657185;line-height:1.75;margin:0 0 24px}
+.case-feature a{color:#0966b9;font-size:13px;font-weight:750;margin-top:auto;min-height:42px;display:inline-flex;align-items:center;gap:7px}
+.case-feature a:hover{text-decoration:underline;text-underline-offset:4px}
+.case-feature a:focus-visible{outline:3px solid #80baff;outline-offset:3px}
+.project-links a.project-link-case{
+ width:100%;border-top:1px solid #edf0f4;padding-top:8px;
+ color:#215eaa;font-size:12px;font-weight:760;
+}
+@media(max-width:900px){.case-feature-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.case-feature-grid{grid-template-columns:1fr}.case-feature{padding:22px}}
