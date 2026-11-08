@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>OpsLens Case Study | Hillol Sarker Jogesh</title>
+<meta name="description" content="How I built OpsLens: a reproducible synthetic ITSM analytics application using Python, SQL, SLA calculations and incident lifecycle data.">
+<link rel="canonical" href="https://hillol.de/projects/opslens/">
+<link rel="stylesheet" href="../../case-study.css?v=20261108">
+<meta property="og:type" content="article"><meta property="og:title" content="OpsLens | Technical case study">
+<meta property="og:description" content="Incident analytics, SQL reporting, SLA calendars and data-quality testing explained.">
+<meta property="og:url" content="https://hillol.de/projects/opslens/">
+</head>
+<body>
+<a class="skip-link" href="#case-main">Skip to article</a>
+<header class="page-header"><div class="wrap"><a href="../../" class="brand">Hillol Sarker Jogesh<span>IT · BI · DATA</span></a><nav class="header-links" aria-label="Page navigation"><a href="../../#work">All projects</a><a href="../../#experience">Experience</a><a href="mailto:hjsarker@gmail.com?subject=OpsLens%20project%20enquiry">Contact ↗</a></nav></div></header>
+<section class="case-hero" aria-labelledby="case-title"><div class="wrap">
+<p class="breadcrumb"><a href="../../">Portfolio</a> / <a href="../../#work">Projects</a> / OpsLens</p>
+<p class="eyebrow">IT operations / data engineering / SQL reporting</p>
+<h1 id="case-title">OpsLens</h1>
+<p class="hero-intro">A service desk analytics application built to make incident history, SLA performance and resolver workloads explainable. The data is deliberately synthetic, but the questions and calculations reflect practical ITSM reporting challenges.</p>
+<div class="hero-actions"><a class="button button-primary" href="https://opslens-hjsarkers-projects.vercel.app/" target="_blank" rel="noopener noreferrer">Explore live application ↗</a><a class="button button-outline" href="https://github.com/hjsarker/opslens" target="_blank" rel="noopener noreferrer">Inspect source code ↗</a></div>
+<div class="stats" aria-label="Project facts">
+<div class="stat"><strong>3,200</strong><span>Synthetic incidents</span></div>
+<div class="stat"><strong>7</strong><span>Independent validation rules</span></div>
+<div class="stat"><strong>SQL</strong><span>Tested SQLite reporting pipeline</span></div>
+</div></div></section>
+<main id="case-main" class="wrap case-layout">
+<article>
+<section class="case-section" id="problem">
+<div class="section-label">01 / The problem</div><h2>From ticket counts to useful investigation</h2>
+<p>A service desk dashboard needs to show more than the number of open tickets. An operations analyst should be able to trace SLA results back to completed incidents, distinguish current backlog from historical backlog, and inspect assignment changes when issues take longer than expected.</p>
+<p>I created OpsLens as an independent, read-only demonstration covering incident reporting, ticket-level investigation and data validation. The records do not come from an employer or a live ServiceNow or Jira system.</p>
+<figure class="image-panel"><img src="../../assets/previews/opslens.png" width="1440" alt="Actual OpsLens dashboard screenshot showing service desk indicators and incident analytics" loading="lazy"><figcaption>Screenshot from the OpsLens repository's published desktop overview.</figcaption></figure>
+</section>
+<section class="case-section" id="architecture">
+<div class="section-label">02 / Architecture</div><h2>Reproducible data, calculated in SQL</h2>
+<p>A seeded Python generator creates incident records and timestamped lifecycle events. Validation runs before the reporting stage. A SQL engine then produces period-scoped KPIs, daily backlog and service/team aggregates, exported as compact JSON for the static frontend.</p>
+<div class="flow-diagram" role="group" aria-label="OpsLens architecture">
+<div class="flow-step"><strong>Python</strong><span>Synthetic records and event timeline</span></div><span class="flow-arrow" aria-hidden="true">→</span>
+<div class="flow-step"><strong>Validation</strong><span>Integrity and SLA checks</span></div><span class="flow-arrow" aria-hidden="true">→</span>
+<div class="flow-step"><strong>SQLite SQL</strong><span>KPIs, backlog and breakdowns</span></div><span class="flow-arrow" aria-hidden="true">→</span>
+<div class="flow-step"><strong>Web dashboard</strong><span>Filters, charts and incident drill-down</span></div>
+</div>
+<div class="evidence-grid">
+<div class="evidence-card"><strong>Source facts</strong><p>Incidents, lifecycle events, service identifiers, resolver teams and timestamps.</p></div>
+<div class="evidence-card"><strong>Analytical outputs</strong><p>30, 90 and 365-day aggregates, complete history and historical backlog snapshots.</p></div>
+</div>
+<p>SQLite is the verified default SQL engine. The repository includes an optional DuckDB adapter, which I do not claim as independently tested.</p>
+<p><a href="https://github.com/hjsarker/opslens/blob/main/pipeline/build_analytics.py" target="_blank" rel="noopener noreferrer">Read the reporting pipeline ↗</a></p>
+</section>
+<section class="case-section" id="sql">
+<div class="section-label">03 / The metric logic</div><h2>What makes the numbers defensible?</h2>
+<p>Resolved-ticket SLA compliance counts incidents completed within the selected period. Open incidents are excluded from that denominator. Historical backlog is reconstructed for each date, rather than using today's ticket status.</p>
+<details><summary>See a real SQL example: historical backlog</summary>
+<pre><code>SELECT COUNT(*) AS open_as_of_date
+FROM incidents
+WHERE opened_epoch &lt;= :day_end_epoch
+  AND (
+    resolved_epoch IS NULL
+    OR resolved_epoch &gt; :day_end_epoch
+  );</code></pre>
+</details>
+<p>This query is drawn from <a href="https://github.com/hjsarker/opslens/blob/main/sql/incident_metrics.sql" target="_blank" rel="noopener noreferrer">OpsLens's documented SQL definitions ↗</a>. Its date boundary is what makes the backlog historical rather than a current-status count.</p>
+<div class="note">The analytics are based on a fixed November 2026 data snapshot. The application is not a real-time monitoring service.</div>
+</section>
+<section class="case-section" id="sla">
+<div class="section-label">04 / SLA rules</div><h2>Calendar hours are not business hours</h2>
+<p>The synthetic policies use P1 and P2 calendar-hour targets and P3/P4 business-hour targets. The latter use Monday to Friday, 09:00 to 17:00 in Europe/Berlin, with configured NRW public-holiday exclusions and on-hold intervals.</p>
+<div class="evidence-grid">
+<div class="evidence-card"><strong>P1 / P2</strong><p>Four and eight calendar hours respectively.</p></div>
+<div class="evidence-card"><strong>P3 / P4</strong><p>Sixteen and forty business hours respectively.</p></div>
+</div>
+<p>A separate policy lab lets visitors explore how a changed target affects an example ticket. It does not rewrite the published incident data.</p>
+<p><a href="https://github.com/hjsarker/opslens/blob/main/docs/METHODOLOGY.md" target="_blank" rel="noopener noreferrer">Read metric and SLA definitions ↗</a></p>
+</section>
+<section class="case-section" id="testing">
+<div class="section-label">05 / Quality and testing</div><h2>Bad data should be visible, not hidden</h2>
+<p>Seven independent validation rules check problems such as duplicated incident identifiers, missing required fields, impossible timestamps and event inconsistencies. Seven deliberately corrupted mock scenarios demonstrate how errors are detected without contaminating reporting totals.</p>
+<div class="evidence-grid">
+<div class="evidence-card"><strong>Reconciliation</strong><p>Tests compare SQL aggregates against source record totals and team/service counts.</p></div>
+<div class="evidence-card"><strong>Time rules</strong><p>Tests cover holiday exclusions, date-boundary behavior and sample business-hour calculations.</p></div>
+</div>
+<p><a href="https://github.com/hjsarker/opslens/blob/main/tests/test_analytics.py" target="_blank" rel="noopener noreferrer">Inspect analytics tests ↗</a> · <a href="https://github.com/hjsarker/opslens/actions/workflows/ci.yml" target="_blank" rel="noopener noreferrer">View GitHub Actions checks ↗</a></p>
+</section>
+<section class="case-section" id="limits">
+<div class="section-label">06 / Technical decisions</div><h2>Scope, tradeoffs and boundaries</h2>
+<ul>
+<li>The static frontend loads both published SQL aggregates and compressed synthetic facts for interactive investigation. There is no production database connection.</li>
+<li>The interface uses dependency-free JavaScript rather than React or TypeScript. That keeps the demonstration lightweight and easy to reproduce, but it is not evidence of production React implementation in this project.</li>
+<li>The incident generator does not model full multi-cycle reopening for historical backlog. Team reports use the final or current resolver attribution rather than event-sourced ownership at every moment.</li>
+<li>No real operational tickets, customer data or machine-learning predictions are used.</li>
+</ul>
+<p>This is an honest demonstration of analysis and implementation decisions, with the limitations documented alongside the features.</p>
+</section>
+<div class="related"><a href="../../#work">← Back to all projects</a><a href="../germany-power-pulse/">Next: Germany Power Pulse →</a></div>
+</article>
+<aside class="case-sidebar" aria-label="Case study contents"><h2>On this page</h2><nav><a href="#problem">Problem</a><a href="#architecture">Architecture</a><a href="#sql">SQL metrics</a><a href="#sla">SLA policy</a><a href="#testing">Quality and tests</a><a href="#limits">Decisions and limits</a></nav></aside>
+</main>
+<footer class="site-footer"><div class="wrap"><span>© 2026 Hillol Sarker Jogesh</span><a href="../../">Return to portfolio ↗</a></div></footer>
+</body></html>
