@@ -1848,3 +1848,11 @@ button,input{font:inherit}
 .experience-title p{color:#525e6b}
 .experience .inline-link,.experience .timeline-date{color:#005bb0}
 .experience .timeline-content>p{color:#4e5a68}
+
+/* Portfolio V2: targeted AA contrast adjustments */
+.expertise-card .card-index{color:#555d6a}
+.expertise-card>p{color:#55606f}
+.expertise-card .expertise-proof{color:#556273}
+.about-facts .fact-label{color:#565f6b}
+.credential-detail .credential-type{color:#5c6572}
+.credential-detail>p{color:#58616d}
