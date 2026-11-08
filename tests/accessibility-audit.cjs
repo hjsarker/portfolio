@@ -10,7 +10,8 @@ const viewports=[{name:'desktop',width:1440,height:900},{name:'mobile',width:390
   try{
     for(const viewport of viewports){
       for(const path of targets){
-        const page=await browser.newPage({viewport:{width:viewport.width,height:viewport.height},reducedMotion:'reduce'});
+        const context=await browser.newContext({viewport:{width:viewport.width,height:viewport.height},reducedMotion:'reduce'});
+        const page=await context.newPage();
         try{
           await page.goto('http://127.0.0.1:8765/'+path,{waitUntil:'domcontentloaded'});
           const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
@@ -19,7 +20,7 @@ const viewports=[{name:'desktop',width:1440,height:900},{name:'mobile',width:390
           out.push({path:path||'/',viewport:viewport.name,violations});
           console.log(viewport.name+' '+(path||'/')+' : '+violations.length+' axe findings; '+violations.filter(v=>['serious','critical'].includes(v.impact)).length+' serious/critical');
           for(const violation of violations) console.log('  '+violation.impact+' '+violation.id+' '+violation.items.length+' nodes');
-        }finally{await page.close();}
+        }finally{await context.close();}
       }
     }
   }finally{await browser.close();}
