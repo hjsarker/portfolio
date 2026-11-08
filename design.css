@@ -1824,3 +1824,18 @@ button,input{font:inherit}
 }
 .case-feature .case-feature-action:hover{text-decoration:underline;text-underline-offset:4px}
 .case-feature .case-feature-action:focus-visible{outline:3px solid #80baff;outline-offset:3px}
+
+
+/* Compact mobile recruiter chat launcher: keep content unobstructed. */
+@media(max-width:720px){
+  .vh-launcher{
+    width:54px;max-width:54px;height:54px;min-height:54px;
+    padding:7px;gap:0;justify-content:center;
+    bottom:max(15px,env(safe-area-inset-bottom));
+    right:15px;border-radius:50%;
+  }
+  .vh-launcher-copy,.vh-launcher-arrow{display:none!important}
+  .vh-launcher-mark{width:37px;height:37px}
+  .vh-hero-invite{display:none}
+  .hero-bottom{margin-top:17px}
+}
