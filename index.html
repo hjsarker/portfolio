@@ -66,7 +66,7 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
 @media(prefers-reduced-motion:reduce){.particle-field{opacity:.52}}
 
   </style>
-  <link rel="stylesheet" href="./design.css?v=20261107-opslens1">
+  <link rel="stylesheet" href="./design.css?v=20261108-showmore1">
   <title>Hillol Sarker Jogesh | IT Operations, BI & Data</title>
   <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"Person","name":"Hillol Sarker Jogesh","url":"https://hillol.de/","homeLocation":{"@type":"Place","name":"Dortmund, Germany"},"email":"mailto:hjsarker@gmail.com","sameAs":["https://github.com/hjsarker","https://www.linkedin.com/in/hjsarker"],"knowsAbout":["IT service management","Application support","Business intelligence","Power BI","SQL","Data quality","IT process governance"]}
@@ -261,6 +261,12 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
             <div class="project-body"><div class="project-kicker"><span class="project-category">INTERACTIVE DATA STORYTELLING</span><span>07 / 07</span></div><h3 id="p-ai-history">AI: The Long Road to Now <span class="live-tag"><span></span> Live</span></h3><p>Explore 17 major milestones in AI history through an interactive timeline.</p><div class="tech-tags"><span>JavaScript</span><span>SVG</span><span>Interactive timeline</span><span>GitHub Pages</span></div><div class="project-links"><a href="https://hjsarker.github.io/ai-long-road-to-now/" target="_blank" rel="noopener noreferrer" aria-label="Explore AI: The Long Road to Now live interactive timeline">Explore timeline <span aria-hidden="true">↗</span></a><a class="project-link-secondary" href="https://github.com/hjsarker/ai-long-road-to-now" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a></div></div>
           </article>
         </div>
+        <div class="projects-more-wrap" id="projects-more-wrap" hidden>
+          <button type="button" class="projects-more-btn" id="projects-show-more" aria-controls="project-grid" aria-expanded="false">
+            <span class="projects-more-text">Show 3 more projects</span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v16m-6-6 6 6 6-6"/></svg>
+          </button>
+        </div>
         <aside class="project-collaboration" aria-labelledby="collaboration-heading">
           <div class="project-collaboration-copy">
             <span class="project-collaboration-label">OTHER COLLABORATION</span>
@@ -436,18 +442,49 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
   window.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
   window.addEventListener('resize', () => { if (window.innerWidth > 780) closeMenu(); });
 
-  const cards = Array.from(document.querySelectorAll('.project-card'));
+  // Initially show four featured projects. Reveal further matching results on request.
+  const cards = Array.from(document.querySelectorAll('#project-grid .project-card'));
+  const showMoreWrap = document.getElementById('projects-more-wrap');
+  const showMoreButton = document.getElementById('projects-show-more');
+  const showMoreText = showMoreButton.querySelector('.projects-more-text');
+  const PROJECTS_PAGE_SIZE = 4;
+  let activeProjectFilter = 'all';
+  let projectsExpanded = false;
+  function renderProjects() {
+    const matchingCards = cards.filter(card =>
+      activeProjectFilter === 'all' || card.dataset.category === activeProjectFilter
+    );
+    cards.forEach(card => {
+      const filteredIndex = matchingCards.indexOf(card);
+      card.hidden = filteredIndex === -1 ||
+        (!projectsExpanded && filteredIndex >= PROJECTS_PAGE_SIZE);
+    });
+    const remaining = Math.max(0, matchingCards.length - PROJECTS_PAGE_SIZE);
+    showMoreWrap.hidden = remaining === 0;
+    showMoreButton.setAttribute('aria-expanded', String(projectsExpanded && remaining > 0));
+    showMoreText.textContent = projectsExpanded
+      ? 'Show fewer projects'
+      : 'Show ' + remaining + ' more project' + (remaining === 1 ? '' : 's');
+  }
+  showMoreButton.addEventListener('click', () => {
+    const wasExpanded = projectsExpanded;
+    projectsExpanded = !projectsExpanded;
+    renderProjects();
+    if (wasExpanded) showMoreButton.scrollIntoView({block: 'nearest'});
+  });
   document.querySelectorAll('.filter').forEach(button => {
     button.addEventListener('click', () => {
-      const selected = button.dataset.filter;
+      activeProjectFilter = button.dataset.filter;
+      projectsExpanded = false;
       document.querySelectorAll('.filter').forEach(btn => {
         const active = btn === button;
         btn.classList.toggle('active', active);
         btn.setAttribute('aria-pressed', String(active));
       });
-      cards.forEach(card => { card.hidden = selected !== 'all' && card.dataset.category !== selected; });
+      renderProjects();
     });
   });
+  renderProjects();
 
   document.getElementById('year').textContent = String(new Date().getFullYear());
   // Jump to the absolute top, even with the sticky header and CSS scroll padding.

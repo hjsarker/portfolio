@@ -1723,3 +1723,25 @@ button,input{font:inherit}
  .opslens-preview{padding:13px 14px}
  .opslens-preview-metrics{gap:6px}
 }
+
+
+/* Four featured projects at first glance; remaining cards expand on demand. */
+.project-grid > .project-card[hidden] {display:none !important}
+.projects-more-wrap{display:flex;justify-content:center;align-items:center;margin:28px 0 4px}
+.projects-more-wrap[hidden]{display:none}
+.projects-more-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:14px;
+  min-height:48px;padding:12px 24px;
+  color:#202b3b;background:#fff;
+  border:1px solid #d0d8e3;border-radius:999px;
+  font:650 13px/1.35 var(--sans);
+  box-shadow:0 3px 14px rgba(22,43,75,.05);
+  cursor:pointer;
+  transition:background .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.projects-more-btn:hover{background:#f3f7fc;border-color:#9fb4cf;box-shadow:0 6px 18px rgba(22,43,75,.09)}
+.projects-more-btn:focus-visible{outline:3px solid #74aaff;outline-offset:3px}
+.projects-more-btn svg{flex:none;transition:transform .2s ease}
+.projects-more-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+@media(max-width:720px){.projects-more-wrap{margin:22px 0 4px}.projects-more-btn{width:min(100%,300px)}}
+@media(prefers-reduced-motion:reduce){.projects-more-btn,.projects-more-btn svg{transition:none}}
