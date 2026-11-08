@@ -1745,3 +1745,15 @@ button,input{font:inherit}
 .projects-more-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
 @media(max-width:720px){.projects-more-wrap{margin:22px 0 4px}.projects-more-btn{width:min(100%,300px)}}
 @media(prefers-reduced-motion:reduce){.projects-more-btn,.projects-more-btn svg{transition:none}}
+
+/* Portfolio V2 hero role routes */
+@media(min-width:901px){.hero-layout{min-height:540px;padding-top:39px;padding-bottom:35px}.hero h1{margin-top:20px;margin-bottom:17px}.hero-marquee{padding-top:8px;padding-bottom:16px}}
+.hero-specialties{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:17px;margin-bottom:17px}
+.hero-specialty{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:8px 12px;border:1px solid rgba(194,217,244,.24);border-radius:9px;background:rgba(255,255,255,.035);color:#e8f1fc;font:660 11px/1.4 var(--sans);transition:border-color .2s ease,background .2s ease}
+.hero-specialty:hover{background:rgba(140,193,252,.11);border-color:rgba(194,217,244,.48)}
+.hero-specialty:focus-visible{outline:2px solid #9dc5ff;outline-offset:3px}
+.hero-specialty-mark{color:#b5ed91;font:800 10px/1 var(--display);letter-spacing:.08em}
+.hero-specialty>span:last-child{margin-left:auto;color:#acd1fd}
+@media(max-width:720px){.hero-specialties{gap:8px;margin-top:16px}.hero-specialty{font-size:11px;min-height:42px}}
+@media(max-width:430px){.hero-specialties{display:grid;grid-template-columns:1fr;max-width:315px}.hero-specialty{justify-content:flex-start}}
+@media(prefers-reduced-motion:reduce){.hero-specialty{transition:none}}
