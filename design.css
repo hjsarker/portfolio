@@ -1860,3 +1860,73 @@ button,input{font:inherit}
 /* Final audited credential text contrast */
 .credential-index{color:#566173}
 .credential-row--languages p{color:#58616d}
+
+
+/* Portfolio V2 layout polish: compact editorial section introductions */
+.projects.section-pad,
+.case-studies.section-pad{
+  padding-top:clamp(50px,5.4vw,74px);
+  padding-bottom:clamp(56px,6vw,82px);
+}
+.projects .section-head,
+.case-studies .section-head{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,.85fr);
+  align-items:center;
+  column-gap:34px;
+  margin-bottom:30px;
+}
+.projects .section-head h2,
+.case-studies .section-head h2{
+  font-size:clamp(40px,4.1vw,58px);
+  line-height:1.08;
+  letter-spacing:-.061em;
+  margin:13px 0 0;
+  text-wrap:balance;
+}
+.projects .section-head>p,
+.case-studies .section-head>p{
+  margin:0 0 0 auto;
+  max-width:37ch;
+  font-size:14px;
+  line-height:1.6;
+}
+.projects .filters{margin-bottom:19px}
+.case-studies .case-feature-grid{gap:16px}
+/* Spread small differences in card content naturally, instead of leaving
+   one conspicuous gap above the bottom actions. */
+@media(min-width:901px){
+  .projects .project-body{justify-content:space-between}
+  .projects .project-body .project-links{margin-top:12px}
+}
+/* Keep the title and explanatory paragraph together on smaller viewports. */
+@media(max-width:900px){
+  .projects .section-head,
+  .case-studies .section-head{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:13px;
+    margin-bottom:26px;
+  }
+  .projects .section-head h2,
+  .case-studies .section-head h2{
+    font-size:clamp(37px,6.6vw,52px);
+    line-height:1.09;
+    margin-top:11px;
+  }
+  .projects .section-head>p,
+  .case-studies .section-head>p{
+    max-width:62ch;
+    margin:0;
+  }
+}
+@media(max-width:620px){
+  .projects.section-pad,
+  .case-studies.section-pad{padding-top:57px;padding-bottom:62px}
+  .projects .section-head h2,
+  .case-studies .section-head h2{font-size:clamp(35px,9vw,46px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .projects .section-head h2,.case-studies .section-head h2{transition:none}
+}
