@@ -300,7 +300,7 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
             <span class="case-feature-number">03 / PROFESSIONAL EXPERIENCE</span>
             <h3>HRC: behind the support role</h3>
             <p>A sanitized, interactive look at telecom billing support, workplace IT, troubleshooting and operational responsibilities.</p>
-            <a href="#experience">Find the HRC walkthrough <span aria-hidden="true">↓</span></a>
+            <button type="button" class="case-feature-action" data-open-hrc>Open interactive walkthrough <span aria-hidden="true">↗</span></button>
           </article>
         </div>
       </div>
@@ -535,6 +535,9 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);letter-spacing:-.055
     });
   });
   renderProjects();
+  document.querySelector('[data-open-hrc]')?.addEventListener('click', () => {
+    document.querySelector('.exp-timeline-open[data-exp-company="hrc"]')?.click();
+  });
   document.querySelectorAll('[data-role-path]').forEach(link => {
     link.addEventListener('click', () => {
       const filter = link.dataset.rolePath === 'data' ? 'data' : 'all';
