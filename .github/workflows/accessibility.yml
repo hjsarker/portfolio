@@ -5,6 +5,10 @@ on:
     paths:
       - '.github/workflows/accessibility.yml'
       - 'tests/accessibility-audit.cjs'
+      - 'index.html'
+      - 'design.css'
+      - 'case-study.css'
+      - 'projects/**'
 permissions:
   contents: read
 jobs:
