@@ -1,87 +1,60 @@
-# Hillol Sarker Jogesh | Professional portfolio
+# Hillol Sarker Jogesh | Professional Portfolio
 
-A responsive, static portfolio showcasing experience in IT operations, application support, business intelligence, data quality, process governance, and six selected live projects, including the interactive 3D Solar System explorer **Cosmic Atlas**.
+**Live site:** [hillol.de](https://hillol.de/)
 
-## Live website
+A recruiter-facing portfolio covering IT operations, application support, business intelligence, data quality and practical software projects. Built as a static, responsive website and published through GitHub Pages.
 
-**https://hillol.de/**
+## Explore the site
 
-The site includes a custom HTML Canvas particle network that drifts and responds to mouse movement, with mobile and reduced-motion accommodations.
+The homepage leads with a shorter introduction and four selected projects. Visitors can reveal the other three projects, filter by professional area, inspect work experience or open technical case studies without first leaving the portfolio.
 
-## Featured interactive 3D project
+**Technical case studies**
 
-**[Cosmic Atlas](https://hjsarker.github.io/cosmic-atlas/)** is an independent Three.js/WebGL Solar System explorer with cinematic planet navigation, attributed planetary textures, NASA/JPL orbital data, an ESA Gaia sky background, and HYG catalog stars. The [public GitHub source](https://github.com/hjsarker/cosmic-atlas) includes scientific-data attribution and automated browser tests.
+- [OpsLens: incident analytics, SQL and SLA reporting](https://hillol.de/projects/opslens/)
+- [Germany Power Pulse: hourly energy data and completeness checks](https://hillol.de/projects/germany-power-pulse/)
+- HRC Technologies interactive walkthrough, available from the Experience section of the homepage. It uses sanitized illustrations and does not publish employer records.
 
-The project is the second featured card in the portfolio's Work section and is included in the new **3D & interactive** filter. The section now includes six live projects.
+**Seven featured public projects**
 
-## Interactive work experience
+Germany Power Pulse, Auto Pulse, OpsLens, HireDraftAI, BahnPulse, Cosmic Atlas and AI: The Long Road to Now. The collaboration section lists Collective AI Tools separately. The portfolio does not include private product source code.
 
-The **Experience** timeline retains all six employment entries, but shows **Explore my work** links only for the current RWE role, TK Elevator and HRC Technologies Limited. HRC includes a working interactive case study:
+## Implementation
 
-- A simplified, selectable conceptual environment for telecom billing, Red Hat application services, Sun/Solaris context, Oracle/Microsoft SQL investigation, and CDR checks.
-- A dedicated interactive **Workplace IT** view featuring employee onboarding and offboarding, desktop/laptop support, LAN and Wi-Fi, IT equipment inventory, printers, meeting rooms and user support.
-- A clear division between the author's local network/endpoint administration and billing application support, versus specialist-owned Solaris hosting, database platform administration and core network infrastructure.
-- Two reconstructed troubleshooting walkthroughs with selectable diagnosis and verification stages: a telecom billing discrepancy and an office wired/Wi-Fi connectivity problem.
+- `index.html` and `design.css`: Single-page main portfolio and interactive project filters.
+- `case-study.css` and `projects/*/index.html`: Dedicated accessible, source-grounded technical case studies.
+- `assets/previews/`: Locally hosted screenshots from publicly accessible project pages. The OpsLens screenshot comes from its published repository documentation.
+- `assets/portrait.webp`: Portrait used in the header and enlarged-image dialog.
+- `virtual-hillol.js` and `data/virtual-hillol-knowledge.json`: Optional recruiter chatbot UI and reviewed public career information.
+- `experience-explorer.js`: Interactive, sanitized HRC work walkthrough.
+- `scripts/capture-project-previews.cjs`: Reproducible screenshot and social-card generation.
+- `share-card.html` and `assets/social/portfolio-share.jpg`: Social sharing preview built from the approved portrait and authored positioning.
+- `sitemap.xml`, `robots.txt`, `CNAME`: Search and custom domain settings.
 
-RWE and TK Elevator have clearly labeled **PREVIEW** placeholders. Vaillant Group, E.ON Digital Technology and YES Private Ltd. retain their ordinary timeline descriptions without interactive buttons. No unverified architecture or case studies are presented.
+The website does not publish a generic CV, because CVs are tailored to individual applications.
 
-The interactive data and page behavior are in `experience-explorer.js`. Styles are in `design.css`, and the corresponding trigger buttons and dialog markup are in `index.html`. To develop a new employer walkthrough, replace its preview with a verified, sanitized explanation of the user's work rather than adding speculative system diagrams.
+## Run locally
 
-The HRC diagram is a conceptual educational reconstruction, **not** a verified internal production topology or a company-authorized publication. Do not add real hostnames, IP addresses, passwords, client billing data, privileged configurations, or unapproved internal architecture details.
+Serve the repository root over HTTP, rather than opening `index.html` as a local file:
 
-Interactive UI checks are in `tests/experience-smoke.cjs` and run through `.github/workflows/experience-qa.yml`.
+```bash
+python3 -m http.server 8765
+```
 
-## Virtual Hillol recruiter chatbot
+Open `http://localhost:8765/`. The project uses plain HTML, CSS and JavaScript, with no frontend build pipeline.
 
-The portfolio includes **Virtual Hillol**, a first-person professional AI career assistant with a prepared-answer fallback, using a reviewed, public-only career knowledge base at `data/virtual-hillol-knowledge.json`. The user provided a master career-profile JSON, a current two-page CV, an AI-specific profile update and a direct clarification about their current student residence permit.
+## Tests and deployment
 
-The public knowledge was curated to include:
-- all six employers and responsibilities, with evidence and boundaries;
-- IT support, infrastructure, Power BI, SQL, reporting, Databricks, migration/governance and independent applied-AI project work;
-- completed education and credentials, with the M.Sc. still ongoing and AZ-900/ITIL learning items not misrepresented as formal exam passes;
-- six portfolio projects and their ownership limitations;
-- the public phone number +49 157 5061 2784, approved for recruiter inquiries, and the contact email;
-- truthful first-person residence-permit wording: student status, ZAB bachelor comparability, user-reported foreigners-authority guidance, potential employment-permit application on a suitable contract, and a non-guaranteed approximate Dortmund processing estimate.
+GitHub Pages publishes from `main` at [hillol.de](https://hillol.de/). The original GitHub Pages URL remains part of the site's redirect configuration.
 
-**Security and privacy:** The complete original JSON/CV/summary are *not* checked into this repository. The published knowledge JSON is deliberately scrubbed of the user's home address, date of birth, religion, certificate and registration identifiers, family information, and confidential employer architecture. Be aware: the curated knowledge file is **public** on GitHub Pages; it is not a private server database.
+- [Portfolio browser tests](https://github.com/hjsarker/portfolio/actions/workflows/experience-qa.yml) cover responsive behavior, real project assets, project filters, navigation, the HRC walkthrough, the photo dialog and Virtual Hillol invitation behavior.
+- [Screenshot capture workflow](https://github.com/hjsarker/portfolio/actions/workflows/capture-previews.yml) generates locally hosted previews from publicly accessible applications and the social card from the approved portrait.
 
-The UI uses `virtual-hillol.js`, with styling in `design.css` and a floating chat launcher in `index.html`. On desktop, a dismissible one-time greeting appears after eight seconds and is remembered for the current browser-tab session. It doesn't auto-open the full chat, doesn't appear on mobile, and doesn't generate an AI request. It supports prepared interview questions and a **deterministic, rule-based** preliminary job-description comparison, but it is **not an AI model** and cannot answer arbitrary questions reliably. Messages stay in the visitor's browser tab and are neither uploaded nor retained by this preview. The project is not collecting recruiters' names or CVs.
+The repository's visitor notification tracker is **disabled by default**. Chat functionality may use an external API when explicitly configured; avoid sharing private or employer-confidential information in a public demonstration.
 
-**Vercel backend installed:** The source is in `virtual-hillol-api/`. The Vercel project `virtual-hillol-api` is deployed in the user's **hjsarker's projects** workspace and exposes `https://virtual-hillol-api-xi.vercel.app/api/health` and `/api/chat`. The root URL has a small status homepage. The frontend checks the health endpoint and activates live AI automatically if an OpenRouter credential is configured. Until then it stays in clearly labeled prepared-answer preview mode.
+## Content boundaries
 
-**Live AI configured:** Production uses a sensitive environment variable named `OPENROUTER_API_KEY`, stored privately in Vercel. Never commit or share the key. The server uses OpenRouter's verified `openai/gpt-6-luna` model. It caps messages, response tokens and content lengths, enforces narrow CORS, and does best-effort per-instance throttling; the user's $2/month OpenRouter guardrail is still the primary spend limit. Once configured, live conversations and pasted job descriptions are transmitted to Vercel and OpenRouter. Never paste confidential material into the chat.
+Employment descriptions must remain consistent with documented work history. Technical claims in case studies link to public implementation files or methodology documentation. OpsLens uses synthetic records; no employer incident data is published. External project screenshots represent a capture at one point in time and are not guaranteed to show the latest application state.
 
-**Deployment:** This Vercel project is Git-linked to `hjsarker/portfolio`, production branch `main`, root directory `virtual-hillol-api`. Vercel deploys backend updates when the repository changes. The earlier API-only deployment in a different Vercel workspace is not used by the portfolio.
+---
 
-The preview and frontend integration are checked in desktop/mobile browser QA via `tests/experience-smoke.cjs`, and backend request handling is tested with `node --test virtual-hillol-api/tests/*.test.cjs`.
-
-## Contents
-
-- `index.html`: Portfolio content, interactive JavaScript, project links and SEO metadata, with base styles.
-- `design.css`: Apple-inspired black, silver and white visual design, including the responsive layout.
-- Project cards request screenshots from WordPress.com's public mShots service for the actual linked websites; a branded fallback appears if a thumbnail cannot load. Previews may be cached or temporarily unavailable.\n- `favicon.svg`: Website icon.
-- `robots.txt` and `sitemap.xml`: Search engine discovery.
-- `.nojekyll`: Serves site content directly without Jekyll processing.
-
-No backend, external build tools, trackers, or hosting service beyond GitHub Pages are required.
-
-## Publishing
-
-Open **Settings → Pages**, set **Build and deployment → Source: Deploy from a branch**, select **main** and **/(root)**, then save.
-
-Set **Custom domain** to **hillol.de** and keep the root `CNAME` file. Namecheap BasicDNS points `@` to `hjsarker.github.io` with an ALIAS record and `www` to `hjsarker.github.io` with a CNAME record. Enable **Enforce HTTPS** once GitHub provisions the certificate. The canonical portfolio URL is **https://hillol.de/**; the former GitHub Pages portfolio URL redirects here.
-
-## Updating content
-
-Portfolio content is in `index.html`, and the visual theme is in `design.css`. To add another public project, add a card using the existing `.project-card` structure. Only link published live demos. The displayed project count, numbering, category filters, and stylesheet cache key should be kept in sync.
-
-Professional experience and education are based on the approved master profile. Project descriptions and URLs are based on public repository documentation. The project visuals are illustrative and are not screenshots or actual live dashboard data.
-
-Collective AI Tools is labeled as an open-source collaboration, not an individually owned product.
-
-## Notes
-
-- This page does not include private HireDraftAI source code. Its repository link points to a public case study.
-- Particle motion responds to reduced-motion settings.
-- Contact is handled with ordinary email and LinkedIn links, without collecting visitor data.
-\n## Optional visitor email notifications\n\nSource and setup instructions: [`visitor-notifications/README.md`](visitor-notifications/README.md). The visitor notifications are **OFF by default** and require personal setup in Google Apps Script and Cloudflare before activation. Consent is required before a personal-data notification request.\n
+For recruiter enquiries: [LinkedIn](https://www.linkedin.com/in/hjsarker/) · [Email](mailto:hjsarker@gmail.com) · [Portfolio](https://hillol.de/)
