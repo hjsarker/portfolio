@@ -201,6 +201,12 @@ const problems=[];
       assert.deepEqual(mainSections.slice(0,8),['hero','work','case-studies','experience','expertise','about','credentials','contact'],
         'Projects and experience precede About');
       assert.equal(await page.locator('.case-feature').count(),3,'Three case study entry points');
+      const hrcCase=page.locator('[data-open-hrc]');
+      await hrcCase.click();
+      assert.equal(await page.locator('#experience-explorer').isVisible(),true,'HRC case-study card opens the existing walkthrough');
+      await page.keyboard.press('Escape');
+      assert.equal(await page.locator('#experience-explorer').isVisible(),false);
+
       assert.equal(await page.locator('.project-link-case').count(),2,'Two project case study links');
       if(size.name==='mobile') {
         assert.equal(await page.locator('.filters').evaluate(el=>getComputedStyle(el).display),'grid','Filters wrap in two-column mobile grid');
