@@ -22,6 +22,17 @@
   const teaser=document.getElementById("vh-teaser");
   const teaserDismiss=document.getElementById("vh-teaser-dismiss");
   const teaserStart=document.getElementById("vh-teaser-start");
+  // Keep the floating chat discoverable without covering project cards.
+  const heroRegion=document.querySelector(".hero");
+  function updateLauncherFootprint(){
+    if(!heroRegion)return;
+    const pastHero=heroRegion.getBoundingClientRect().bottom<140;
+    launcher.classList.toggle("vh-launcher--compact",pastHero);
+    if(pastHero && teaser && !teaser.hidden)hideTeaser();
+  }
+  window.addEventListener("scroll",updateLauncherFootprint,{passive:true});
+  window.addEventListener("resize",updateLauncherFootprint);
+  requestAnimationFrame(updateLauncherFootprint);
   const TEASER_DELAY_MS=30000;
   const TEASER_SESSION_KEY="virtual-hillol-greeting-seen-v1";
   const teaserMobileQuery=window.matchMedia("(max-width: 720px)");
