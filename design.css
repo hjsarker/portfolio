@@ -1816,3 +1816,11 @@ button,input{font:inherit}
 .expertise-proof a{color:#1764af;font-weight:730}
 .expertise-proof a:hover{text-decoration:underline;text-underline-offset:3px}
 .expertise-proof a:focus-visible{outline:2px solid #6faefa;outline-offset:3px}
+
+/* The HRC case-study card opens the existing accessible experience dialog. */
+.case-feature .case-feature-action{
+  font:750 13px/1.45 var(--sans);color:#0966b9;background:transparent;
+  border:0;padding:0;min-height:42px;cursor:pointer;margin-top:auto;
+}
+.case-feature .case-feature-action:hover{text-decoration:underline;text-underline-offset:4px}
+.case-feature .case-feature-action:focus-visible{outline:3px solid #80baff;outline-offset:3px}
