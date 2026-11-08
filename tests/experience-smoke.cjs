@@ -201,6 +201,14 @@ const problems=[];
       assert.deepEqual(mainSections.slice(0,8),['hero','work','case-studies','experience','expertise','about','credentials','contact'],
         'Projects and experience precede About');
       assert.equal(await page.locator('.case-feature').count(),3,'Three case study entry points');
+      await page.locator('#case-studies').scrollIntoViewIfNeeded();
+      await page.waitForFunction(()=>document.querySelector('#vh-launcher')?.classList.contains('vh-launcher--compact'),
+        null,{timeout:3000});
+      if(size.name==='desktop'){
+        assert.equal(await page.locator('#vh-launcher').evaluate(el=>getComputedStyle(el).width),'58px',
+          'A compact chat control avoids covering project and case study content');
+      }
+
       const hrcCase=page.locator('[data-open-hrc]');
       await hrcCase.click();
       assert.equal(await page.locator('#experience-explorer').isVisible(),true,'HRC case-study card opens the existing walkthrough');
