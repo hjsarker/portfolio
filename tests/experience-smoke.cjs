@@ -197,6 +197,38 @@ const problems=[];
           stylesheet:link?.getAttribute('href')
         };
       });
+      // Balanced V2 section heading geometry: no oversized title column or excessive padding.
+      const sectionGeometry=await page.evaluate(()=>{
+        const collect=(selector,headingSelector,paragraphSelector)=>{
+          const section=document.querySelector(selector);
+          const heading=section.querySelector(headingSelector);
+          const copy=section.querySelector(paragraphSelector);
+          const hr=heading.getBoundingClientRect();
+          const cr=copy.getBoundingClientRect();
+          return {
+            paddingTop:parseFloat(getComputedStyle(section).paddingTop),
+            headingHeight:hr.height,
+            headingRight:hr.right,
+            headingBottom:hr.bottom,
+            copyLeft:cr.left,
+            copyTop:cr.top
+          };
+        };
+        return {
+          expertise:collect('#expertise','.section-head h2','.section-head > p'),
+          about:collect('#about','.section-intro h2','.about-copy .lead'),
+          education:collect('.credentials','#credentials-heading','.credential-copy')
+        };
+      });
+      for(const [name,geometry] of Object.entries(sectionGeometry)){
+        assert.ok(geometry.paddingTop<=81,name+' has oversized top padding');
+        assert.ok(geometry.headingHeight<180,name+' has an oversized introduction heading');
+        if(size.name==='desktop'){
+          assert.ok(geometry.copyLeft>=geometry.headingRight-10,name+' content should sit beside the heading');
+        }else{
+          assert.ok(geometry.copyTop>=geometry.headingBottom-10,name+' mobile copy should follow its heading');
+        }
+      }
       const mainSections=await page.locator('main > section').evaluateAll(items=>items.map(el=>el.id||el.classList[0]));
       assert.deepEqual(mainSections.slice(0,8),['hero','work','case-studies','experience','expertise','about','credentials','contact'],
         'Projects and experience precede About');
