@@ -223,10 +223,10 @@ const problems=[];
       for(const [name,geometry] of Object.entries(sectionGeometry)){
         assert.ok(geometry.paddingTop<=81,name+' has oversized top padding');
         assert.ok(geometry.headingHeight<180,name+' has an oversized introduction heading');
-        if(size.name==='desktop'){
+        if(size.name==='desktop' && name!=='education'){
           assert.ok(geometry.copyLeft>=geometry.headingRight-10,name+' content should sit beside the heading');
         }else{
-          assert.ok(geometry.copyTop>=geometry.headingBottom-10,name+' mobile copy should follow its heading');
+          assert.ok(geometry.copyTop>=geometry.headingBottom-10,name+' supporting copy should follow its heading');
         }
       }
       const mainSections=await page.locator('main > section').evaluateAll(items=>items.map(el=>el.id||el.classList[0]));
