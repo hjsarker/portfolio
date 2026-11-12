@@ -28,14 +28,13 @@
     if(!heroRegion)return;
     const pastHero=heroRegion.getBoundingClientRect().bottom<140;
     launcher.classList.toggle("vh-launcher--compact",pastHero);
-    if(pastHero && teaser && !teaser.hidden)hideTeaser();
+    // The invitation may remain visible as visitors browse project cards.
   }
   window.addEventListener("scroll",updateLauncherFootprint,{passive:true});
   window.addEventListener("resize",updateLauncherFootprint);
   requestAnimationFrame(updateLauncherFootprint);
-  const TEASER_DELAY_MS=30000;
-  const TEASER_SESSION_KEY="virtual-hillol-greeting-seen-v1";
-  const teaserMobileQuery=window.matchMedia("(max-width: 720px)");
+  const TEASER_DELAY_MS=8000;
+  const TEASER_SESSION_KEY="virtual-hillol-greeting-seen-v2";
   let teaserHandled=false;
   let teaserTimer=null;
   let teaserElapsedVisibleMs=0;
@@ -60,12 +59,12 @@
   }
   function scheduleTeaser(){
     if(!teaser||hasSeenTeaser()||opened||teaserTimer!==null||
-       document.hidden||teaserMobileQuery.matches)return;
+       document.hidden)return;
     teaserStartedAt=Date.now();
     teaserTimer=setTimeout(()=>{
       teaserTimer=null;
       teaserElapsedVisibleMs=TEASER_DELAY_MS;
-      if(opened||hasSeenTeaser()||document.hidden||teaserMobileQuery.matches)return;
+      if(opened||hasSeenTeaser()||document.hidden)return;
       // Do not interrupt visitors while an experience or portrait dialog is open.
       if(document.querySelector('dialog[open], [role="dialog"]:not([hidden])')){
         teaserElapsedVisibleMs=TEASER_DELAY_MS-3000;
@@ -81,10 +80,6 @@
   // tab must not silently cancel the one-time invitation.
   document.addEventListener("visibilitychange",()=>{
     if(document.hidden)pauseTeaser();
-    else scheduleTeaser();
-  });
-  teaserMobileQuery.addEventListener("change",event=>{
-    if(event.matches)pauseTeaser();
     else scheduleTeaser();
   });
   let kb=null,opened=false,chatCount=0,lastFocus=null;
