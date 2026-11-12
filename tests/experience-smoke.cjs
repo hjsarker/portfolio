@@ -102,6 +102,10 @@ const problems=[];
       await vh.waitFor({state:'visible'});
       assert.equal(await page.locator('.vh-disclosure').count(),0,'Remove the large caution banner');
       assert.match(await page.locator('.vh-head-copy').innerText(),/AI chat about my experience/);
+      const headerPhoto=page.locator('.vh-head .vh-brand-photo img');
+      assert.equal(await headerPhoto.count(),1,'Chat header displays Hillol portrait instead of H logo');
+      assert.equal(await headerPhoto.evaluate(img=>img.complete && img.naturalWidth>0),true,
+        'Chat header photo loads successfully');
       assert.equal(await page.locator('.vh-footnote a[href="./privacy.html"]').count(),1,'Privacy details remain accessible');
       assert.match(await page.locator('.vh-message').first().innerText(),/I'm Virtual Hillol/);
       await page.locator('.vh-chip').filter({hasText:'What experience do you have in IT support?'}).click();
@@ -250,6 +254,10 @@ const problems=[];
       const expectedSize=size.name==='desktop'?76:66;
       assert.deepEqual(launcherSize,{width:expectedSize,height:expectedSize},
         'The portrait remains circular while browsing projects');
+      assert.equal(await portraitLauncher.locator('.vh-portrait-avatar').evaluate(el=>getComputedStyle(el).borderTopWidth),'0px',
+        'Floating portrait has no white border ring');
+      assert.equal(await page.locator('.vh-head .vh-brand-photo').evaluate(el=>getComputedStyle(el).borderTopWidth),'0px',
+        'Chat header portrait has no white border ring');
 
       const hrcCase=page.locator('[data-open-hrc]');
       await hrcCase.click();
