@@ -2063,3 +2063,155 @@ button,input{font:inherit}
   .about .about-facts{margin-top:20px;padding-top:20px}
   .credentials .credential-row--branded{padding-top:15px;padding-bottom:15px}
 }
+
+
+/* Virtual Hillol portrait greeting: recruiter-friendly speech bubble */
+.vh-launcher,
+.vh-launcher.vh-launcher--compact{
+  position:fixed;
+  right:clamp(16px,2vw,28px);
+  bottom:clamp(17px,2vw,27px);
+  display:grid;
+  place-items:center;
+  width:76px;
+  height:76px;
+  min-width:76px;
+  min-height:76px;
+  max-width:76px;
+  padding:0;
+  gap:0;
+  overflow:visible;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  box-shadow:none;
+  cursor:pointer;
+  transition:transform .24s ease,filter .24s ease;
+}
+.vh-launcher:hover,
+.vh-launcher.vh-launcher--compact:hover{
+  transform:translateY(-3px);
+  filter:drop-shadow(0 6px 10px rgba(12,34,59,.20));
+  box-shadow:none;
+}
+.vh-launcher:focus-visible{
+  outline:3px solid #5fa7f2;
+  outline-offset:5px;
+}
+.vh-portrait-avatar{
+  width:72px;
+  height:72px;
+  display:block;
+  overflow:hidden;
+  border:4px solid #fff;
+  border-radius:50%;
+  background:#eaf1f8;
+  box-shadow:0 5px 22px rgba(4,21,43,.21),0 0 0 1px rgba(26,51,80,.12);
+}
+.vh-portrait-avatar img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center 37%;
+}
+.vh-avatar-badge{
+  position:absolute;
+  right:0;
+  bottom:1px;
+  display:grid;
+  place-items:center;
+  width:24px;
+  height:24px;
+  border:2px solid #fff;
+  border-radius:50%;
+  background:#183957;
+  color:#fff;
+  font:800 9px/1 var(--sans);
+  letter-spacing:.025em;
+  box-shadow:0 2px 8px rgba(4,20,40,.2);
+}
+/* A single clickable speech bubble, separate from the unchanged chat panel. */
+.vh-teaser{
+  position:fixed;
+  z-index:3201;
+  right:clamp(16px,2vw,28px);
+  bottom:calc(clamp(17px,2vw,27px) + 89px);
+  width:min(285px,calc(100vw - 35px));
+  padding:0;
+  border:1px solid #e1e6ef;
+  border-radius:15px 15px 5px 15px;
+  background:#fff;
+  color:#243249;
+  box-shadow:0 10px 35px rgba(7,24,48,.15),0 2px 6px rgba(7,24,48,.04);
+  font:400 13px/1.6 var(--sans);
+  animation:vh-teaser-enter .32s cubic-bezier(.2,.75,.2,1) both;
+}
+.vh-teaser:after{
+  right:24px;
+  bottom:-7px;
+}
+.vh-teaser-start{
+  display:block;
+  min-height:0;
+  width:100%;
+  margin:0;
+  padding:17px 34px 17px 18px;
+  border:0;
+  border-radius:inherit;
+  background:transparent;
+  color:#283448;
+  box-shadow:none;
+  text-align:left;
+  font:450 13px/1.6 var(--sans);
+  cursor:pointer;
+  transition:background .15s ease;
+}
+.vh-teaser-start:hover{
+  background:#f6f9fd;
+  box-shadow:none;
+}
+.vh-teaser-start:active{transform:none}
+.vh-teaser-dismiss{
+  position:absolute;
+  z-index:1;
+  top:5px;
+  right:5px;
+  display:grid;
+  place-items:center;
+  width:29px;
+  height:29px;
+  color:#69798c;
+  font:400 19px/1 var(--sans);
+}
+.vh-teaser-dismiss:hover{background:#edf2f7}
+@media(max-width:720px){
+  .vh-launcher,
+  .vh-launcher.vh-launcher--compact{
+    right:13px;
+    bottom:max(14px,env(safe-area-inset-bottom));
+    width:66px;
+    height:66px;
+    min-width:66px;
+    min-height:66px;
+    max-width:66px;
+    padding:0;
+    background:transparent;
+    box-shadow:none;
+  }
+  .vh-portrait-avatar{width:62px;height:62px;border-width:3px}
+  .vh-avatar-badge{right:0;bottom:0;width:22px;height:22px}
+  .vh-teaser{
+    right:14px;
+    bottom:calc(max(14px,env(safe-area-inset-bottom)) + 79px);
+    width:min(260px,calc(100vw - 32px));
+    padding:0;
+    border-radius:14px 14px 5px 14px;
+  }
+  .vh-teaser:after{right:22px}
+  .vh-teaser-start{padding:14px 33px 14px 15px;font-size:12.5px;line-height:1.55}
+}
+@media(prefers-reduced-motion:reduce){
+  .vh-launcher,.vh-launcher.vh-launcher--compact,.vh-teaser-start{transition:none}
+  .vh-teaser{animation:none}
+}
