@@ -2099,14 +2099,14 @@ button,input{font:inherit}
   outline-offset:5px;
 }
 .vh-portrait-avatar{
-  width:72px;
-  height:72px;
+  width:76px;
+  height:76px;
   display:block;
   overflow:hidden;
-  border:4px solid #fff;
+  border:0;
   border-radius:50%;
   background:#eaf1f8;
-  box-shadow:0 5px 22px rgba(4,21,43,.21),0 0 0 1px rgba(26,51,80,.12);
+  box-shadow:0 5px 22px rgba(4,21,43,.21);
 }
 .vh-portrait-avatar img{
   width:100%;
@@ -2199,7 +2199,7 @@ button,input{font:inherit}
     background:transparent;
     box-shadow:none;
   }
-  .vh-portrait-avatar{width:62px;height:62px;border-width:3px}
+  .vh-portrait-avatar{width:66px;height:66px;border:0}
   .vh-avatar-badge{right:0;bottom:0;width:22px;height:22px}
   .vh-teaser{
     right:14px;
@@ -2214,4 +2214,23 @@ button,input{font:inherit}
 @media(prefers-reduced-motion:reduce){
   .vh-launcher,.vh-launcher.vh-launcher--compact,.vh-teaser-start{transition:none}
   .vh-teaser{animation:none}
+}
+
+/* Virtual Hillol header portrait */
+.vh-head .vh-brand-photo{
+  display:block;
+  flex:none;
+  width:41px;
+  height:41px;
+  overflow:hidden;
+  border:0;
+  border-radius:50%;
+  background:#dfeaf7;
+}
+.vh-head .vh-brand-photo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 37%;
 }
