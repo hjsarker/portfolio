@@ -19,7 +19,7 @@ const problems=[];
       await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded',timeout:30000});
       await page.locator('.project-card').first().waitFor();
       await page.screenshot({path:'qa-'+size.name+'-portfolio.png',fullPage:true,timeout:45000});
-      // Timed greeting is an optional desktop card, not an auto-opened modal.
+      // Timed greeting appears on desktop and mobile after eight seconds, without automatically opening the conversation.
       // Fake the timer so browser tests never spend eight seconds waiting.
       const greetingPage=await context.newPage();
       let aiPosts=0;
@@ -31,25 +31,29 @@ const problems=[];
       assert.equal(await invitation.isVisible(),false,'The invitation starts hidden');
       await greetingPage.clock.fastForward(3000);
       assert.equal(await invitation.isVisible(),false,'No early invitation');
-      await greetingPage.clock.fastForward(28000);
-      if(size.name==='desktop'){
-        assert.equal(await invitation.isVisible(),true,'The invitation should appear after thirty seconds on desktop');
-        assert.equal(await greetingPage.locator('#vh-panel').isVisible(),false,'The full chat should not open automatically');
-        assert.match(await invitation.innerText(),/Hi! Have a question/);
-        await greetingPage.screenshot({path:'qa-'+size.name+'-chat-invitation.png'});
-        await greetingPage.locator('#vh-teaser-dismiss').click();
-        assert.equal(await invitation.isVisible(),false,'Dismissing the invitation hides it');
-        await greetingPage.reload({waitUntil:'domcontentloaded'});
-        await greetingPage.clock.fastForward(32000);
-        assert.equal(await invitation.isVisible(),false,'Do not repeat the invitation after reload in the same tab');
-      }else{
-        assert.equal(await invitation.isVisible(),false,'Never interrupt the mobile visitor with a greeting');
-      }
+      await greetingPage.locator('#work').scrollIntoViewIfNeeded();
+      assert.equal(await invitation.isVisible(),false,'Scrolling early does not prematurely reveal the invitation');
+      await greetingPage.clock.fastForward(5200);
+      assert.equal(await invitation.isVisible(),true,
+        'The invitation should appear after eight seconds on '+size.name);
+      assert.equal(await greetingPage.locator('#vh-panel').isVisible(),false,
+        'The full chat must never open automatically');
+      assert.match(await invitation.innerText(),/I built Virtual Hillol/);
+      await greetingPage.screenshot({path:'qa-'+size.name+'-chat-invitation.png'});
+      // Scrolling into projects must not make a newly displayed invite vanish.
+      await greetingPage.locator('#case-studies').scrollIntoViewIfNeeded();
+      assert.equal(await invitation.isVisible(),true,
+        'The invitation remains visible when browsing projects on '+size.name);
+      await greetingPage.locator('#vh-teaser-dismiss').click();
+      assert.equal(await invitation.isVisible(),false,'Dismissing the invitation hides it');
+      await greetingPage.reload({waitUntil:'domcontentloaded'});
+      await greetingPage.clock.fastForward(9000);
+      assert.equal(await invitation.isVisible(),false,'Do not repeat the invitation after reload in the same tab');
       assert.equal(aiPosts,0,'The timer must never submit an AI request');
       await greetingPage.close();
       if(size.name==='desktop'){
         // An incognito-like fresh page that stays in a background tab must
-        // still show the invitation after thirty cumulative visible seconds.
+        // still show the invitation after eight cumulative visible seconds.
         const bgPage=await context.newPage();
         await bgPage.clock.install();
         await bgPage.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
@@ -60,18 +64,18 @@ const problems=[];
             configurable:true,get:()=>window.__teaserTestHidden
           });
         });
-        await bgPage.clock.fastForward(20000);
+        await bgPage.clock.fastForward(5000);
         await bgPage.evaluate(()=>{
           window.__teaserTestHidden=true;
           document.dispatchEvent(new Event('visibilitychange'));
         });
-        await bgPage.clock.fastForward(12000);
+        await bgPage.clock.fastForward(9000);
         assert.equal(await bgPage.locator('#vh-teaser').isVisible(),false,'Background time must not show the invitation');
         await bgPage.evaluate(()=>{
           window.__teaserTestHidden=false;
           document.dispatchEvent(new Event('visibilitychange'));
         });
-        await bgPage.clock.fastForward(11000);
+        await bgPage.clock.fastForward(3800);
         assert.equal(await bgPage.locator('#vh-teaser').isVisible(),true,'The invitation resumes after returning to the visible tab');
         await bgPage.close();
       }
@@ -79,7 +83,7 @@ const problems=[];
         const startPage=await context.newPage();
         await startPage.clock.install();
         await startPage.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
-        await startPage.clock.fastForward(31000);
+        await startPage.clock.fastForward(8500);
         assert.equal(await startPage.locator('#vh-teaser').isVisible(),true,'Show on a fresh tab');
         await startPage.locator('#vh-teaser-start').click();
         assert.equal(await startPage.locator('#vh-panel').isVisible(),true,'Start opens the chat');
