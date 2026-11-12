@@ -79,15 +79,16 @@ const problems=[];
         assert.equal(await bgPage.locator('#vh-teaser').isVisible(),true,'The invitation resumes after returning to the visible tab');
         await bgPage.close();
       }
-      if(size.name==='desktop'){
+      {
         const startPage=await context.newPage();
         await startPage.clock.install();
         await startPage.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
         await startPage.clock.fastForward(8500);
         assert.equal(await startPage.locator('#vh-teaser').isVisible(),true,'Show on a fresh tab');
+        assert.match(await startPage.locator('#vh-teaser-start').innerText(),/I built Virtual Hillol/);
         await startPage.locator('#vh-teaser-start').click();
-        assert.equal(await startPage.locator('#vh-panel').isVisible(),true,'Start opens the chat');
-        assert.equal(await startPage.locator('#vh-teaser').isVisible(),false,'Start hides the teaser');
+        assert.equal(await startPage.locator('#vh-panel').isVisible(),true,'Clicking the speech bubble opens the existing chat');
+        assert.equal(await startPage.locator('#vh-teaser').isVisible(),false,'Opening chat hides the bubble');
         await startPage.close();
       }
 
@@ -238,12 +239,17 @@ const problems=[];
         'Projects and experience precede About');
       assert.equal(await page.locator('.case-feature').count(),3,'Three case study entry points');
       await page.locator('#case-studies').scrollIntoViewIfNeeded();
-      await page.waitForFunction(()=>document.querySelector('#vh-launcher')?.classList.contains('vh-launcher--compact'),
-        null,{timeout:3000});
-      if(size.name==='desktop'){
-        assert.equal(await page.locator('#vh-launcher').evaluate(el=>getComputedStyle(el).width),'58px',
-          'A compact chat control avoids covering project and case study content');
-      }
+      const portraitLauncher=page.locator('#vh-launcher');
+      assert.equal(await portraitLauncher.locator('.vh-portrait-avatar img').count(),1,'The launcher uses the portfolio portrait');
+      assert.equal(await portraitLauncher.locator('.vh-portrait-avatar img').evaluate(img=>img.complete && img.naturalWidth>0),true,
+        'The portrait image must load');
+      const launcherSize=await portraitLauncher.evaluate(el=>({
+        width:Math.round(el.getBoundingClientRect().width),
+        height:Math.round(el.getBoundingClientRect().height)
+      }));
+      const expectedSize=size.name==='desktop'?76:66;
+      assert.deepEqual(launcherSize,{width:expectedSize,height:expectedSize},
+        'The portrait remains circular while browsing projects');
 
       const hrcCase=page.locator('[data-open-hrc]');
       await hrcCase.click();
