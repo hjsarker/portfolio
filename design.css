@@ -1358,8 +1358,8 @@ button,input{font:inherit}
 }
 
 
-/* Virtual Hillol: discreet, single-visit desktop invitation above the launcher.
-   Never forces the full conversation open or covers the page on mobile. */
+/* Virtual Hillol: visible, one-time 8-second invitation above the launcher,
+   on desktop and mobile; the conversation never opens without a click. */
 .vh-teaser[hidden]{display:none!important}
 .vh-teaser{
   position:fixed;right:clamp(15px,2.1vw,27px);
@@ -1410,7 +1410,22 @@ button,input{font:inherit}
   from{opacity:0;transform:translateY(9px) scale(.985)}
   to{opacity:1;transform:translateY(0) scale(1)}
 }
-@media(max-width:720px){.vh-teaser{display:none!important}}
+@media(max-width:720px){
+  .vh-teaser{
+    display:block;
+    width:min(318px,calc(100vw - 32px));
+    right:14px;
+    bottom:calc(max(15px,env(safe-area-inset-bottom)) + 65px);
+    padding:13px 14px 13px;
+    box-shadow:0 12px 36px rgba(8,26,49,.22);
+  }
+  .vh-teaser:after{right:23px}
+  .vh-teaser p{margin:10px 0 11px;font-size:12px}
+  .vh-teaser-start{min-height:42px}
+}
+@media(max-width:375px){
+  .vh-teaser{width:min(295px,calc(100vw - 28px))}
+}
 @media(prefers-reduced-motion:reduce){
   .vh-teaser{animation:none}
   .vh-teaser-start,.vh-teaser-dismiss{transition:none}
