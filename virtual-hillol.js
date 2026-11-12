@@ -22,19 +22,9 @@
   const teaser=document.getElementById("vh-teaser");
   const teaserDismiss=document.getElementById("vh-teaser-dismiss");
   const teaserStart=document.getElementById("vh-teaser-start");
-  // Keep the floating chat discoverable without covering project cards.
-  const heroRegion=document.querySelector(".hero");
-  function updateLauncherFootprint(){
-    if(!heroRegion)return;
-    const pastHero=heroRegion.getBoundingClientRect().bottom<140;
-    launcher.classList.toggle("vh-launcher--compact",pastHero);
-    // The invitation may remain visible as visitors browse project cards.
-  }
-  window.addEventListener("scroll",updateLauncherFootprint,{passive:true});
-  window.addEventListener("resize",updateLauncherFootprint);
-  requestAnimationFrame(updateLauncherFootprint);
+  // The portrait launcher keeps the same circular appearance throughout the page.
   const TEASER_DELAY_MS=8000;
-  const TEASER_SESSION_KEY="virtual-hillol-greeting-seen-v2";
+  const TEASER_SESSION_KEY="virtual-hillol-greeting-seen-v3";
   let teaserHandled=false;
   let teaserTimer=null;
   let teaserElapsedVisibleMs=0;
