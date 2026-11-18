@@ -299,6 +299,19 @@ const problems=[];
         const response=await page.request.get('http://127.0.0.1:8765/assets/previews/'+asset);
         assert.equal(response.status(),200,'Preview asset exists: '+asset);
       }
+      for(const [cover, fallbackSelectors] of [
+        ['.project-cover--opslens',['.opslens-preview']],
+        ['.project-cover--power',['.real-placeholder','.cover-power-bars']]
+      ]){
+        const preview=page.locator(cover);
+        await preview.scrollIntoViewIfNeeded();
+        await page.locator(cover+'.shot-loaded').waitFor();
+        for(const selector of fallbackSelectors){
+          const fallback=preview.locator(selector);
+          assert.equal(await fallback.count(),1,'Cover illustration exists for '+cover);
+          assert.equal(await fallback.isHidden(),true,'Cover illustration clears after the screenshot loads');
+        }
+      }
       assert.equal(visual.cards,7,'Keep all seven project cards in the DOM');
       assert.equal(await page.locator('.project-card:visible').count(),3,'Initially show three featured projects');
       const showMore=page.locator('#projects-show-more');
