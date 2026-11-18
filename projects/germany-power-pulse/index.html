@@ -4,7 +4,7 @@
 <title>Germany Power Pulse Case Study | Hillol Sarker Jogesh</title>
 <meta name="description" content="How Germany Power Pulse uses official SMARD electricity observations, Python validation, SQLite snapshots and transparent descriptive analytics.">
 <link rel="canonical" href="https://hillol.de/projects/germany-power-pulse/">
-<link rel="stylesheet" href="../../case-study.css?v=20261108">
+<link rel="stylesheet" href="../../case-study.css?v=20261118">
 <meta property="og:type" content="article"><meta property="og:title" content="Germany Power Pulse | Technical case study">
 <meta property="og:description" content="An electricity market analytics dashboard with reproducible ingestion and careful data-quality handling.">
 <meta property="og:url" content="https://hillol.de/projects/germany-power-pulse/">
@@ -16,8 +16,8 @@
 <p class="breadcrumb"><a href="../../">Portfolio</a> / <a href="../../#work">Projects</a> / Germany Power Pulse</p>
 <p class="eyebrow">Energy data / Python / data quality</p>
 <h1 id="case-title">Germany<br>Power Pulse</h1>
-<p class="hero-intro">An interactive look at German wholesale electricity prices, electricity generation and grid load using hourly data from Bundesnetzagentur's SMARD platform.</p>
-<div class="hero-actions"><a class="button button-primary" href="https://hjsarker.github.io/germany-power-pulse/" target="_blank" rel="noopener noreferrer">Explore dashboard ↗</a><a class="button button-outline" href="https://github.com/hjsarker/germany-power-pulse" target="_blank" rel="noopener noreferrer">Inspect source code ↗</a></div>
+<p class="hero-intro">I built an hourly dashboard for German wholesale electricity prices, generation and grid load. It uses official SMARD observations and reports gaps so visitors can see how much data supports a result.</p>
+<div class="hero-actions"><a class="button button-primary" href="https://power-pulse.hillol.de/" target="_blank" rel="noopener noreferrer">Explore dashboard ↗</a><a class="button button-outline" href="https://github.com/hjsarker/germany-power-pulse" target="_blank" rel="noopener noreferrer">Inspect source code ↗</a></div>
 <div class="stats" aria-label="Project facts">
 <div class="stat"><strong>13</strong><span>Market data series</span></div>
 <div class="stat"><strong>11</strong><span>Generation categories</span></div>
@@ -42,7 +42,7 @@
 <p><a href="https://github.com/hjsarker/germany-power-pulse/blob/main/power_pulse/smard.py" target="_blank" rel="noopener noreferrer">Inspect ingestion code ↗</a> · <a href="https://github.com/hjsarker/germany-power-pulse/blob/main/.github/workflows/pages.yml" target="_blank" rel="noopener noreferrer">Publishing workflow ↗</a></p>
 </section>
 <section class="case-section" id="metrics"><div class="section-label">03 / Analytical logic</div><h2>Completeness before calculation</h2>
-<p>The dashboard reports renewable generation share only for hours when all eleven generation categories have observations. The denominator is total observed generation for those fully covered hours, not national electricity consumption.</p>
+<p>The dashboard reports renewable generation share only for hours when all eleven generation categories have observations. When an hourly solar reading is missing, the coverage check records the gap and excludes that hour from the renewable-share calculation. The denominator is total observed generation over fully covered hours.</p>
 <details><summary>Show the completeness rule from the Python implementation</summary><pre><code>df["generation_complete"] = (
     df[list(GENERATION)].notna().all(axis=1)
 )

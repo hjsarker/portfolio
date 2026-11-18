@@ -6,7 +6,7 @@
 <title>OpsLens Case Study | Hillol Sarker Jogesh</title>
 <meta name="description" content="How I built OpsLens: a reproducible synthetic ITSM analytics application using Python, SQL, SLA calculations and incident lifecycle data.">
 <link rel="canonical" href="https://hillol.de/projects/opslens/">
-<link rel="stylesheet" href="../../case-study.css?v=20261108">
+<link rel="stylesheet" href="../../case-study.css?v=20261118">
 <meta property="og:type" content="article"><meta property="og:title" content="OpsLens | Technical case study">
 <meta property="og:description" content="Incident analytics, SQL reporting, SLA calendars and data-quality testing explained.">
 <meta property="og:url" content="https://hillol.de/projects/opslens/">
@@ -19,8 +19,8 @@
 <p class="breadcrumb"><a href="../../">Portfolio</a> / <a href="../../#work">Projects</a> / OpsLens</p>
 <p class="eyebrow">IT operations / data engineering / SQL reporting</p>
 <h1 id="case-title">OpsLens</h1>
-<p class="hero-intro">A service desk analytics application built to make incident history, SLA performance and resolver workloads explainable. The data is deliberately synthetic, but the questions and calculations reflect practical ITSM reporting challenges.</p>
-<div class="hero-actions"><a class="button button-primary" href="https://opslens-hjsarkers-projects.vercel.app/" target="_blank" rel="noopener noreferrer">Explore live application ↗</a><a class="button button-outline" href="https://github.com/hjsarker/opslens" target="_blank" rel="noopener noreferrer">Inspect source code ↗</a></div>
+<p class="hero-intro">I built a service desk dashboard that turns synthetic incident histories into SQL-backed SLA, backlog, and resolver reporting. You can trace the metrics to their definitions and investigate individual tickets.</p>
+<div class="hero-actions"><a class="button button-primary" href="https://opslens.hillol.de/" target="_blank" rel="noopener noreferrer">Explore live application ↗</a><a class="button button-outline" href="https://github.com/hjsarker/opslens" target="_blank" rel="noopener noreferrer">Inspect source code ↗</a></div>
 <div class="stats" aria-label="Project facts">
 <div class="stat"><strong>3,200</strong><span>Synthetic incidents</span></div>
 <div class="stat"><strong>7</strong><span>Independent validation rules</span></div>
@@ -32,7 +32,7 @@
 <div class="section-label">01 / The problem</div><h2>From ticket counts to useful investigation</h2>
 <p>A service desk dashboard needs to show more than the number of open tickets. An operations analyst should be able to trace SLA results back to completed incidents, distinguish current backlog from historical backlog, and inspect assignment changes when issues take longer than expected.</p>
 <p>I created OpsLens as an independent, read-only demonstration covering incident reporting, ticket-level investigation and data validation. The records do not come from an employer or a live ServiceNow or Jira system.</p>
-<figure class="image-panel"><img src="../../assets/previews/opslens.png" width="1440" alt="Actual OpsLens dashboard screenshot showing service desk indicators and incident analytics" loading="lazy"><figcaption>Screenshot from the OpsLens repository's published desktop overview.</figcaption></figure>
+<figure class="image-panel"><img src="../../assets/previews/opslens-hero.webp" width="960" height="540" alt="OpsLens overview with incident totals, SLA compliance, and a ticket activity chart" loading="lazy"><figcaption>Start with SLA compliance in the dashboard. Compare it with the incident timeline and the published rules for the selected priority.</figcaption></figure>
 </section>
 <section class="case-section" id="architecture">
 <div class="section-label">02 / Architecture</div><h2>Reproducible data, calculated in SQL</h2>
