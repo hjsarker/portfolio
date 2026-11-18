@@ -2,7 +2,7 @@
 const {chromium}=require('playwright');
 const AxeBuilder=require('@axe-core/playwright').default;
 const fs=require('node:fs');
-const targets=['','projects/opslens/','projects/germany-power-pulse/'];
+const targets=['','projects/opslens/','projects/germany-power-pulse/','projects/hiredraftai/','privacy.html'];
 const viewports=[{name:'desktop',width:1440,height:900},{name:'mobile',width:390,height:844}];
 (async()=>{
   const browser=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage']});

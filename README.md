@@ -6,12 +6,13 @@ A recruiter-facing portfolio covering IT operations, application support, busine
 
 ## Explore the site
 
-The homepage leads with a shorter introduction and four selected projects. Visitors can reveal the other three projects, filter by professional area, inspect work experience or open technical case studies without first leaving the portfolio.
+The homepage leads with an OpsLens preview and links to the matching experience entries. The project section features OpsLens, Germany Power Pulse and HireDraftAI. Visitors can reveal four more projects or use a category filter to see every match.
 
 **Technical case studies**
 
 - [OpsLens: incident analytics, SQL and SLA reporting](https://hillol.de/projects/opslens/)
 - [Germany Power Pulse: hourly energy data and completeness checks](https://hillol.de/projects/germany-power-pulse/)
+- [HireDraftAI: an AI-assisted application workflow](https://hillol.de/projects/hiredraftai/)
 - HRC Technologies interactive walkthrough, available from the Experience section of the homepage. It uses sanitized illustrations and does not publish employer records.
 
 **Seven featured public projects**

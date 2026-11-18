@@ -18,6 +18,20 @@ const problems=[];
       }));
       await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded',timeout:30000});
       await page.locator('.project-card').first().waitFor();
+      const heroAction=page.getByRole('link',{name:'See how I built OpsLens'});
+      assert.equal(await heroAction.getAttribute('href'),'./projects/opslens/');
+      const heroActionBounds=await heroAction.boundingBox();
+      assert.ok(heroActionBounds && heroActionBounds.y+heroActionBounds.height<=size.height,
+        'The case study button is visible on load');
+      const heroPreview=page.locator('.hero-project img');
+      await heroPreview.evaluate(image=>image.decode());
+      const heroPreviewBounds=await heroPreview.boundingBox();
+      assert.ok(heroPreviewBounds && heroPreviewBounds.y<size.height,
+        'The real OpsLens screenshot begins in the first viewport');
+      for(const role of ['role-rwe','role-tk-elevator','role-hrc']){
+        assert.equal(await page.locator('.hero-proof a[href="#'+role+'"]').count(),1);
+        assert.equal(await page.locator('#experience #'+role).count(),1);
+      }
       await page.screenshot({path:'qa-'+size.name+'-portfolio.png',fullPage:true,timeout:45000});
       // Timed greeting appears on desktop and mobile after eight seconds, without automatically opening the conversation.
       // Fake the timer so browser tests never spend eight seconds waiting.
@@ -265,13 +279,14 @@ const problems=[];
       await page.keyboard.press('Escape');
       assert.equal(await page.locator('#experience-explorer').isVisible(),false);
 
-      assert.equal(await page.locator('.project-link-case').count(),2,'Two project case study links');
+      assert.equal(await page.locator('.project-link-case').count(),3,'Three featured project case study links');
       if(size.name==='mobile') {
         assert.equal(await page.locator('.filters').evaluate(el=>getComputedStyle(el).display),'grid','Filters wrap in two-column mobile grid');
       }
       for(const [path,heading] of [
         ['projects/opslens/','OpsLens'],
-        ['projects/germany-power-pulse/','Germany']
+        ['projects/germany-power-pulse/','Germany'],
+        ['projects/hiredraftai/','HireDraftAI']
       ]){
         const visit=await context.newPage();
         const response=await visit.goto('http://127.0.0.1:8765/'+path,{waitUntil:'domcontentloaded'});
@@ -280,44 +295,42 @@ const problems=[];
         assert.equal(await visit.locator('a[href="../../#work"]').count()>=1,true);
         await visit.close();
       }
-      for(const asset of ['opslens.png','power-pulse.jpg','auto-pulse.jpg','hiredraftai.jpg','bahnpulse.jpg','cosmic-atlas.jpg','ai-history.jpg']){
+      for(const asset of ['opslens.png','opslens-hero.webp','power-pulse.jpg','auto-pulse.jpg','hiredraftai.jpg','bahnpulse.jpg','cosmic-atlas.jpg','ai-history.jpg']){
         const response=await page.request.get('http://127.0.0.1:8765/assets/previews/'+asset);
         assert.equal(response.status(),200,'Preview asset exists: '+asset);
       }
-      assert.equal(await page.locator('.hero-specialties a').count(),2);
-      await page.locator('[data-role-path="data"]').click();
-      assert.equal(await page.locator('.filter[data-filter="data"]').getAttribute('aria-pressed'),'true');
-      await page.locator('.filter[data-filter="all"]').click();
       assert.equal(visual.cards,7,'Keep all seven project cards in the DOM');
-      assert.equal(await page.locator('.project-card:visible').count(),4,'Initially show the first four projects only');
+      assert.equal(await page.locator('.project-card:visible').count(),3,'Initially show three featured projects');
       const showMore=page.locator('#projects-show-more');
       assert.equal(await showMore.isVisible(),true,'Show more button is visible');
       assert.equal(await showMore.getAttribute('aria-expanded'),'false');
-      assert.match(await showMore.innerText(),/Show 3 more projects/);
+      assert.match(await showMore.innerText(),/Show 4 more projects/);
       await showMore.click();
       assert.equal(await page.locator('.project-card:visible').count(),7,'Expand to seven projects');
       assert.equal(await showMore.getAttribute('aria-expanded'),'true');
       assert.match(await showMore.innerText(),/Show fewer projects/);
       await showMore.click();
-      assert.equal(await page.locator('.project-card:visible').count(),4,'Collapse to four projects');
+      assert.equal(await page.locator('.project-card:visible').count(),3,'Collapse to three featured projects');
       assert.equal(await showMore.getAttribute('aria-expanded'),'false');
       assert.equal(await page.locator('.filter[data-filter="all"] span').innerText(),'07');
       assert.equal(await page.locator('.about-facts .fact-number').nth(1).innerText(),'07');
       assert.equal(await page.locator('#p-opslens').count(),1);
-      assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href="https://opslens-hjsarkers-projects.vercel.app/"]').count(),1);
+      assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href="https://opslens.hillol.de/"]').count(),1);
       assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href="https://github.com/hjsarker/opslens"]').count(),1,'Published OpsLens code repository link');
+      assert.equal(await page.locator('[aria-labelledby="p-power"] a[href="https://power-pulse.hillol.de/"]').count(),1);
+      assert.equal(await page.locator('[aria-labelledby="p-hiredraft"] a[href="https://hiredraftai.hillol.de/"]').count(),1);
 
       assert.deepEqual(await page.locator('.project-grid .project-card h3').allTextContents().then(items=>items.map(item=>item.replace(/\s+Live\s*$/,'').trim())),[
-        'Germany Power Pulse','Auto Pulse','OpsLens','HireDraftAI','BahnPulse','Cosmic Atlas','AI: The Long Road to Now'
+        'OpsLens','Germany Power Pulse','HireDraftAI','Auto Pulse','BahnPulse','Cosmic Atlas','AI: The Long Road to Now'
       ],'Recruiter-focused project order');
       assert.equal(await page.locator('.project-collaboration h3').innerText(),'Collective AI Tools');
       assert.equal(await page.locator('.filter[data-filter="collab"]').count(),0,'Collaboration moved out of the featured grid');
-      assert.match(await page.locator('.hero-professional-line').innerText(),/IT Operations & Application Support.*Business Intelligence & Data Analytics/);
+      assert.match(await page.locator('#hero-title').innerText(),/IT operations &\s+business intelligence\./);
       await page.locator('.filter[data-filter="data"]').click();
       assert.equal(await page.locator('.project-card:visible').count(),4,'Data filter includes BahnPulse and OpsLens');
-      assert.equal(await showMore.isVisible(),false,'Hide the expansion control when the filter returns four projects');
+      assert.equal(await showMore.isVisible(),false,'Category filters show every match immediately');
       await page.locator('.filter[data-filter="all"]').click();
-      assert.equal(await page.locator('.project-card:visible').count(),4,'All filter restores the initial four projects');
+      assert.equal(await page.locator('.project-card:visible').count(),3,'All filter restores the featured projects');
       assert.equal(await showMore.isVisible(),true);
       assert.ok(visual.scrollWidth<=visual.width+8,'No unwanted horizontal overflow: '+JSON.stringify(visual));
       assert.match(visual.stylesheet,/^\.\/design\.css\?v=\d{8}-[a-z0-9-]+$/,'Versioned portfolio CSS URL');
@@ -417,10 +430,10 @@ const problems=[];
       await context.close();
     }
     // Screen-width coverage outside the detailed desktop/390px interaction scenarios.
-    for(const width of [360,430,768,1180]){
-      const probe=await browser.newPage({viewport:{width,height:840},reducedMotion:'reduce'});
+    for(const width of [320,360,430,768,1180]){
+      const probe=await browser.newPage({viewport:{width,height:width===320?568:840},reducedMotion:'reduce'});
       try{
-        for(const path of ['','projects/opslens/','projects/germany-power-pulse/']){
+        for(const path of ['','projects/opslens/','projects/germany-power-pulse/','projects/hiredraftai/']){
           await probe.goto('http://127.0.0.1:8765/'+path,{waitUntil:'domcontentloaded'});
           const metrics=await probe.evaluate(()=>({
             width:document.documentElement.clientWidth,
@@ -428,6 +441,12 @@ const problems=[];
           }));
           assert.ok(metrics.scrollWidth <= metrics.width+8,
             'Horizontal overflow at '+width+'px on '+path+': '+JSON.stringify(metrics));
+          if(width===320 && !path){
+            const action=await probe.getByRole('link',{name:'See how I built OpsLens'}).boundingBox();
+            const screenshot=await probe.locator('.hero-project img').boundingBox();
+            assert.ok(action && action.y+action.height<=568,'The primary action fits on a short phone');
+            assert.ok(screenshot && screenshot.y<568,'The screenshot starts in the first short-phone viewport');
+          }
         }
       }finally{await probe.close();}
     }

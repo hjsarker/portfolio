@@ -8,6 +8,7 @@ on:
       - 'index.html'
       - 'design.css'
       - 'case-study.css'
+      - 'privacy.html'
       - 'projects/**'
 permissions:
   contents: read

@@ -1761,17 +1761,124 @@ button,input{font:inherit}
 @media(max-width:720px){.projects-more-wrap{margin:22px 0 4px}.projects-more-btn{width:min(100%,300px)}}
 @media(prefers-reduced-motion:reduce){.projects-more-btn,.projects-more-btn svg{transition:none}}
 
-/* Portfolio V2 hero role routes */
-@media(min-width:901px){.hero-layout{min-height:540px;padding-top:39px;padding-bottom:35px}.hero h1{margin-top:20px;margin-bottom:17px}.hero-marquee{padding-top:8px;padding-bottom:16px}}
-.hero-specialties{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:17px;margin-bottom:17px}
-.hero-specialty{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:8px 12px;border:1px solid rgba(194,217,244,.24);border-radius:9px;background:rgba(255,255,255,.035);color:#e8f1fc;font:660 11px/1.4 var(--sans);transition:border-color .2s ease,background .2s ease}
-.hero-specialty:hover{background:rgba(140,193,252,.11);border-color:rgba(194,217,244,.48)}
-.hero-specialty:focus-visible{outline:2px solid #9dc5ff;outline-offset:3px}
-.hero-specialty-mark{color:#b5ed91;font:800 10px/1 var(--display);letter-spacing:.08em}
-.hero-specialty>span:last-child{margin-left:auto;color:#acd1fd}
-@media(max-width:720px){.hero-specialties{gap:8px;margin-top:16px}.hero-specialty{font-size:11px;min-height:42px}}
-@media(max-width:430px){.hero-specialties{display:grid;grid-template-columns:1fr;max-width:315px}.hero-specialty{justify-content:flex-start}}
-@media(prefers-reduced-motion:reduce){.hero-specialty{transition:none}}
+/* Opening project and links to the matching roles in the career timeline. */
+.hero .hero-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1.16fr) minmax(0,1fr);
+  align-items:center;
+  gap:clamp(24px,4vw,62px);
+  width:min(1200px,calc(100% - 56px));
+  min-height:0;
+  padding:clamp(36px,6vw,86px) 0 clamp(30px,5vw,70px);
+  text-align:left;
+}
+.hero .hero-copy {max-width:none;margin:0;text-align:left}
+.hero .hero-location {margin:0;color:#c6c6cd;font-size:13px;font-weight:620}
+.hero .hero-copy h1 {
+  font-size:clamp(36px,4.5vw,66px);
+  line-height:1.05;
+  letter-spacing:-.055em;
+  margin:14px 0 18px;
+  text-wrap:initial;
+}
+.hero .hero-intro {
+  max-width:47ch;
+  margin:0 0 23px;
+  font-size:clamp(16px,1.4vw,20px);
+  line-height:1.55;
+  color:#c1c1c8;
+}
+.hero .hero-actions {justify-content:flex-start;gap:10px}
+.hero .hero-bottom {
+  max-width:none;
+  margin:16px 0 0;
+  justify-content:flex-start;
+  align-items:center;
+  gap:8px 14px;
+  flex-direction:row;
+  flex-wrap:wrap;
+  color:#c6c6cd;
+}
+.hero .hero-contact {display:none}
+.hero-copy .vh-hero-invite {margin:15px 0 0}
+.hero-project {
+  position:relative;
+  z-index:1;
+  margin:0;
+  min-width:0;
+  overflow:hidden;
+  border:1px solid #ffffff25;
+  border-radius:20px;
+  background:#141519;
+  box-shadow:0 18px 45px #00000025;
+}
+.hero-project figcaption {padding:16px 20px}
+.hero-project h2 {
+  color:#f5f5f7;
+  margin:2px 0 3px;
+  font-size:clamp(24px,3.2vw,39px);
+  line-height:1.1;
+  letter-spacing:-.045em;
+}
+.hero-project p {margin:0;color:#c6c6cd;font-size:13px;line-height:1.45}
+.hero-project .hero-project-type {color:#aac8f0;font-size:12px;font-weight:640}
+.hero-project img {display:block;width:100%;height:auto;border-top:1px solid #ffffff25}
+.hero-proof {position:relative;z-index:1;border-top:1px solid #ffffff25}
+.hero-proof ul {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:0;
+  padding:10px 0 16px;
+  list-style:none;
+}
+.hero-proof a {
+  align-content:center;
+  display:grid;
+  gap:3px;
+  min-height:54px;
+  padding:7px 4px;
+  color:#f5f5f7;
+  font-size:14px;
+  line-height:1.45;
+}
+.hero-proof a span {color:#c1c1c8;font-size:13px}
+.hero-proof a:hover strong,
+.hero-contact:hover {text-decoration:underline;text-underline-offset:4px}
+.hero-proof a:focus-visible,
+.hero-contact:focus-visible {outline:2px solid #9dc5ff;outline-offset:2px}
+@media(max-width:720px) {
+  .hero .hero-layout {
+    grid-template-columns:minmax(0,1fr);
+    padding:28px 0 21px;
+    gap:19px;
+    width:calc(100% - 38px);
+  }
+  .hero .hero-copy h1 {font-size:clamp(32px,7.3vw,48px);margin:10px 0 13px}
+  .hero .hero-intro {margin-bottom:16px}
+  .hero .hero-bottom {margin-top:6px}
+  .hero .hero-contact {
+    display:inline-flex;
+    min-height:44px;
+    align-items:center;
+    gap:4px;
+    color:#e2ecff;
+    font-weight:650;
+  }
+  .hero-project {border-radius:16px}
+  .hero-project figcaption {padding:12px 14px}
+}
+@media(max-width:480px) {
+  .hero .hero-copy h1 {font-size:clamp(28px,8.2vw,38px)}
+  .hero .hero-actions .btn {padding-inline:12px;gap:5px}
+  .hero-proof ul {grid-template-columns:minmax(0,1fr);gap:0}
+  .hero-proof a {grid-template-columns:minmax(108px,.85fr) 1fr;gap:8px;align-items:baseline;min-height:44px}
+}
+@media(max-width:355px) {
+  .hero .hero-actions {gap:8px}
+  .hero .hero-actions .btn-ghost {padding-inline:0;border-color:transparent}
+  .hero-availability-scope {display:none}
+}
 
 
 /* Portfolio V2 technical case highlights */
@@ -1789,9 +1896,10 @@ button,input{font:inherit}
 .case-feature a:hover{text-decoration:underline;text-underline-offset:4px}
 .case-feature a:focus-visible{outline:3px solid #80baff;outline-offset:3px}
 .project-links a.project-link-case{
- width:100%;border-top:1px solid #edf0f4;padding-top:8px;
+ width:100%;min-height:36px;
  color:#215eaa;font-size:12px;font-weight:760;
 }
+@media(min-width:901px){.projects #project-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:900px){.case-feature-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.case-feature-grid{grid-template-columns:1fr}.case-feature{padding:22px}}
 
