@@ -262,8 +262,12 @@ const problems=[];
       ]);
       assert.ok(await headings.evaluateAll(items=>items.every(heading=>{
         const style=getComputedStyle(heading);
-        return style.color==='rgb(29, 29, 31)' && style.backgroundImage==='none' && !heading.querySelector('em');
-      })),'Headings on light surfaces are solid charcoal');
+        const expected=heading.id==='experience-heading'?'rgb(245, 245, 247)':'rgb(29, 29, 31)';
+        return style.color===expected && style.backgroundImage==='none' && !heading.querySelector('em');
+      })),'Headings have solid colors for their surfaces');
+      assert.equal(await page.locator('#experience').evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(20, 21, 25)');
+      assert.equal(await page.locator('#experience .timeline').evaluate(el=>getComputedStyle(el,'::after').content),'none',
+        'Reduced motion preserves the static timeline without a moving marker');
       await page.locator('#project-grid').scrollIntoViewIfNeeded();
       const portraitLauncher=page.locator('#vh-launcher');
       assert.equal(await portraitLauncher.locator('.vh-portrait-avatar img').count(),1,'The launcher uses the portfolio portrait');
@@ -282,6 +286,11 @@ const problems=[];
         'Chat header portrait has no white border ring');
 
       assert.equal(await page.locator('#project-grid .project-link-case').count(),3,'One case study per featured project');
+      assert.equal(await page.locator('#work .project-disclaimer,#work .real-preview-chip').count(),0);
+      assert.ok(await page.locator('#project-grid .project-card:visible .project-links').evaluateAll(rows=>rows.every(row=>{
+        const actions=[...row.querySelectorAll('a')].map(link=>link.getBoundingClientRect());
+        return actions.every(action=>action.top===actions[0].top && action.height>=44);
+      })),'Gallery actions fit one row with 44px touch targets');
       assert.equal(await page.locator('#expertise a').count(),0,'Expertise is a scan of skills and tools');
       if(size.name==='mobile') {
         assert.equal(await page.locator('.filters').evaluate(el=>getComputedStyle(el).display),'grid','Filters wrap in two-column mobile grid');
@@ -335,7 +344,7 @@ const problems=[];
       assert.equal(await page.locator('[aria-labelledby="p-power"] a[href="https://power-pulse.hillol.de/"]').count(),1);
       assert.equal(await page.locator('[aria-labelledby="p-hiredraft"] a[href="https://hiredraftai.hillol.de/"]').count(),1);
 
-      assert.deepEqual(await page.locator('.project-grid .project-card h3').allTextContents().then(items=>items.map(item=>item.replace(/\s+Live\s*$/,'').trim())),[
+      assert.deepEqual(await page.locator('.project-grid .project-card h3').allTextContents(),[
         'OpsLens','Germany Power Pulse','HireDraftAI','Auto Pulse','BahnPulse','Cosmic Atlas','AI: The Long Road to Now'
       ],'Recruiter-focused project order');
       assert.equal(await page.locator('.project-collaboration h3').innerText(),'Collective AI Tools');
@@ -440,11 +449,29 @@ const problems=[];
       await page.keyboard.press('Escape');
       assert.equal(await modal.isVisible(),false);
       assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('experience-modal-open')),false);
-      console.log('PASSED '+size.name+': seven selected projects, eight KB projects, six timeline jobs, HRC-only interactive walkthrough, Escape');
+      await page.emulateMedia({reducedMotion:'no-preference'});
+      const timeline=page.locator('#experience .timeline');
+      const trackLength=await timeline.evaluate(el=>el.lastElementChild.offsetTop);
+      const scrollToPosition=offset=>timeline.evaluate((el,value)=>{
+        window.scrollTo({top:window.scrollY+el.getBoundingClientRect().top-window.innerHeight*.36+value,behavior:'instant'});
+      },offset);
+      await scrollToPosition(-20);
+      await page.waitForFunction(()=>parseFloat(document.querySelector('.timeline').style.getPropertyValue('--timeline-offset'))===0);
+      await scrollToPosition(trackLength/2);
+      await page.waitForFunction(length=>{
+        const offset=parseFloat(document.querySelector('.timeline').style.getPropertyValue('--timeline-offset'));
+        return Math.abs(offset-length/2)<2;
+      },trackLength);
+      assert.equal(await timeline.evaluate(el=>getComputedStyle(el,'::after').content),'""','Motion marker is visible');
+      await scrollToPosition(trackLength+20);
+      await page.waitForFunction(length=>parseFloat(document.querySelector('.timeline').style.getPropertyValue('--timeline-offset'))===length,trackLength);
+      await scrollToPosition(-20);
+      await page.waitForFunction(()=>parseFloat(document.querySelector('.timeline').style.getPropertyValue('--timeline-offset'))===0);
+      console.log('PASSED '+size.name+': seven selected projects, eight KB projects, six timeline jobs, HRC-only interactive walkthrough and scroll marker');
       await context.close();
     }
     // Screen-width coverage outside the detailed desktop/390px interaction scenarios.
-    for(const width of [320,360,430,768,1180]){
+    for(const width of [320,360,430,768,901,1180]){
       const probe=await browser.newPage({viewport:{width,height:width===320?568:840},reducedMotion:'reduce'});
       try{
         for(const path of ['','projects/opslens/','projects/germany-power-pulse/','projects/hiredraftai/']){
@@ -455,6 +482,11 @@ const problems=[];
           }));
           assert.ok(metrics.scrollWidth <= metrics.width+8,
             'Horizontal overflow at '+width+'px on '+path+': '+JSON.stringify(metrics));
+          if(width===901 && !path){
+            const actions=probe.locator('[aria-labelledby="p-power"] .project-links a');
+            const rows=await actions.evaluateAll(links=>new Set(links.map(el=>el.getBoundingClientRect().top)).size);
+            assert.equal(rows,1,'Germany Power Pulse actions fit when the third column appears');
+          }
           if(width===320 && !path){
             const action=await probe.getByRole('link',{name:'See how I built OpsLens'}).boundingBox();
             const screenshot=await probe.locator('.hero-project img').boundingBox();
