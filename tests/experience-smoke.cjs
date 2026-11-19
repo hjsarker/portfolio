@@ -55,7 +55,7 @@ const problems=[];
       assert.match(await invitation.innerText(),/I built Virtual Hillol/);
       await greetingPage.screenshot({path:'qa-'+size.name+'-chat-invitation.png'});
       // Scrolling into projects must not make a newly displayed invite vanish.
-      await greetingPage.locator('#case-studies').scrollIntoViewIfNeeded();
+      await greetingPage.locator('#project-grid').scrollIntoViewIfNeeded();
       assert.equal(await invitation.isVisible(),true,
         'The invitation remains visible when browsing projects on '+size.name);
       await greetingPage.locator('#vh-teaser-dismiss').click();
@@ -220,7 +220,7 @@ const problems=[];
           stylesheet:link?.getAttribute('href')
         };
       });
-      // Balanced V2 section heading geometry: no oversized title column or excessive padding.
+      // The short section introductions should remain compact at either width.
       const sectionGeometry=await page.evaluate(()=>{
         const collect=(selector,headingSelector,paragraphSelector)=>{
           const section=document.querySelector(selector);
@@ -238,8 +238,7 @@ const problems=[];
           };
         };
         return {
-          expertise:collect('#expertise','.section-head h2','.section-head > p'),
-          about:collect('#about','.section-intro h2','.about-copy .lead'),
+          about:collect('#about','#about-heading','.about-copy .lead'),
           education:collect('.credentials','#credentials-heading','.credential-copy')
         };
       });
@@ -253,10 +252,19 @@ const problems=[];
         }
       }
       const mainSections=await page.locator('main > section').evaluateAll(items=>items.map(el=>el.id||el.classList[0]));
-      assert.deepEqual(mainSections.slice(0,8),['hero','work','case-studies','experience','expertise','about','credentials','contact'],
-        'Projects and experience precede About');
-      assert.equal(await page.locator('.case-feature').count(),3,'Three case study entry points');
-      await page.locator('#case-studies').scrollIntoViewIfNeeded();
+      assert.deepEqual(mainSections.slice(0,7),['hero','work','experience','expertise','about','credentials','contact'],
+        'The gallery leads straight to experience and the remaining sections');
+      assert.equal(await page.locator('#case-studies').evaluate(el=>el.closest('section')?.id),'work',
+        'Previously shared case-study links go to the gallery');
+      const headings=page.locator('#work-heading,#experience-heading,#expertise-heading,#about-heading,#credentials-heading');
+      assert.deepEqual(await headings.allTextContents(),[
+        'Selected projects','Professional experience','Expertise','About','Education & certifications'
+      ]);
+      assert.ok(await headings.evaluateAll(items=>items.every(heading=>{
+        const style=getComputedStyle(heading);
+        return style.color==='rgb(29, 29, 31)' && style.backgroundImage==='none' && !heading.querySelector('em');
+      })),'Headings on light surfaces are solid charcoal');
+      await page.locator('#project-grid').scrollIntoViewIfNeeded();
       const portraitLauncher=page.locator('#vh-launcher');
       assert.equal(await portraitLauncher.locator('.vh-portrait-avatar img').count(),1,'The launcher uses the portfolio portrait');
       assert.equal(await portraitLauncher.locator('.vh-portrait-avatar img').evaluate(img=>img.complete && img.naturalWidth>0),true,
@@ -273,13 +281,8 @@ const problems=[];
       assert.equal(await page.locator('.vh-head .vh-brand-photo').evaluate(el=>getComputedStyle(el).borderTopWidth),'0px',
         'Chat header portrait has no white border ring');
 
-      const hrcCase=page.locator('[data-open-hrc]');
-      await hrcCase.click();
-      assert.equal(await page.locator('#experience-explorer').isVisible(),true,'HRC case-study card opens the existing walkthrough');
-      await page.keyboard.press('Escape');
-      assert.equal(await page.locator('#experience-explorer').isVisible(),false);
-
-      assert.equal(await page.locator('.project-link-case').count(),3,'Three featured project case study links');
+      assert.equal(await page.locator('#project-grid .project-link-case').count(),3,'One case study per featured project');
+      assert.equal(await page.locator('#expertise a').count(),0,'Expertise is a scan of skills and tools');
       if(size.name==='mobile') {
         assert.equal(await page.locator('.filters').evaluate(el=>getComputedStyle(el).display),'grid','Filters wrap in two-column mobile grid');
       }
@@ -326,7 +329,6 @@ const problems=[];
       assert.equal(await page.locator('.project-card:visible').count(),3,'Collapse to three featured projects');
       assert.equal(await showMore.getAttribute('aria-expanded'),'false');
       assert.equal(await page.locator('.filter[data-filter="all"] span').innerText(),'07');
-      assert.equal(await page.locator('.about-facts .fact-number').nth(1).innerText(),'07');
       assert.equal(await page.locator('#p-opslens').count(),1);
       assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href="https://opslens.hillol.de/"]').count(),1);
       assert.equal(await page.locator('#p-opslens').locator('..').locator('a[href="https://github.com/hjsarker/opslens"]').count(),1,'Published OpsLens code repository link');
@@ -398,8 +400,7 @@ const problems=[];
       }
       assert.equal(await page.locator('#experience-explorer').isVisible(),false);
       assert.equal(await page.locator('.exp-feature-invite').count(),0,'Promotional experience panel was removed');
-      assert.equal(await page.locator('.exp-explore-note').count(),1,'Short introduction remains');
-      await page.locator('.exp-timeline-open[data-exp-company="hrc"]').click();
+      await page.locator('#role-hrc .exp-timeline-open[data-exp-company="hrc"]').click();
       const modal=page.locator('#experience-explorer');
       await modal.waitFor({state:'visible'});
       assert.match(await page.locator('#exp-modal-title').innerText(),/HRC Technologies/);

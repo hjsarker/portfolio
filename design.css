@@ -17,7 +17,6 @@ body {background:#fff; font-size:16px;line-height:1.6;color:#1d1d1f;letter-spaci
 h1,h2,h3 {letter-spacing:-.055em}
 h2 {font-size:clamp(42px,5.6vw,78px); font-weight:750;line-height:1.075}
 h2 em {color:#717177}
-.muted-text {color:#87878e}
 ::selection {background:#a4cbff;color:#101010}
 .eyebrow {color:#66666d;font-weight:700;letter-spacing:.095em;font-size:12px}
 .tiny-square {width:7px;height:7px;border-radius:50%;transform:none;background:#0071e3}
@@ -71,14 +70,9 @@ h2 em {color:#717177}
 .about-copy {padding-top:55px}
 .about-copy p {color:#66666b;font-size:16px;line-height:1.8}
 .about-copy p.lead {color:#1d1d1f;font-size:clamp(21px,2vw,27px);line-height:1.48;font-weight:650}
-.about-facts {border-top-color:#d8d8de;margin-top:43px;padding-top:29px}
-.fact-number {font-weight:740;color:#1d1d1f}
-.fact-number span {color:#0071e3}
-.fact-label {color:#77777e;font-weight:600}
 .projects {background:#f5f5f7}
 .section-head {gap:60px;margin-bottom:49px}
 .section-head h2 {margin-top:20px}
-.section-head>p {color:#6e6e73;font-size:16px;line-height:1.75;max-width:380px}
 .filters {gap:10px;margin-bottom:30px}
 .filter {border-radius:999px;background:#e9e9ed;border:1px solid transparent;color:#57575d;font-weight:600;padding:11px 19px;font-size:13px}
 .filter:hover {border-color:#b6b6bd}
@@ -110,17 +104,14 @@ h2 em {color:#717177}
 .expertise-grid {gap:18px}
 .expertise-card {border-radius:22px;border:none;background:#f5f5f7;padding:37px 33px 35px}
 .expertise-card h3 {font-size:clamp(23px,2.25vw,30px);line-height:1.23;color:#1d1d1f}
-.expertise-card p {color:#717177;font-size:14px;line-height:1.75;min-height:100px}
 .expertise-icon {border-radius:16px}
 .icon-service {color:#236cb6;background:#e1eafa}
 .icon-data {color:#277e75;background:#deefeb}
 .icon-process {color:#805cc4;background:#eee7f7}
 .skill-cloud {border-top:1px solid #dcdce2}
 .skill-cloud span {background:#fff;border:0;border-radius:999px;color:#55555b;font-size:11px;font-weight:570;padding:7px 10px}
-.card-index {color:#8b8b91}
 .experience {background:#f5f5f7}
 .experience-layout {gap:115px}
-.experience-title p {color:#77777d;font-size:15px}
 .inline-link {color:#0071e3}
 .timeline {border-left-color:#d2d2d7}
 .timeline li::before {background:#f5f5f7;border-color:#0071e3;box-shadow:0 0 0 6px #f5f5f7}
@@ -169,7 +160,6 @@ h2 em {color:#717177}
   .hero h1 {font-size:clamp(55px,8.1vw,76px)}
   .hero-intro {font-size:18px}
   .about-copy {padding-top:0}
-  .section-head>p {max-width:430px}
   .expertise-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
   .project-body p {min-height:90px}
 }
@@ -192,7 +182,6 @@ h2 em {color:#717177}
   .section-head {margin-bottom:30px}
   .about h2,.section-head h2,.experience h2,.credentials h2 {font-size:clamp(40px,9vw,61px)}
   .about-copy p.lead {font-size:22px}
-  .about-facts {gap:20px}
   .filters {margin-bottom:24px}
   .project-grid {grid-template-columns:1fr}
   .project-visual {height:275px}
@@ -200,7 +189,6 @@ h2 em {color:#717177}
   .project-body p {min-height:0}
   .expertise-grid {grid-template-columns:1fr}
   .expertise-card {padding:31px 27px}
-  .expertise-card p {min-height:0}
   .credential-row {padding:22px 0}
   .contact h2 {font-size:clamp(49px,12vw,72px)}
   .contact-inner {min-height:0;padding-top:95px;padding-bottom:102px}
@@ -214,7 +202,6 @@ h2 em {color:#717177}
   .hero-intro {font-size:15px}
   .marquee-companies span {font-size:12px}
   .project-visual {height:245px}
-  .about-facts {gap:17px}
   .contact-email {font-size:clamp(18px,5.8vw,27px)}
 }
 @media(prefers-reduced-motion:reduce) {
@@ -226,12 +213,9 @@ h2 em {color:#717177}
   .about-grid,.experience-layout,.credential-layout {grid-template-columns:1fr;gap:34px}
   .experience-title {position:static}
   .section-head {display:block}
-  .section-head>p {margin-top:20px}
 }
 @media(max-width:720px) {
   .about-copy {padding-top:8px}
-  .about-facts {flex-wrap:wrap}
-  .about-facts>div {flex:1 0 calc(50% - 15px)}
   .hero-marquee .marquee-companies {justify-content:flex-start}
 }
 
@@ -291,7 +275,6 @@ h2 em {color:#717177}
 .expertise-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .expertise-card {padding:28px 24px 24px;border-radius:20px}
 .expertise-card h3 {font-size:22px;margin-bottom:9px}
-.expertise-card p {font-size:13px;line-height:1.62;min-height:62px;margin-bottom:14px}
 .expertise-icon {width:56px;height:56px;margin-bottom:16px}
 .skill-cloud {margin-top:14px;padding-top:14px;gap:7px}
 .skill-cloud span {font-size:10px;padding:6px 9px}
@@ -384,7 +367,7 @@ body { text-rendering: optimizeLegibility; }
 h1,h2,h3 { font-feature-settings: "kern"; }
 .section-pad { padding-top:clamp(84px,9vw,128px);padding-bottom:clamp(84px,9vw,128px) }
 .section-head h2,.about h2,.experience h2,.credentials h2 { letter-spacing:-.064em; }
-.section-head>p,.about-copy p,.experience-title p { line-height:1.76; }
+.about-copy p { line-height:1.76; }
 
 /* Hero focuses on a single professional statement; the portrait lives in the navbar only. */
 .hero-layout {
@@ -435,20 +418,7 @@ h1,h2,h3 { font-feature-settings: "kern"; }
 }
 .brand-photo:hover { z-index:4; }
 
-/* Brushed-silver emphasis across section headlines, with dark-enough end stops for legibility. */
-.about h2 .muted-text,
-#work-heading em,
-#expertise-heading em,
-#experience-heading em,
-#credentials-heading em {
-  display:inline-block;
-  font-style:normal;
-  color:#555c69;
-  background-image:linear-gradient(105deg,#323840 0%,#565f6e 51%,#828da0 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+/* Silver gradient for the dark contact section. */
 .contact h2 em {
   display:inline-block;
   font-style:normal;
@@ -459,7 +429,6 @@ h1,h2,h3 { font-feature-settings: "kern"; }
   -webkit-text-fill-color:transparent;
 }
 @supports not (-webkit-background-clip:text) {
-  .about h2 .muted-text,#work-heading em,#expertise-heading em,#experience-heading em,#credentials-heading em { color:#555c69; }
   .contact h2 em { color:#c2cbda; }
 }
 .expertise-card,.project-card { transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease; }
@@ -696,15 +665,6 @@ h1,h2,h3 { font-feature-settings: "kern"; }
    Interactive work experience: employer overviews and HRC case study
    ================================================================ */
 body.experience-modal-open{overflow:hidden}
-.experience-title .exp-explore-note{
-  color:#566a81;
-  font-size:13px;
-  line-height:1.7;
-  margin:18px 0 0;
-  padding-left:13px;
-  border-left:2px solid #438bc6;
-  max-width:365px;
-}
 .exp-timeline-action{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:13px}
 .exp-timeline-open{display:inline-flex;align-items:center;gap:12px;
   border:1px solid #cbd7e7;background:#fff;color:#1460a7;
@@ -1011,8 +971,7 @@ button,input{font:inherit}
 .hero-marquee .marquee-companies .company-wordmark:focus-visible{
   outline:3px solid #81b7ff;outline-offset:3px;
 }
-.about-copy p,.section-head>p,.credential-copy{max-width:68ch}
-.about-facts{border-top:1px solid #e2e3e7}
+.about-copy p,.credential-copy{max-width:68ch}
 
 /* Project cards: refined edges and consistent interactions, still compact. */
 .project-grid{align-items:stretch}
@@ -1079,7 +1038,6 @@ button,input{font:inherit}
 .timeline p{max-width:70ch}
 .exp-timeline-open{transition:background .2s ease,border-color .2s ease,transform .2s var(--ui-ease)}
 .exp-timeline-open:active{transform:translateY(0)}
-.experience-title .exp-explore-note{border-left-color:#7aaada;color:#626b78}
 
 /* Certifications and contact details: tactile but not decorative-heavy. */
 .credential-row--branded{transition:background .2s ease}
@@ -1115,7 +1073,6 @@ button,input{font:inherit}
   .project-card{border-radius:19px}
   .project-body p{line-height:1.55}
   .filter{min-height:39px}
-  .experience-title .exp-explore-note{font-size:13px}
   .exp-timeline-open{min-height:42px}
   .project-body .project-links a{display:inline-flex;align-items:center;min-height:36px}
   .credential-row--branded:hover .credential-logo{box-shadow:none}
@@ -1891,41 +1848,26 @@ button,input{font:inherit}
 }
 
 
-/* Technical case studies use the charcoal of the OpsLens hero preview. */
-.case-studies{
-  --case-foreground:#f5f5f7;
-  --case-muted:#c1c1c8;
-  --case-link:#9dc5ff;
-  background:#141519;
-  border-block:1px solid #2d2e33;
-}
-.case-studies .eyebrow,
-.case-studies .section-head>p{color:var(--case-muted)}
-.case-studies .section-head h2{color:var(--case-foreground)}
-.case-studies .section-head h2 em{
-  background:none;
-  color:var(--case-muted);
-  -webkit-text-fill-color:currentColor;
-}
-.case-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.case-feature{
-  background:#1d1d1f;border:1px solid #3c3d43;border-radius:18px;
-  padding:28px 27px;display:flex;flex-direction:column;align-items:flex-start;
-}
-.case-feature-number{font-size:10px;letter-spacing:.13em;font-weight:820}
-.case-feature h3{color:var(--case-foreground);font-size:clamp(19px,2.2vw,27px);line-height:1.24;letter-spacing:-.045em;margin:17px 0 12px}
-.case-feature p{font-size:14px;color:var(--case-muted);line-height:1.75;margin:0 0 24px}
-.case-feature-number,.case-feature a,.case-feature .case-feature-action{color:var(--case-link)}
-.case-feature a{font-size:13px;font-weight:750;margin-top:auto;min-height:42px;display:inline-flex;align-items:center;gap:7px}
-.case-feature a:hover{text-decoration:underline;text-underline-offset:4px}
-.case-feature a:focus-visible{outline:3px solid #80baff;outline-offset:3px}
+/* Case study links and the featured OpsLens card. */
 .project-links a.project-link-case{
- width:100%;min-height:36px;
- color:#215eaa;font-size:12px;font-weight:760;
+  width:100%;min-height:36px;
+  color:#215eaa;font-size:12px;font-weight:760;
 }
+.project-card--dark{
+  background:#141519;
+  border-color:#2d2e33;
+}
+.project-card--dark:hover,.project-card--dark:focus-within{border-color:#494b55}
+.project-card--dark .project-body h3{color:#f5f5f7}
+.project-card--dark .project-body p,
+.project-card--dark .project-kicker>span:last-child{color:#c1c1c8}
+.project-card--dark .project-body .live-tag{background:#18382c;color:#a9e4c7}
+.project-card--dark .live-tag span{background:#72c8a0}
+.project-card--dark .project-body .tech-tags span{background:#2a2c33;color:#d9dce4}
+.project-card--dark .project-links{border-top-color:#383941}
+.project-card--dark .project-links a{color:#9dc5ff}
+.project-card--dark .project-links a.project-link-secondary{color:#c1c1c8}
 @media(min-width:901px){.projects #project-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:900px){.case-feature-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:620px){.case-feature-grid{grid-template-columns:1fr}.case-feature{padding:22px}}
 
 
 /* Portfolio V2 mobile and education refinements */
@@ -1954,25 +1896,6 @@ button,input{font:inherit}
 }
 
 
-/* Evidence links beneath skill groups */
-.expertise-card .expertise-proof{
-  display:block;margin:20px 0 0;padding-top:14px;
-  border-top:1px solid #e4e9f0;color:#798395;
-  font-size:12px;line-height:1.65;
-}
-.expertise-proof a{color:#1764af;font-weight:730}
-.expertise-proof a:hover{text-decoration:underline;text-underline-offset:3px}
-.expertise-proof a:focus-visible{outline:2px solid #6faefa;outline-offset:3px}
-
-/* The HRC case-study card opens the existing accessible experience dialog. */
-.case-feature .case-feature-action{
-  font:750 13px/1.45 var(--sans);background:transparent;
-  border:0;padding:0;min-height:42px;cursor:pointer;margin-top:auto;
-}
-.case-feature .case-feature-action:hover{text-decoration:underline;text-underline-offset:4px}
-.case-feature .case-feature-action:focus-visible{outline:3px solid #80baff;outline-offset:3px}
-
-
 /* Compact mobile recruiter chat launcher: keep content unobstructed. */
 @media(max-width:720px){
   .vh-launcher{
@@ -1992,15 +1915,10 @@ button,input{font:inherit}
 .project-kicker>span:last-child{color:#535f71}
 .project-collaboration-label{color:#566273}
 .projects-foot>span,.project-disclaimer{color:#505c6c}
-.experience-title p{color:#525e6b}
 .experience .inline-link,.experience .timeline-date{color:#005bb0}
 .experience .timeline-content>p{color:#4e5a68}
 
-/* Portfolio V2: targeted AA contrast adjustments */
-.expertise-card .card-index{color:#555d6a}
-.expertise-card>p{color:#55606f}
-.expertise-card .expertise-proof{color:#556273}
-.about-facts .fact-label{color:#565f6b}
+/* Credential text contrast */
 .credential-detail .credential-type{color:#5c6572}
 .credential-detail>p{color:#58616d}
 
@@ -2009,73 +1927,38 @@ button,input{font:inherit}
 .credential-row--languages p{color:#58616d}
 
 
-/* Portfolio V2 layout polish: compact editorial section introductions */
-.projects.section-pad,
-.case-studies.section-pad{
+/* Section titles on the light surfaces. */
+#work-heading,#experience-heading,#expertise-heading,#about-heading,#credentials-heading{
+  color:var(--ui-ink);
+}
+.projects.section-pad{
   padding-top:clamp(50px,5.4vw,74px);
   padding-bottom:clamp(56px,6vw,82px);
 }
-.projects .section-head,
-.case-studies .section-head{
-  display:grid;
-  grid-template-columns:minmax(0,1.5fr) minmax(0,.85fr);
-  align-items:center;
-  column-gap:34px;
-  margin-bottom:30px;
-}
-.projects .section-head h2,
-.case-studies .section-head h2{
+.projects .section-head,.expertise .section-head{margin-bottom:30px}
+.projects .section-head h2,.expertise .section-head h2,.experience-title h2{
   font-size:clamp(40px,4.1vw,58px);
   line-height:1.08;
   letter-spacing:-.061em;
-  margin:13px 0 0;
-  text-wrap:balance;
+  margin:0;
 }
-.projects .section-head>p,
-.case-studies .section-head>p{
-  margin:0 0 0 auto;
-  max-width:37ch;
-  font-size:14px;
-  line-height:1.6;
-}
+.experience-title h2{margin-bottom:17px}
 .projects .filters{margin-bottom:19px}
-.case-studies .case-feature-grid{gap:16px}
-/* Spread small differences in card content naturally, instead of leaving
-   one conspicuous gap above the bottom actions. */
 @media(min-width:901px){
   .projects .project-body{justify-content:space-between}
   .projects .project-body .project-links{margin-top:12px}
 }
-/* Keep the title and explanatory paragraph together on smaller viewports. */
 @media(max-width:900px){
-  .projects .section-head,
-  .case-studies .section-head{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:13px;
-    margin-bottom:26px;
-  }
-  .projects .section-head h2,
-  .case-studies .section-head h2{
+  .projects .section-head,.expertise .section-head{margin-bottom:26px}
+  .projects .section-head h2,.expertise .section-head h2,.experience-title h2{
     font-size:clamp(37px,6.6vw,52px);
-    line-height:1.09;
-    margin-top:11px;
-  }
-  .projects .section-head>p,
-  .case-studies .section-head>p{
-    max-width:62ch;
-    margin:0;
   }
 }
 @media(max-width:620px){
-  .projects.section-pad,
-  .case-studies.section-pad{padding-top:57px;padding-bottom:62px}
-  .projects .section-head h2,
-  .case-studies .section-head h2{font-size:clamp(35px,9vw,46px)}
-}
-@media(prefers-reduced-motion:reduce){
-  .projects .section-head h2,.case-studies .section-head h2{transition:none}
+  .projects.section-pad{padding-top:57px;padding-bottom:62px}
+  .projects .section-head h2,.expertise .section-head h2,.experience-title h2{
+    font-size:clamp(35px,9vw,46px);
+  }
 }
 
 
@@ -2100,47 +1983,25 @@ button,input{font:inherit}
   padding-top:clamp(54px,5.5vw,78px);
   padding-bottom:clamp(58px,6vw,84px);
 }
-.expertise .section-head{
-  display:grid;
-  grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
-  align-items:center;
-  gap:clamp(24px,4vw,54px);
-  margin-bottom:30px;
-}
-.expertise .section-head h2{
-  max-width:none;
-  font-size:clamp(40px,4vw,56px);
-  line-height:1.09;
-  letter-spacing:-.061em;
-  margin:13px 0 0;
-  text-wrap:balance;
-}
-.expertise .section-head>p{
-  max-width:48ch;
-  margin:0;
-  font-size:14px;
-  line-height:1.65;
-}
 /* Keep the About heading and its narrative visually connected. */
 .about .about-grid{
-  grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);
+  grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
   align-items:start;
   gap:clamp(32px,4.8vw,68px);
 }
-.about .section-intro h2{
+.about h2{
   font-size:clamp(40px,3.9vw,55px);
   line-height:1.11;
   letter-spacing:-.059em;
-  margin:14px 0 0;
+  margin:0;
 }
 .about .about-copy{padding-top:5px}
-.about .about-copy p{font-size:14.5px;line-height:1.69;margin-bottom:13px}
+.about .about-copy p{font-size:14.5px;line-height:1.69;margin-bottom:0}
 .about .about-copy p.lead{
   font-size:clamp(18px,1.65vw,22px);
   line-height:1.5;
   margin-bottom:17px;
 }
-.about .about-facts{margin-top:27px;padding-top:22px}
 /* Education intro and certification list share a calmer vertical rhythm. */
 .credentials .credential-layout{
   grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
@@ -2151,7 +2012,7 @@ button,input{font:inherit}
   font-size:clamp(40px,3.9vw,54px);
   line-height:1.11;
   letter-spacing:-.058em;
-  margin:14px 0 17px;
+  margin:0 0 17px;
 }
 .credentials .credential-copy{
   max-width:40ch;
@@ -2161,25 +2022,13 @@ button,input{font:inherit}
 .credentials .credential-row--branded{padding-top:14px;padding-bottom:14px}
 /* Tablet and phone introductions stack without squeezed text or wide gaps. */
 @media(max-width:960px){
-  .expertise .section-head{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:13px;
-    margin-bottom:26px;
-  }
-  .expertise .section-head h2{
-    font-size:clamp(38px,5.8vw,51px);
-    margin-top:11px;
-  }
-  .expertise .section-head>p{max-width:62ch}
   .about .about-grid,
   .credentials .credential-layout{
     grid-template-columns:minmax(0,1fr);
     gap:23px;
   }
   .about .about-copy{padding-top:0}
-  .about .section-intro h2,
+  .about h2,
   .credentials h2{font-size:clamp(39px,5.8vw,51px)}
   .credentials .credential-copy{max-width:62ch}
 }
@@ -2187,12 +2036,9 @@ button,input{font:inherit}
   .expertise.section-pad,
   .about.section-pad,
   .credentials.section-pad{padding-top:56px;padding-bottom:63px}
-  .expertise .section-head h2,
-  .about .section-intro h2,
+  .about h2,
   .credentials h2{font-size:clamp(34px,8.6vw,44px)}
-  .expertise .section-head>p{font-size:13.5px}
   .about .about-copy p{font-size:14px}
-  .about .about-facts{margin-top:20px;padding-top:20px}
   .credentials .credential-row--branded{padding-top:15px;padding-bottom:15px}
 }
 
